@@ -6,6 +6,7 @@ import {useLocation} from 'react-router-dom';
 
 const EditPaymentMethod = () => {
     const location = useLocation();
+    let user = location.state.account;
 
     const [invalidMethodType, setInvalidMethodType] = useState('')
     const [invalidCardNumber, setInvalidCardNumber] = useState('')
@@ -55,8 +56,8 @@ const EditPaymentMethod = () => {
         e.preventDefault()
         if (validForm()) {
             try{
-                await axios.put("http://localhost:8800/editpaymentmethod/"+ location.state.userID, paymentmethod)
-                navigate("/paymentmethods", {state: {userID: location.state.userID, accountType: location.state.accountType}})
+                await axios.put("http://localhost:8800/editpaymentmethod/"+ user.userID, paymentmethod)
+                navigate("/paymentmethods", {state: {account: user}})
             }catch (err) {
                 console.log(err)
             }

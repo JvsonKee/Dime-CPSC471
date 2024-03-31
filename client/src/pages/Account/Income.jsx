@@ -11,12 +11,12 @@ const Income = () => {
     
     const navigate = useNavigate()
     const location = useLocation();
-
+    let user = location.state.account;
     
     const handleDelete = async(income) => {
         try{
             await axios.delete("http://localhost:8800/deleteincome/" + income);
-            navigate("/income", {state: {userID: location.state.userID, accountType: location.state.accountType}})
+            navigate("/income", {state: {account: user}})
         }catch(err) {
             console.log(err)
         }
@@ -25,7 +25,7 @@ const Income = () => {
     useEffect(() => {
         const fetchAllIncome = async () => {
             try{
-                const res = await axios.get("http://localhost:8800/income/" + location.state.userID)
+                const res = await axios.get("http://localhost:8800/income/" + user.userID)
                 setIncome(res.data)
                 console.log(res)
             }catch(err){
@@ -33,7 +33,9 @@ const Income = () => {
             }
         }
         fetchAllIncome()
-    },[location.state.userID])
+    },[user.userID])
+
+
     return(
         <div>
             <h1>Income</h1>
@@ -45,17 +47,17 @@ const Income = () => {
                         <h2>Last Received: {income.lastReceivedDay}/{income.lastReceivedMonth}/{income.lastReceivedYear}</h2>
                         <h2>Receive every: {income.receiveEvery}</h2>
                         <button>
-                            <Link to="/editincome" state= {{userID: location.state.userID, accountType: location.state.accountType, incomeID: income.incomeID}}>Edit</Link>
+                            <Link to="/editincome" state= {{account: user, incomeID: income.incomeID}}>Edit</Link>
                         </button>
                         <button onClick = {()=>handleDelete(income.incomeID)}>Delete</button>
                     </div>
                 ))}
         </div>
         <button>
-            <Link to="/newincome" state= {{userID: location.state.userID, accountType: location.state.accountType}}>Create a new income source</Link>
+            <Link to="/newincome" state= {{userID: user.userID}}>Create a new income source</Link>
         </button>
         <button>
-            <Link to="/account" state= {{userID: location.state.userID, accountType: location.state.accountType}}>Return to Account page</Link>
+            <Link to="/account" state= {{account: user}}>Return to Account page</Link>
         </button>
     </div>
 )}

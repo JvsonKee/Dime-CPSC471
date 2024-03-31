@@ -6,6 +6,7 @@ import {useLocation} from 'react-router-dom';
 
 const PaymentMethodNew = () => {
     const location = useLocation();
+    let user = location.state.account;
 
     const [invalidMethodType, setInvalidMethodType] = useState('')
     const [invalidCardNumber, setInvalidCardNumber] = useState('')
@@ -55,8 +56,8 @@ const PaymentMethodNew = () => {
         e.preventDefault()
         if (validForm()) {
             try{
-                await axios.post("http://localhost:8800/newpaymentmethod/"+ location.state.userID, paymentmethod)
-                navigate("/paymentmethods", {state: {userID: location.state.userID, accountType: location.state.accountType}})
+                await axios.post("http://localhost:8800/newpaymentmethod/"+ user.userID, paymentmethod)
+                navigate("/paymentmethods", {state: {account: user}})
             }catch (err) {
                 console.log(err)
             }

@@ -29,7 +29,7 @@ const Login = () => {
     }
 
     const check = (props) => {
-        navigate("/home", {state: {userID: props.userID, accountType: props.premium}})
+        navigate("/home", {state: {account: props}})
     }
     
     const fetchEP = async () => {
@@ -37,7 +37,7 @@ const Login = () => {
             const res = await axios.get("http://localhost:8800/", {params: inputAccount});
             stored_account = res.data
             console.log(stored_account);
-            console.log(stored_account[0]);
+            // console.log(stored_account[0]);
             (run_now === true) ? ((stored_account[0] !== undefined) ? check(stored_account[0]) : setInvalidLogin(errorMessage)) : run_now = false;
         } catch(err){
             console.log(err)

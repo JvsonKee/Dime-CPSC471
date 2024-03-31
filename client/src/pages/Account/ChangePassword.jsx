@@ -14,6 +14,7 @@ const ChangePassword = () => {
 
     const navigate = useNavigate()
     const location = useLocation();
+    let user = location.state.account;
 
     const handleChange = (e) => {
         setInputPassword((prev)=>({...prev, [e.target.name]: e.target.value}));
@@ -27,8 +28,8 @@ const ChangePassword = () => {
         } else {
             if (inputPassword.password === inputPassword.password2) {
                 try{
-                    await axios.put("http://localhost:8800/changepassword/" + location.state.userID, inputPassword)
-                    navigate("/account", {state: {userID: location.state.userID, accountType: location.state.accountType}})
+                    await axios.put("http://localhost:8800/changepassword/" + user.userID, inputPassword)
+                    navigate("/account", {state: {account: user}})
                 }catch(err) {
                     console.log(err)
                 }

@@ -5,8 +5,10 @@ import {useLocation} from 'react-router-dom';
 const PremiumChange = () => {
     const navigate = useNavigate();
     const location = useLocation();
+    let user = location.state.account;
+    
     const returnHome = () => {
-        navigate("/home", {state: {userID: location.state.userID, accountType: location.state.accountType}})
+        navigate("/home", {state: {account: user}})
     }
 
     return <div>

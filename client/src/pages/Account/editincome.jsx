@@ -14,6 +14,7 @@ const EditIncome = () => {
     const [invalidFrequency, setInvalidFrequency] = useState('')
 
     const location = useLocation();
+    let user = location.state.account
 
     const[income,setIncome] = useState({
         incomeSource:"",
@@ -71,7 +72,7 @@ const EditIncome = () => {
         if (validForm()) {
             try{
                 await axios.put("http://localhost:8800/editincome/" + location.state.incomeID,income)
-                navigate("/income", {state: {userID: location.state.userID, accountType: location.state.accountType}})
+                navigate("/income", {state: {account: user}})
             }catch (err) {
                 console.log(err)
             }

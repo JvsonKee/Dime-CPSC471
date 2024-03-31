@@ -7,8 +7,9 @@ const StandardChange = () => {
 
     const navigate = useNavigate();
     const location = useLocation();
+    let user = location.state.account
     const returnHome = () => {
-        navigate("/home", {state: {userID: location.state.userID, accountType: location.state.accountType}})
+        navigate("/home", {state: {account: user}})
     }
     return <div>
         <h1>You are now a Standard User.</h1>

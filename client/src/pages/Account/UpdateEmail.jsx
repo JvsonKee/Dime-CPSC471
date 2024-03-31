@@ -15,6 +15,9 @@ const UpdateEmail = () => {
     const navigate = useNavigate()
     const location = useLocation();
 
+    let user = location.state.account;
+    console.log(user)
+
     const handleChange = (e) => {
         inputEmail((prev)=>({...prev, [e.target.name]: e.target.value}));
     };
@@ -23,8 +26,8 @@ const UpdateEmail = () => {
         e.preventDefault()
         if (inputemail.email === inputemail.email2) {
             try{
-                await axios.put("http://localhost:8800/updateemail/" + location.state.userID, inputemail)
-                navigate("/account", {state: {userID: location.state.userID, accountType: location.state.accountType}})
+                await axios.put("http://localhost:8800/updateemail/" + user.userID, inputemail)
+                navigate("/account", {state: {account: user}})
             }catch(err) {
                 console.log(err)
             }
