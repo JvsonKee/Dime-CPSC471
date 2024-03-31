@@ -19,10 +19,12 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import Account from "./pages/Account/Account";
 import IncomeNew from "./pages/Account/IncomeNew";
 import PaymentMethodNew from "./pages/Account/PaymentMethodNew";
+import GlobalStyle from "./styles/Global";
 
 function App() {
   return (
     <div className="App">
+      <GlobalStyle />
       <BrowserRouter>
         <Routes>
           <Route path = "/" element={<Login/>}/>
