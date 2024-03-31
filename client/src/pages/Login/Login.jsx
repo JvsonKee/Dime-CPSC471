@@ -2,6 +2,8 @@ import React from 'react'
 import { useNavigate, Link } from "react-router-dom"
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import { PageContainer } from '../../styles/Containers'
+import { Form, FormContainer, FormTextInput, LeftContainer, LoginHeader, RightContainer, LoginButton, CreateAccountLink } from './Login.styled'
 
 const Login = () => {
 
@@ -46,25 +48,35 @@ const Login = () => {
         fetchEP()
     })
     
-    return <div>
-    <div className = 'accountForm'>
-        <h1>Log in</h1>
-        <h1>Email</h1>
-        <input type = "text" onChange = {handleChange} name = "email"/>
-        <h1>Password</h1>
-        <input type = "text" onChange = {handleChange} name = "password"/>
-        {invalidLogin && <div>{invalidLogin}</div>}
-    </div>
-    <button onClick = {() => {
-          run();
-          fetchEP();
-        }}>
-        Log in
-    </button>
-    <button>
-        <Link to ="/createAccount">Create an account</Link>
-    </button>
-    </div>
+    return(
+        <PageContainer>
+            <LeftContainer>
+                <FormContainer>
+                    <LoginHeader>Welcome</LoginHeader>
+                    <Form>
+                        <FormTextInput type = "text" onChange = {handleChange} name = "email" placeholder='Email'/>
+                        <FormTextInput type = "password" onChange = {handleChange} name = "password" placeholder='Password'/>
+                        {invalidLogin && <div>{invalidLogin}</div>}
+                    
+                        <LoginButton onClick = {() => {
+                            run();
+                            fetchEP();
+                            }}>
+                            Sign in
+                        </LoginButton>
+
+                        <CreateAccountLink to ="/createAccount">Not a member? Create an account</CreateAccountLink>
+
+                    </Form>
+                </FormContainer>
+            </LeftContainer>
+            <RightContainer>
+                <h1>DIME</h1>
+                <div>some-type-of-graphic</div>
+            </RightContainer>
+
+        </PageContainer>
+    )
 }
 
 export default Login
