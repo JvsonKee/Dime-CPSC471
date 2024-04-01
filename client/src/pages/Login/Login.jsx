@@ -1,9 +1,8 @@
 import React from 'react'
-import { useNavigate, Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import { PageContainer } from '../../styles/Containers'
-import { Form, FormContainer, FormTextInput, LeftContainer, LoginHeader, RightContainer, LoginButton, CreateAccountLink } from './Login.styled'
+import { LoginContainer, Form, FormContainer, FormTextInput, LeftContainer, LoginHeader, RightContainer, LoginButton, CreateAccountLink } from './Login.styled'
 
 const Login = () => {
 
@@ -49,7 +48,7 @@ const Login = () => {
     })
     
     return(
-        <PageContainer>
+        <LoginContainer>
             <LeftContainer>
                 <FormContainer>
                     <LoginHeader>Welcome</LoginHeader>
@@ -75,7 +74,7 @@ const Login = () => {
                 <div>some-type-of-graphic</div>
             </RightContainer>
 
-        </PageContainer>
+        </LoginContainer>
     )
 }
 

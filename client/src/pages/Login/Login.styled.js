@@ -1,6 +1,10 @@
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
+export const LoginContainer = styled.div`
+    display: flex;
+`
+
 export const LeftContainer = styled.div`
     display: flex;
     flex-direction: column;
@@ -83,13 +87,13 @@ export const LoginButton = styled.button`
 `
 
 export const CreateAccountLink = styled(Link)`
-    color: #6F6C6C;
+    color: var(--dark-grey);
     border: none;
     background: none;
     text-decoration: none;
     transition: 0.3s ease-in-out;
 
     &:hover {
-        color: #404040;
+        color: var(--dime-dark-black);
     }
 `
