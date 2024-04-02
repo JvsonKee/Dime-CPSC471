@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom"
 
 const Transactions = () => {
     const [transactions, setTransactions] = useState([])
+    /*const [paymentIDs, setPaymentIDs] = useState([])
+    const [paymentMethods, setPaymentMethods] = useState([])*/
 
     const navigate = useNavigate()
     const location = useLocation();
@@ -25,9 +27,11 @@ const Transactions = () => {
     const handleReceipt = async(transaction) =>{
         navigate("/receipts", {state: {account:user, transactionID: transaction}})
     }
-
-    //need to use get request on cover table
-    //need to use get request on payment_methods table
+    
+    /*For each transaction:
+    1. Use get request on cover table
+    2. Use get request on payment_methods table
+    3. Print out the payment methods*/
     
     useEffect(() => {
         const fetchAllTransaction = async () => {
@@ -41,7 +45,6 @@ const Transactions = () => {
         }
         fetchAllTransaction()
     },[user.userID])
-    //print out all payment methods related to a specific transaction
     return(
         <div>
             <h1>Transactions</h1>

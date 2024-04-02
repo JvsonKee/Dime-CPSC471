@@ -9,7 +9,7 @@ const UpdateTransaction = () => {
     let user = location.state.account;
 
     //need to get this user's payment methods from payment_methods table and have it as a drop down menu
-    //then update all rows with this transaction ID to payment method ID in covers table
+    //then update this transaction ID to payment method ID in covers table
     const [invalidTitle, setInvalidTitle] = useState('')
     const [invalidAmount, setInvalidAmount] = useState('')
     const [invalidDay, setInvalidDay] = useState('')

@@ -330,6 +330,54 @@ app.post("/newreceipt/:ID", (req,res)=>{
     })
 })
 
+/*
+app.get("/paymentIDs/:ID", (req,res)=>{
+    const transactionID = req.params.ID
+    const q = "SELECT * FROM covers WHERE ctransactionID = ?"
+    db.query(q, [transactionID], (err,data) => {
+        if (err) return res.json(err)
+        return res.json(data)
+    })
+})
+*/
+
+/*
+app.get("/paymentTypes/:ID", (req,res)=>{
+    const methodID = req.params.ID
+    const q = "SELECT methodType FROM payment_methods WHERE methodID = ?"
+    db.query(q, [methodID], (err,data) => {
+        if (err) return res.json(err)
+        return res.json(data)
+    })
+})
+*/
+
+/*app.post("/newCovers/:TID/:MID", (req,res)=>{
+    const q = "INSERT INTO covers (`ctransactionID`, `cmethodID`) VALUES (?)"
+    const values = [
+        req.params.TID,
+        req.params.MID
+    ]
+    db.query(q,[values],(err,data)=> {
+        if (err) return res.json(err)
+        return res.json(data)
+    })
+})
+*/
+
+/*
+app.put("/updateCovers/:TID/:MID", (req,res)=>{
+    const TID = req.params.TID
+    const MID = req.params.MID
+    const q = "UPDATE covers SET `cmethodID` = ? WHERE ctransactionID = ? "
+    db.query(q, [MID, TID], (err,data) => {
+        if (err) return res.json(err)
+        return res.json(data)
+    })
+})
+*/
+
+
 app.listen(8800, ()=> {
     console.log("Connected to backend")
 })

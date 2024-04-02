@@ -40,7 +40,7 @@ const Receipts = () => {
             <div className = "receipts">
                 {receipts.map((receipts)=>(
                     <div className = "receipts" key={receipts.receiptID}>
-                        <h2>Receipt:</h2>
+                        <h2>Receipts</h2>
                         <button>
                             <Link to="/updatereceipt" state= {{account: user, transactionID: location.state.transactionID, receiptID: receipts.receiptID}}>Update</Link>
                         </button>
