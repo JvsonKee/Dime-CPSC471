@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate } from "react-router-dom"
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import axios from 'axios'
 import {useLocation} from 'react-router-dom';
 
@@ -8,23 +8,38 @@ const UpdateTransaction = () => {
     const location = useLocation();
     let user = location.state.account;
 
-    //need to get this user's payment methods from payment_methods table and have it as a drop down menu
-    //then update this transaction ID to payment method ID in covers table
     const [invalidTitle, setInvalidTitle] = useState('')
     const [invalidAmount, setInvalidAmount] = useState('')
-    const [invalidDay, setInvalidDay] = useState('')
-    const [invalidMonth, setInvalidMonth] = useState('')
-    const [invalidYear, setInvalidYear] = useState('')
+    const [paymentMethods, setPaymentMethods] = useState([]);
 
     const[transaction,setTransaction] = useState({
         title:"",
+        payment_method:"",
         amount:"",
         tDay:"",
         tMonth:"",
-        tDay:""
+        tYear:""
     })
 
+    const days = Array.from({ length: 31 }, (_, i) => i + 1);
+    const months = Array.from({ length: 12 }, (_, i) => i + 1);
+    const years = Array.from({ length: 10 }, (_, i) => new Date().getFullYear() + i);
+
     const navigate = useNavigate()
+
+    useEffect(() => {
+        const fetchPaymentMethods = async () => {
+            try {
+                const res = await axios.get("http://localhost:8800/paymentmethodsdrop/" + user.userID)
+                setPaymentMethods(res.data)
+                console.log(res)
+            } catch (err) {
+                console.log(err);
+            }
+        };
+
+        fetchPaymentMethods();
+    }, [user.userID]);
 
     const validForm = () => {
         let valid = true;
@@ -38,18 +53,8 @@ const UpdateTransaction = () => {
             setInvalidAmount("Invalid amount.")
             valid = false;
         }
-        if (transaction.tDay === "") {
-            setInvalidDay("Invalid day.")
-            valid = false;
-        }
-        if (transaction.tMonth === "") {
-            setInvalidMonth("Invalid month.")
-            valid = false;
-        }
-        if (transaction.tYear === "") {
-            setInvalidYear("Invalid year.")
-            valid = false;
-        }
+        
+        // Add validations for day, month, year
 
         return valid
     }
@@ -83,17 +88,38 @@ const UpdateTransaction = () => {
         {invalidAmount && <div>{invalidAmount}</div>}
         <input type = "number" onChange = {handleChange} name = "amount"/>
 
-        <h1>Day</h1>
-        {invalidDay && <div>{invalidDay}</div>}
-        <input type = "number" onChange = {handleChange} name = "tDay"/>
-
-        <h1>Month</h1>
-        {invalidMonth && <div>{invalidMonth}</div>}
-        <input type = "number" onChange = {handleChange} name = "tMonth"/>
         
-        <h1>Year</h1>
-        {invalidYear && <div>{invalidYear}</div>}
-        <input type = "number" onChange = {handleChange} name = "tYear"/>
+        <h1>Payment Method</h1>
+        <select onChange={handleChange} name = "payment_method">
+            <option value="">Select Payment Method</option>
+            {paymentMethods.map((method) => (
+                <option key={method.methodType} value={method.methodType}>
+                    {method.methodType}
+                </option>
+            ))}
+        </select>
+
+        <h1>Date</h1>
+        <div>
+            <select onChange={handleChange} name="tDay">
+                <option value="">Day</option>
+                {days.map((day) => (
+                    <option key={day} value={day}>{day}</option>
+                ))}
+            </select>
+            <select onChange={handleChange} name="tMonth">
+                <option value="">Month</option>
+                {months.map((month) => (
+                    <option key={month} value={month}>{month}</option>
+                ))}
+            </select>
+            <select onChange={handleChange} name="tYear">
+                <option value="">Year</option>
+                {years.map((year) => (
+                    <option key={year} value={year}>{year}</option>
+                ))}
+            </select>
+        </div>
     </div>
     <button onClick = {handleClick}>
         Submit
