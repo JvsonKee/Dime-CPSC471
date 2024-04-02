@@ -9,11 +9,7 @@ const PaymentMethodNew = () => {
     let user = location.state.account;
 
     const [invalidMethodType, setInvalidMethodType] = useState('')
-    const [invalidCardNumber, setInvalidCardNumber] = useState('')
-    const [invalidExpiryMonth, setInvalidExpiryMonth] = useState('')
-    const [invalidExpiryYear, setInvalidExpiryYear] = useState('')
     const[paymentmethod,setPaymentMethod] = useState({
-        pUserID: "",
         methodType:"",
         cardNumber:null,
         expiryMonth:null,
@@ -27,21 +23,6 @@ const PaymentMethodNew = () => {
 
         if (paymentmethod.methodType === "") {
             setInvalidMethodType("Invalid method type.")
-            valid = false;
-        }
-
-        if (paymentmethod.cardNumber === null) {
-            setInvalidCardNumber("Invalid card number.")
-            valid = false;
-        }
-
-        if (paymentmethod.expiryMonth === null) {
-            setInvalidExpiryMonth("Invalid expiry month")
-            valid = false;
-        }
-
-        if (paymentmethod.expiryYear === null) {
-            setInvalidExpiryYear("Invalid expiry year.")
             valid = false;
         }
 
@@ -67,22 +48,19 @@ const PaymentMethodNew = () => {
 
     return <div>
     <div className = 'paymentMethodForm'>
-        <h1>Enter new payment method information. Leave blank if not applicable.</h1>
+        <h1>Enter new payment method information.</h1>
 
         <h1>Method type</h1>
         {invalidMethodType && <div>{invalidMethodType}</div>}
         <input type = "text" onChange = {handleChange} name = "methodType"/>
 
         <h1>Card Number</h1>
-        {invalidCardNumber && <div>{invalidCardNumber}</div>}
         <input type = "number" onChange = {handleChange} name = "cardNumber"/>
 
         <h1>Expiry Month</h1>
-        {invalidExpiryMonth && <div>{invalidExpiryMonth}</div>}
         <input type = "number" onChange = {handleChange} name = "expiryMonth"/>
 
         <h1>Expiry Year</h1>
-        {invalidExpiryYear && <div>{invalidExpiryYear}</div>}
         <input type = "number" onChange = {handleChange} name = "expiryYear"/>
     </div>
     <button onClick = {handleClick}>

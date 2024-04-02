@@ -9,11 +9,8 @@ const EditPaymentMethod = () => {
     let user = location.state.account;
 
     const [invalidMethodType, setInvalidMethodType] = useState('')
-    const [invalidCardNumber, setInvalidCardNumber] = useState('')
-    const [invalidExpiryMonth, setInvalidExpiryMonth] = useState('')
-    const [invalidExpiryYear, setInvalidExpiryYear] = useState('')
+   
     const[paymentmethod,setPaymentMethod] = useState({
-        pUserID: "",
         methodType:"",
         cardNumber:null,
         expiryMonth:null,
@@ -30,21 +27,6 @@ const EditPaymentMethod = () => {
             valid = false;
         }
 
-        if (paymentmethod.cardNumber === null) {
-            setInvalidCardNumber("Invalid card number.")
-            valid = false;
-        }
-
-        if (paymentmethod.expiryMonth === null) {
-            setInvalidExpiryMonth("Invalid expiry month")
-            valid = false;
-        }
-
-        if (paymentmethod.expiryYear === null) {
-            setInvalidExpiryYear("Invalid expiry year.")
-            valid = false;
-        }
-
         return valid
     }
 
@@ -56,7 +38,7 @@ const EditPaymentMethod = () => {
         e.preventDefault()
         if (validForm()) {
             try{
-                await axios.put("http://localhost:8800/editpaymentmethod/"+ user.userID, paymentmethod)
+                await axios.put("http://localhost:8800/editpaymentmethod/"+ location.state.methodID, paymentmethod)
                 navigate("/paymentmethods", {state: {account: user}})
             }catch (err) {
                 console.log(err)
@@ -67,22 +49,19 @@ const EditPaymentMethod = () => {
 
     return <div>
     <div className = 'paymentMethodForm'>
-        <h1>Enter new payment method information. Leave blank if not applicable.</h1>
+        <h1>Enter updated payment method information.</h1>
 
         <h1>Method type</h1>
         {invalidMethodType && <div>{invalidMethodType}</div>}
         <input type = "text" onChange = {handleChange} name = "methodType"/>
 
         <h1>Card Number</h1>
-        {invalidCardNumber && <div>{invalidCardNumber}</div>}
         <input type = "number" onChange = {handleChange} name = "cardNumber"/>
 
         <h1>Expiry Month</h1>
-        {invalidExpiryMonth && <div>{invalidExpiryMonth}</div>}
         <input type = "number" onChange = {handleChange} name = "expiryMonth"/>
 
         <h1>Expiry Year</h1>
-        {invalidExpiryYear && <div>{invalidExpiryYear}</div>}
         <input type = "number" onChange = {handleChange} name = "expiryYear"/>
     </div>
     <button onClick = {handleClick}>

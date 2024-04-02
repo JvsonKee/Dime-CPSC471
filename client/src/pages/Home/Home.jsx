@@ -20,16 +20,16 @@ const Home = () => {
                         <Link to ="/">Log off</Link>
                     </button>
                     <button>
-                        <Link to="/transactions" state= {{userID: user.userID, premium: user.premium}}>Transactions</Link>
+                        <Link to="/transactions" state= {{account: location.state.account}}>Transactions</Link>
                     </button>
                     <button>
-                    <Link to="/budgets" state= {{userID: user.userID, premium: user.premium}}>Budgets</Link>
+                    <Link to="/budgets" state= {{account: location.state.account}}>Budgets</Link>
                     </button>
                     <button>
-                    <Link to="/savings" state= {{userID: user.userID, premium: user.premium}}>Savings</Link>
+                    <Link to="/savings" state= {{account: location.state.account}}>Savings</Link>
                     </button>
                     <button>
-                    <Link to="/goals" state= {{userID: user.userID, premium: user.premium}}>Goals</Link>
+                    <Link to="/goals" state= {{account: location.state.account}}>Goals</Link>
                     </button>
                     <button>
                     <Link to="/account" state= {{account: location.state.account}}>Account</Link>
@@ -37,7 +37,7 @@ const Home = () => {
                     {
                         user.premium === "y" ? 
                         <button>
-                            <Link to="/dashboard" state= {{userID: user.userID, premium: user.premium}}>Dashboard</Link>
+                            <Link to="/dashboard" state= {{account: location.state.account}}>Dashboard</Link>
                         </button> : 
                         null
                     }

@@ -7,6 +7,7 @@ import {useLocation} from 'react-router-dom';
 const IncomeNew = () => {
 
     const location = useLocation();
+    let user = location.state.account;
 
     const [invalidIncomeSource, setInvalidIncomeSource] = useState('')
     const [invalidAmount, setInvalidAmount] = useState('')
@@ -70,8 +71,8 @@ const IncomeNew = () => {
         e.preventDefault()
         if (validForm()) {
             try{
-                await axios.post("http://localhost:8800/newincome/" + location.state.userID, income)
-                navigate("/income", {state: {userID: location.state.userID, accountType: location.state.accountType}})
+                await axios.post("http://localhost:8800/newincome/" + user.userID, income)
+                navigate("/income", {state: {account: user}})
             }catch (err) {
                 console.log(err)
             }
