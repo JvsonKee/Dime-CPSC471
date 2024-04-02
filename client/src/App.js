@@ -23,6 +23,8 @@ import SavingsNew from "./pages/Savings/SavingsNew";
 import UpdateSavings from "./pages/Savings/SavingsUpdate";
 import GoalsNew from "./pages/Goals/GoalsNew";
 import UpdateGoals from "./pages/Goals/GoalsUpdate";
+import TransactionNew from "./pages/Transactions/TransactionNew";
+import UpdateTransaction from "./pages/Transactions/TransactionUpdate";
 import GlobalStyle from "./styles/Global";
 
 function App() {
@@ -55,6 +57,8 @@ function App() {
           <Route path = "/newsavings" element={<SavingsNew/>}/>
           <Route path = "/updategoals" element={<UpdateGoals/>}/>
           <Route path = "/newgoals" element={<GoalsNew/>}/>
+          <Route path = "/newtransaction" element={<TransactionNew/>}/>
+          <Route path = "/updatetransaction" element={<UpdateTransaction/>}/>
         </Routes>
       </BrowserRouter>
     </div>
