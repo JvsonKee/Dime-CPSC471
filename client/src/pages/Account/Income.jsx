@@ -54,7 +54,7 @@ const Income = () => {
                 ))}
         </div>
         <button>
-            <Link to="/newincome" state= {{userID: user.userID}}>Create a new income source</Link>
+            <Link to="/newincome" state= {{account:user}}>Create a new income source</Link>
         </button>
         <button>
             <Link to="/account" state= {{account: user}}>Return to Account page</Link>

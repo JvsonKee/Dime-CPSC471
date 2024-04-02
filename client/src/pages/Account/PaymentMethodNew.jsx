@@ -9,11 +9,7 @@ const PaymentMethodNew = () => {
     let user = location.state.account;
 
     const [invalidMethodType, setInvalidMethodType] = useState('')
-    const [invalidCardNumber, setInvalidCardNumber] = useState('')
-    const [invalidExpiryMonth, setInvalidExpiryMonth] = useState('')
-    const [invalidExpiryYear, setInvalidExpiryYear] = useState('')
     const[paymentmethod,setPaymentMethod] = useState({
-        pUserID: "",
         methodType:"",
         cardNumber:null,
         expiryMonth:null,
@@ -27,21 +23,6 @@ const PaymentMethodNew = () => {
 
         if (paymentmethod.methodType === "") {
             setInvalidMethodType("Invalid method type.")
-            valid = false;
-        }
-
-        if (paymentmethod.cardNumber === null) {
-            setInvalidCardNumber("Invalid card number.")
-            valid = false;
-        }
-
-        if (paymentmethod.expiryMonth === null) {
-            setInvalidExpiryMonth("Invalid expiry month")
-            valid = false;
-        }
-
-        if (paymentmethod.expiryYear === null) {
-            setInvalidExpiryYear("Invalid expiry year.")
             valid = false;
         }
 
@@ -74,15 +55,12 @@ const PaymentMethodNew = () => {
         <input type = "text" onChange = {handleChange} name = "methodType"/>
 
         <h1>Card Number</h1>
-        {invalidCardNumber && <div>{invalidCardNumber}</div>}
         <input type = "number" onChange = {handleChange} name = "cardNumber"/>
 
         <h1>Expiry Month</h1>
-        {invalidExpiryMonth && <div>{invalidExpiryMonth}</div>}
         <input type = "number" onChange = {handleChange} name = "expiryMonth"/>
 
         <h1>Expiry Year</h1>
-        {invalidExpiryYear && <div>{invalidExpiryYear}</div>}
         <input type = "number" onChange = {handleChange} name = "expiryYear"/>
     </div>
     <button onClick = {handleClick}>

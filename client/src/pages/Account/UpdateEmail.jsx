@@ -24,16 +24,20 @@ const UpdateEmail = () => {
 
     const handleClick = async e =>{
         e.preventDefault()
-        if (inputemail.email === inputemail.email2) {
-            try{
-                await axios.put("http://localhost:8800/updateemail/" + user.userID, inputemail)
-                navigate("/account", {state: {account: user}})
-            }catch(err) {
-                console.log(err)
+        if (inputemail.email === "" || inputemail.email2 === "") {
+            setError("Invalid email.")
+        } else {
+            if (inputemail.email === inputemail.email2) {
+                try{
+                    await axios.put("http://localhost:8800/updateemail/" + user.userID, inputemail)
+                    navigate("/account", {state: {account: user}})
+                }catch(err) {
+                    console.log(err)
+                }
             }
-        }
-        else {
-            setError("Emails do not match. Please try again.")
+            else {
+                setError("Emails do not match. Please try again.")
+            }
         }
     }
 
