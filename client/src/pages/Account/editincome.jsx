@@ -82,7 +82,7 @@ const EditIncome = () => {
 
     return <div>
     <div className = 'incomeForm'>
-        <h1>Enter new income source information.</h1>
+        <h1>Enter updated income source information.</h1>
 
         <h1>Source *</h1>
         {invalidIncomeSource && <div>{invalidIncomeSource}</div>}

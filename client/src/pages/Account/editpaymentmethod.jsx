@@ -49,7 +49,7 @@ const EditPaymentMethod = () => {
 
     return <div>
     <div className = 'paymentMethodForm'>
-        <h1>Enter new payment method information. Leave blank if not applicable.</h1>
+        <h1>Enter updated payment method information.</h1>
 
         <h1>Method type</h1>
         {invalidMethodType && <div>{invalidMethodType}</div>}

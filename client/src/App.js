@@ -19,6 +19,10 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import Account from "./pages/Account/Account";
 import IncomeNew from "./pages/Account/IncomeNew";
 import PaymentMethodNew from "./pages/Account/PaymentMethodNew";
+import SavingsNew from "./pages/Savings/SavingsNew";
+import UpdateSavings from "./pages/Savings/SavingsUpdate";
+import GoalsNew from "./pages/Goals/GoalsNew";
+import UpdateGoals from "./pages/Goals/GoalsUpdate";
 import GlobalStyle from "./styles/Global";
 
 function App() {
@@ -47,6 +51,10 @@ function App() {
           <Route path = "/savings" element={<Savings/>}/>
           <Route path = "/goals" element={<Goals/>}/>
           <Route path = "/dashboard" element={<Dashboard/>}/>
+          <Route path = "/updatesavings" element={<UpdateSavings/>}/>
+          <Route path = "/newsavings" element={<SavingsNew/>}/>
+          <Route path = "/updategoals" element={<UpdateGoals/>}/>
+          <Route path = "/newgoals" element={<GoalsNew/>}/>
         </Routes>
       </BrowserRouter>
     </div>

@@ -163,6 +163,91 @@ app.post("/newpaymentmethod/:ID", (req,res)=>{
     })
 })
 
+app.get("/goals/:ID", (req,res)=>{
+    const user_ID = req.params.ID
+    const q = "SELECT * FROM goals WHERE gUserID = ?"
+    db.query(q, [user_ID], (err,data) => {
+        if (err) return res.json(err)
+        return res.json(data)
+    })
+})
+
+app.put("/updategoal/:ID", (req,res)=>{
+    const goal_ID = req.params.ID
+    const q = "UPDATE goals SET `title` = ?,  `description` = ?, `amount` = ?, `gDay` = ?, `gMonth` = ?, `gYear` = ? WHERE goalID = ? "
+    db.query(q, [req.body.title, req.body.description, req.body.amount,req.body.gDay,req.body.gMonth, req.body.gYear, goal_ID], (err,data) => {
+        if (err) return res.json(err)
+        return res.json(data)
+    })
+})
+
+app.delete("/deletegoal/:ID", (req,res) =>{
+    const goalID = req.params.ID;
+    const q = "DELETE FROM goals where goalID = ? "
+    db.query(q, [goalID], (err,data) => {
+        if (err) return res.json(err);
+        return res.json(data);
+    });
+})
+
+app.post("/newgoal/:ID", (req,res)=>{
+    const q = "INSERT INTO goals (`gUserID`,`title`, `description`,`amount`, `gDay`, `gMonth`, `gYear`) VALUES (?)"
+    const values = [
+        req.params.ID,
+        req.body.title,
+        req.body.description,
+        req.body.amount,
+        req.body.gDay,
+        req.body.gMonth,
+        req.body.gYear,
+    ]
+    db.query(q,[values],(err,data)=> {
+        if (err) return res.json(err)
+        return res.json(data)
+    })
+})
+
+app.get("/savings/:ID", (req,res)=>{
+    const user_ID = req.params.ID
+    const q = "SELECT * FROM savings WHERE sUserID = ?"
+    db.query(q, [user_ID], (err,data) => {
+        if (err) return res.json(err)
+        return res.json(data)
+    })
+})
+
+app.put("/updatesavings/:ID", (req,res)=>{
+    const savings_ID = req.params.ID
+    const q = "UPDATE savings SET `title` = ?,  `description` = ?, `amount` = ? WHERE savingsID = ? "
+    db.query(q, [req.body.title, req.body.description, req.body.amount, savings_ID], (err,data) => {
+        if (err) return res.json(err)
+        return res.json(data)
+    })
+})
+
+app.delete("/deletesavings/:ID", (req,res) =>{
+    const savingsID = req.params.ID;
+    const q = "DELETE FROM savings where savingsID = ? "
+    db.query(q, [savingsID], (err,data) => {
+        if (err) return res.json(err);
+        return res.json(data);
+    });
+})
+
+app.post("/newsavings/:ID", (req,res)=>{
+    const q = "INSERT INTO savings (`sUserID`,`title`, `description`, `amount`) VALUES (?)"
+    const values = [
+        req.params.ID,
+        req.body.title,
+        req.body.description,
+        req.body.amount,
+    ]
+    db.query(q,[values],(err,data)=> {
+        if (err) return res.json(err)
+        return res.json(data)
+    })
+})
+
 app.listen(8800, ()=> {
     console.log("Connected to backend")
 })
