@@ -14,17 +14,24 @@ export const MainContainer = styled.div`
 
 export const ContentContainer = styled.div`
     display: flex;
-    align-items: center;
-    justify-content: center;
     width: 99%;
     height: 97%;
     border-radius: 20px;
-    background-color: white;
 `
 
 export const Content = styled.div`
     display: flex;
     flex-direction: column;
-    height: 95%;
-    width: 95%;
+    background-color: pink;
+`
+
+export const CardContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 2%;
+    width: 100%;
+`
+
+export const FlexColumn = styled.div`
+    display: flex;
 `
