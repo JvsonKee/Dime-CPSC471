@@ -248,6 +248,98 @@ app.post("/newsavings/:ID", (req,res)=>{
     })
 })
 
+app.delete("/deletetransaction/:ID", (req,res) =>{
+    const transactionID = req.params.ID;
+    const q = "DELETE FROM transactions where transactionID = ? "
+    db.query(q, [transactionID], (err,data) => {
+        if (err) return res.json(err);
+        return res.json(data);
+    });
+})
+
+app.get("/transactions/:ID", (req,res)=>{
+    const user_ID = req.params.ID
+    const q = "SELECT * FROM transactions WHERE tUserID = ?"
+    db.query(q, [user_ID], (err,data) => {
+        if (err) return res.json(err)
+        return res.json(data)
+    })
+})
+
+app.post("/newtransaction/:ID", (req,res)=>{
+    const q = "INSERT INTO transactions (`tUserID`,`title`, `payment_method`, `amount`, `tDay`, `tMonth`, `tYear`) VALUES (?)"
+    const values = [
+        req.params.ID,
+        req.body.title,
+        req.body.payment_method,
+        req.body.amount,
+        req.body.tDay,
+        req.body.tMonth,
+        req.body.tYear
+    ]
+    db.query(q,[values],(err,data)=> {
+        if (err) return res.json(err)
+        return res.json(data)
+    })
+})
+
+app.put("/updatetransaction/:ID", (req,res)=>{
+    const transaction_ID = req.params.ID
+    const q = "UPDATE transactions SET `title` = ?,  `payment_method` = ? ,`amount` = ?, `tDay` = ?, `tMonth` = ?, `tYear` = ? WHERE transactionID = ? "
+    db.query(q, [req.body.title, req.body.payment_method, req.body.amount, req.body.tDay, req.body.tMonth, req.body.tYear, transaction_ID], (err,data) => {
+        if (err) return res.json(err)
+        return res.json(data)
+    })
+})
+
+app.delete("/deletereceipt/:ID", (req,res) =>{
+    const receiptID = req.params.ID;
+    const q = "DELETE FROM receipts where receiptID = ? "
+    db.query(q, [receiptID], (err,data) => {
+        if (err) return res.json(err);
+        return res.json(data);
+    });
+})
+
+app.get("/receipts/:ID", (req,res)=>{
+    const transactionID = req.params.ID
+    const q = "SELECT * FROM receipts WHERE rTransactionID = ?"
+    db.query(q, [transactionID], (err,data) => {
+        if (err) return res.json(err)
+        return res.json(data)
+    })
+})
+
+app.put("/updatereceipt/:ID", (req,res)=>{
+    const receipt_ID = req.params.ID
+    const q = "UPDATE receipts SET `image` = ? WHERE receiptID = ? "
+    db.query(q, [req.body.image, receipt_ID], (err,data) => {
+        if (err) return res.json(err)
+        return res.json(data)
+    })
+})
+
+app.post("/newreceipt/:ID", (req,res)=>{
+    const q = "INSERT INTO receipts (`rTransactionID`, `image`) VALUES (?)"
+    const values = [
+        req.params.ID,
+        req.body.image
+    ]
+    db.query(q,[values],(err,data)=> {
+        if (err) return res.json(err)
+        return res.json(data)
+    })
+})
+
+app.get("/paymentmethodsdrop/:ID", (req,res)=>{
+    const user_ID = req.params.ID
+    const q = "SELECT methodType FROM payment_methods WHERE pUserID = ?"
+    db.query(q, [user_ID], (err,data) => {
+        if (err) return res.json(err)
+        return res.json(data)
+    })
+})
+
 app.listen(8800, ()=> {
     console.log("Connected to backend")
 })
