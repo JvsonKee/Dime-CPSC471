@@ -66,6 +66,9 @@ const Account = () => {
                             user.premium === "y" ? <button onClick={premiumToStandard}>Become a Standard User</button> : 
                             user.premium === "n" ? <button onClick={standardToPremium}>Become a Premium User</button> : null
                         }
+                        <button>
+                            <Link to="/">Log out</Link>
+                        </button>
                     </ProfileContainer>
                 </ProfileContentContainer>
             </MainContainer>
