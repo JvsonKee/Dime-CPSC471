@@ -5,10 +5,11 @@ import { useNavigate } from "react-router-dom"
 import {useLocation} from 'react-router-dom';
 import NavBar from '../../components/NavBar';
 import { PageContainer, MainContainer } from '../../styles/Containers';
-import { ProfileContentContainer, ProfileContainer, ProfileHeader, AccountContentContainer, Left, Right, AccountItem, AccountNav, LogoutLink, MainContent } from './Account.styled';
+import { ProfileContentContainer, ProfileContainer, ProfileHeader, AccountContentContainer, Left, Right, AccountItem, AccountNav, LogoutLink, MainContent, Icon } from './Account.styled';
 import AccountInformation from './AccountInformation';
 import PopUp from '../../components/PopUp/PopUp';
 import { UserContext } from '../../App';
+import { faArrowRightFromBracket, faAddressCard, faCreditCard, faCircleDollarToSlot } from '@fortawesome/free-solid-svg-icons';
 
 
 const Account = () => {
@@ -50,10 +51,10 @@ const Account = () => {
                         <AccountContentContainer>
                             <Left>  
                                 <AccountNav>
-                                    <AccountItem>Income</AccountItem>
-                                    <AccountItem>Payment Methods</AccountItem>
-                                    <AccountItem>Account Information</AccountItem>
-                                    <AccountItem><LogoutLink to="/">Logout</LogoutLink></AccountItem>
+                                    <AccountItem><Icon icon={faCircleDollarToSlot}/><span>Income</span></AccountItem>
+                                    <AccountItem><Icon icon={faCreditCard}/><span>Payment Methods</span></AccountItem>
+                                    <AccountItem><Icon icon={faAddressCard}/><span>Account Information</span></AccountItem>
+                                    <AccountItem><LogoutLink to="/"><Icon icon={faArrowRightFromBracket}/><span>Logout</span></LogoutLink></AccountItem>
                                 </AccountNav>
                             </Left>
                             <Right>

@@ -1,12 +1,10 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { CloseButton, PopUpContainer, PopUpWrapper } from "./PopUp.styled"
 import TextForm from "./TextForm";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import ConfirmForm from "./ConfirmForm";
-import { UserContext } from "../../App";
 
 const PopUp = ( {popUp, mode} ) => {
-    const [user, setUser] = useContext(UserContext)
     const [isOpen, setIsOpen] = useState(true);
 
     const closePopUp = () => {
@@ -23,7 +21,7 @@ const PopUp = ( {popUp, mode} ) => {
             <PopUpContainer onClick={handleChildClick}>    
                 <CloseButton onClick={closePopUp} icon={faXmark}/>
                 { mode === "email" || mode === "password" ? <TextForm mode={mode} popUp={closePopUp}/> : null }
-                { mode === "upgrade" || mode === "delete" ? <ConfirmForm mode={mode} popUp={(closePopUp)}/> : null}
+                { mode === "upgrade" || mode === "delete" ? <ConfirmForm mode={mode} popUp={closePopUp}/> : null}
             </PopUpContainer>
         </PopUpWrapper>
 

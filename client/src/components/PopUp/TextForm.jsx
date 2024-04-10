@@ -48,6 +48,7 @@ const TextForm = ( {mode, popUp} ) => {
                     try{
                         await axios.put("http://localhost:8800/updateemail/" + user.userID, input)
                         navigate("/account")
+                        user.email = input.first
                         closePopUp()
                     }catch(err) {
                         console.log(err)

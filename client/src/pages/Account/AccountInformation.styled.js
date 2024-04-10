@@ -4,28 +4,40 @@ export const InformationContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 5%;
-    background-color: pink;
     height: 100%;
+`
+
+export const NameEmailWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    height: 20%;
+    border-radius: 20px;
+    background-color: var(--light-grey);
+
 `
 
 export const InfoMatrix = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    gap: 2%;
     font-size: 16px;
-    height: 10%;
+    height: 100%;
     padding-left: 15px;
-    border-radius: 20px;
-    background-color: var(--light-grey);
+`   
+
+export const StatusHeader = styled.div`
+    font-size: 20px;
+    font-style: italic;
 `
 
 export const InfoHeader = styled.div`
+
 `
 
 export const Info = styled.div`
     display: flex;
     align-items: center;
+    color: var(--dark-grey);
 `
 
 export const ButtonContainer = styled.div`
@@ -46,6 +58,6 @@ export const AccountInfoButton = styled.button`
 
     &:hover {
         cursor: pointer;
-        background-color: var(--dark-grey);
+        background-color: #D4D9F0;
     }
 `

@@ -6,8 +6,9 @@ import { UserContext } from "../../App";
 
 const ConfirmForm = ( {mode, popUp} ) => {
     const [user, setUser] = useContext(UserContext)
-    let navigate = useNavigate()
     const [isOpen, setIsOpen] = useState(true)
+
+    let navigate = useNavigate()
 
     const closePopUp = () => {
         setIsOpen(false)
@@ -31,7 +32,6 @@ const ConfirmForm = ( {mode, popUp} ) => {
 
     const handleClick = async () => {
         if (mode === "delete") {
-            console.log(user.userID)
             try{
                 await axios.delete("http://localhost:8800/deleted/" + user.userID);
                 navigate("/");

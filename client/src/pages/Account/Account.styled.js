@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { ContentContainer } from '../../styles/Containers'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export const ProfileContentContainer = styled(ContentContainer)`
     justify-content: center;
@@ -13,7 +14,6 @@ export const ProfileContainer = styled.div`
     flex-direction: column;
     width: 90%;
     height: 90%;
-    background-color: blue;
 `
 
 export const ProfileHeader = styled.h1`
@@ -26,15 +26,13 @@ export const AccountContentContainer = styled.div`
     width: 100%;
     height: 100%;
     padding-top: 2%;
-    background-color: pink;
 `
 
 export const Left = styled.div`
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: 30%;
-    background-color: green;
+    width: 22%;
+    border-right: 1px solid var(--dark-grey);
 `
 
 export const Right = styled.div`
@@ -42,32 +40,47 @@ export const Right = styled.div`
     align-items: center;
     justify-content: center;
     width: 70%;
-    background-color: green;
 `
 
 export const AccountNav = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    width: 80%;
     height: 70%;
-    background-color: blue;
 `
 
 export const AccountItem = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 10px;
     font-size: 16px;
+    color: var(--dark-grey);
+    transition: 0.3s ease-in-out;
 
     &:hover {
         cursor: pointer;
+        color: var(--text-black);
     }
 `
 
 export const LogoutLink = styled(Link)`
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--dark-grey);
     text-decoration: none;
+    transition: 0.3s ease-in-out;
+
+    &:hover {
+        color: var(--text-black);
+    }
 `
 
 export const MainContent = styled.div`
     width: 90%;
     height: 90%;
-    background-color: blue;
+`
+
+export const Icon = styled(FontAwesomeIcon)`
+
 `

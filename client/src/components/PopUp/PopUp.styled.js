@@ -32,11 +32,9 @@ export const FormContainer = styled.div`
     gap: 8%;
     width: 80%;
     height: 80%;
-    background-color: pink;
 `
 
 export const TextInput = styled.input`
-    /* width: 100%; */
     height: 50px;
     outline: none;
     background-color: #F1F1FB;
