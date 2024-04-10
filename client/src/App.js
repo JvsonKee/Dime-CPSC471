@@ -29,44 +29,52 @@ import Receipts from "./pages/Transactions/Receipts"
 import UpdateReceipt from "./pages/Transactions/ReceiptUpdate"
 import ReceiptNew from "./pages/Transactions/ReceiptNew"
 import GlobalStyle from "./styles/Global";
+import { createContext } from "react";
+import { useState } from "react";
+
+export const UserContext = createContext();
 
 function App() {
+  const [user, setUser] = useState(null);
+
   return (
     <div className="App">
-      <GlobalStyle />
-      <BrowserRouter>
-        <Routes>
-          <Route path = "/" element={<Login/>}/>
-          <Route path = "/createaccount" element={<CreateAccount/>}/>
-          <Route path = "/home" element={<Home/>}/>
-          <Route path = "/account" element={<Account/>}/>
-          <Route path = "/updateemail" element={<UpdateEmail/>}/>
-          <Route path = "/changepassword" element={<ChangePassword/>}/>
-          <Route path = "/deleted" element={<Deleted/>}/>
-          <Route path = "/premiumchange" element={<PremiumChange/>}/>
-          <Route path = "/standardchange" element={<StandardChange/>}/>
-          <Route path = "/income" element={<Income/>}/>
-          <Route path = "/newincome" element={<IncomeNew/>}/>
-          <Route path = "/editincome" element={<EditIncome/>}/>
-          <Route path = "/paymentmethods" element={<PaymentMethods/>}/>
-          <Route path = "/newpaymentmethod" element={<PaymentMethodNew/>}/>
-          <Route path = "/editpaymentmethod" element={<EditPaymentMethod/>}/>
-          <Route path = "/transactions" element={<Transactions/>}/>
-          <Route path = "/budgets" element={<Budgets/>}/>
-          <Route path = "/savings" element={<Savings/>}/>
-          <Route path = "/goals" element={<Goals/>}/>
-          <Route path = "/dashboard" element={<Dashboard/>}/>
-          <Route path = "/updatesavings" element={<UpdateSavings/>}/>
-          <Route path = "/newsavings" element={<SavingsNew/>}/>
-          <Route path = "/updategoals" element={<UpdateGoals/>}/>
-          <Route path = "/newgoals" element={<GoalsNew/>}/>
-          <Route path = "/newtransaction" element={<TransactionNew/>}/>
-          <Route path = "/updatetransaction" element={<UpdateTransaction/>}/>
-          <Route path = "/receipts" element={<Receipts/>}/>
-          <Route path = "/updatereceipt" element={<UpdateReceipt/>}/>
-          <Route path = "/newreceipt" element={<ReceiptNew/>}/>
-        </Routes>
-      </BrowserRouter>
+		<UserContext.Provider value={[user, setUser]}>
+			<GlobalStyle />
+			<BrowserRouter>
+				<Routes>
+					<Route path = "/" element={<Login />}/>
+					<Route path = "/createaccount" element={<CreateAccount/>}/>
+					<Route path = "/home" element={<Home/>}/>
+					<Route path = "/account" element={<Account/>}/>
+					<Route path = "/updateemail" element={<UpdateEmail/>}/>
+					<Route path = "/changepassword" element={<ChangePassword/>}/>
+					<Route path = "/deleted" element={<Deleted/>}/>
+					<Route path = "/premiumchange" element={<PremiumChange/>}/>
+					<Route path = "/standardchange" element={<StandardChange/>}/>
+					<Route path = "/income" element={<Income/>}/>
+					<Route path = "/newincome" element={<IncomeNew/>}/>
+					<Route path = "/editincome" element={<EditIncome/>}/>
+					<Route path = "/paymentmethods" element={<PaymentMethods/>}/>
+					<Route path = "/newpaymentmethod" element={<PaymentMethodNew/>}/>
+					<Route path = "/editpaymentmethod" element={<EditPaymentMethod/>}/>
+					<Route path = "/transactions" element={<Transactions/>}/>
+					<Route path = "/budgets" element={<Budgets/>}/>
+					<Route path = "/savings" element={<Savings/>}/>
+					<Route path = "/goals" element={<Goals/>}/>
+					<Route path = "/dashboard" element={<Dashboard/>}/>
+					<Route path = "/updatesavings" element={<UpdateSavings/>}/>
+					<Route path = "/newsavings" element={<SavingsNew/>}/>
+					<Route path = "/updategoals" element={<UpdateGoals/>}/>
+					<Route path = "/newgoals" element={<GoalsNew/>}/>
+					<Route path = "/newtransaction" element={<TransactionNew/>}/>
+					<Route path = "/updatetransaction" element={<UpdateTransaction/>}/>
+					<Route path = "/receipts" element={<Receipts/>}/>
+					<Route path = "/updatereceipt" element={<UpdateReceipt/>}/>
+					<Route path = "/newreceipt" element={<ReceiptNew/>}/>
+				</Routes>
+			</BrowserRouter>
+		</UserContext.Provider>
     </div>
   );
 }
