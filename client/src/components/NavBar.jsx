@@ -1,17 +1,15 @@
 import { NavContainer, Nav, NavItem, NavItems, NavIcon } from "./NavBar.styled";
 import { faArrowRightArrowLeft, faChartSimple, faPiggyBank, faUser} from '@fortawesome/free-solid-svg-icons'
 
-const NavBar = ({account}) => {
-
-    console.log({account})
+const NavBar = () => {
     return(
         <NavContainer>
             <Nav>
                 <NavItems>
-                    <NavItem to="/home" state={{account: account}}>
+                    <NavItem to="/home">
                         DIME
                     </NavItem>
-                    <NavItem to="/transactions" state={{account: account}}>
+                    <NavItem to="/transactions">
                         <NavIcon icon={faArrowRightArrowLeft}/>
                         <span>Transactions</span>
                     </NavItem>
@@ -19,11 +17,11 @@ const NavBar = ({account}) => {
                         <NavIcon icon={faChartSimple}/>
                         <span>Budgets</span>
                     </NavItem>
-                    <NavItem to="/savings" state={{account: account}}>
+                    <NavItem to="/savings">
                         <NavIcon icon={faPiggyBank}/>
                         <span>Savings</span>
                     </NavItem>
-                    <NavItem to="/account" state={{account: account}}>
+                    <NavItem to="/account">
                         <NavIcon icon={faUser}/>
                         <span>Account</span>
                     </NavItem>

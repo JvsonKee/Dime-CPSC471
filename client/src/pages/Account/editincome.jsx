@@ -3,9 +3,11 @@ import { useNavigate } from "react-router-dom"
 import {useState} from 'react'
 import axios from 'axios'
 import {useLocation} from 'react-router-dom';
+import { UserContext } from '../../App';
+import { useContext } from 'react';
 
 const EditIncome = () => {
-
+    const [user, setUser] = useContext(UserContext)
     const [invalidIncomeSource, setInvalidIncomeSource] = useState('')
     const [invalidAmount, setInvalidAmount] = useState('')
     const [invalidDay, setInvalidDay] = useState('')
@@ -14,7 +16,7 @@ const EditIncome = () => {
     const [invalidFrequency, setInvalidFrequency] = useState('')
 
     const location = useLocation();
-    let user = location.state.account
+    // let user = location.state.account
 
     const[income,setIncome] = useState({
         incomeSource:"",
@@ -72,7 +74,7 @@ const EditIncome = () => {
         if (validForm()) {
             try{
                 await axios.put("http://localhost:8800/editincome/" + location.state.incomeID,income)
-                navigate("/income", {state: {account: user}})
+                navigate("/income")
             }catch (err) {
                 console.log(err)
             }

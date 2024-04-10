@@ -1,20 +1,21 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link } from "react-router-dom"
 import axios from 'axios'
 import { useNavigate } from "react-router-dom"
 import {useLocation} from 'react-router-dom';
 import NavBar from '../../components/NavBar';
 import { PageContainer, MainContainer } from '../../styles/Containers';
-import { ProfileContentContainer, ProfileContainer, ProfileHeader } from './Account.styled';
+import { ProfileContentContainer, ProfileContainer, ProfileHeader, AccountContentContainer, Left, Right, AccountItem, AccountNav, LogoutLink, MainContent } from './Account.styled';
+import AccountInformation from './AccountInformation';
+import PopUp from '../../components/PopUp/PopUp';
+import { UserContext } from '../../App';
 
 
 const Account = () => {
+
+    const [user, setUser] = useContext(UserContext)
     const navigate = useNavigate()
-    const location = useLocation()
 
-    let user = location.state.account
-
-    console.log(user)
 
     const handleDelete = async() => {
         try{
@@ -41,34 +42,74 @@ const Account = () => {
 
     return (
         <PageContainer>
-            <NavBar account={user}/>
+            <NavBar/>
             <MainContainer>
                 <ProfileContentContainer>
                     <ProfileContainer>
                         <ProfileHeader>Hello, {user.fName.charAt(0).toUpperCase() + user.fName.slice(1)}</ProfileHeader>
-                        <button>
+                        <AccountContentContainer>
+                            <Left>  
+                                <AccountNav>
+                                    <AccountItem>Income</AccountItem>
+                                    <AccountItem>Payment Methods</AccountItem>
+                                    <AccountItem>Account Information</AccountItem>
+                                    <AccountItem><LogoutLink to="/">Logout</LogoutLink></AccountItem>
+                                </AccountNav>
+                            </Left>
+                            <Right>
+                                <MainContent>
+                                    <AccountInformation/>
+                                </MainContent>
+                            </Right>
+                        </AccountContentContainer>
+                        {/* <BoxContainer>
+                            <button>
                             <Link to="/home" state= {{account: user}}>Return to homepage</Link>
-                        </button>
-                        <button>
-                            <Link to="/updateemail" state= {{account: user}}>Update my email</Link>
-                        </button>
-                        <button>
-                            <Link to="/changepassword" state= {{account: user}}>Change my password</Link>
-                        </button>
-                        <button>
-                            <Link to="/income" state= {{account: user}}>View income</Link>
-                        </button>
-                        <button>
-                            <Link to="/paymentmethods" state= {{account: user}}>View payment methods</Link>
-                        </button>
-                        <button onClick = {()=>handleDelete()}>Delete my account</button>
-                        {
-                            user.premium === "y" ? <button onClick={premiumToStandard}>Become a Standard User</button> : 
-                            user.premium === "n" ? <button onClick={standardToPremium}>Become a Premium User</button> : null
-                        }
-                        <button>
-                            <Link to="/">Log out</Link>
-                        </button>
+                            </button>
+                            <Box>
+                                Change Email
+                            </Box>
+                            <Box>
+                                Change Password
+                            </Box>
+                            <Box>
+                                Incomes
+                            </Box>
+                            <Box>
+                                Payment Methods
+                            </Box>
+                            <Box>
+                                Delete Account
+                            </Box>
+                            
+                            {
+                                user.premium === "y" ? <Box onClick={premiumToStandard}>Become a Standard User</Box> :
+                                user.premium === "n" ? <Box onClick={standardToPremium}>Become a Premium User</Box> : null
+                            }
+                            <Box>
+                                Logout
+                            </Box>
+                            <button>
+                                <Link to="/updateemail" state= {{account: user}}>Update my email</Link>
+                            </button>
+                            <button>
+                                <Link to="/changepassword" state= {{account: user}}>Change my password</Link>
+                            </button>
+                            <button>
+                                <Link to="/income" state= {{account: user}}>View income</Link>
+                            </button>
+                            <button>
+                                <Link to="/paymentmethods" state= {{account: user}}>View payment methods</Link>
+                            </button>
+                            <button onClick = {()=>handleDelete()}>Delete my account</button>
+                            {
+                                user.premium === "y" ? <button onClick={premiumToStandard}>Become a Standard User</button> : 
+                                user.premium === "n" ? <button onClick={standardToPremium}>Become a Premium User</button> : null
+                            }
+                            <button>
+                                <Link to="/">Log out</Link>
+                            </button>
+                        </BoxContainer> */}
                     </ProfileContainer>
                 </ProfileContentContainer>
             </MainContainer>

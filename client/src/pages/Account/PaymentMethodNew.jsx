@@ -1,12 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useNavigate } from "react-router-dom"
 import {useState} from 'react'
 import axios from 'axios'
 import {useLocation} from 'react-router-dom';
+import { UserContext } from '../../App';
 
 const PaymentMethodNew = () => {
+    const [user, setUser] = useContext(UserContext)  
     const location = useLocation();
-    let user = location.state.account;
 
     const [invalidMethodType, setInvalidMethodType] = useState('')
     const[paymentmethod,setPaymentMethod] = useState({
@@ -38,7 +39,7 @@ const PaymentMethodNew = () => {
         if (validForm()) {
             try{
                 await axios.post("http://localhost:8800/newpaymentmethod/"+ user.userID, paymentmethod)
-                navigate("/paymentmethods", {state: {account: user}})
+                navigate("/paymentmethods")
             }catch (err) {
                 console.log(err)
             }

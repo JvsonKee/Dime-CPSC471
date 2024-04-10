@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useNavigate } from "react-router-dom"
 import {useState} from 'react'
 import axios from 'axios'
 import {useLocation} from 'react-router-dom';
+import { UserContext } from '../../App';
 
 const UpdateEmail = () => {
-
+    const [user, setUser] = useContext(UserContext)
     const [error, setError] = useState('')
     const[inputemail,inputEmail] = useState({
         email:"",
@@ -13,10 +14,6 @@ const UpdateEmail = () => {
     })
 
     const navigate = useNavigate()
-    const location = useLocation();
-
-    let user = location.state.account;
-    console.log(user)
 
     const handleChange = (e) => {
         inputEmail((prev)=>({...prev, [e.target.name]: e.target.value}));
@@ -30,7 +27,7 @@ const UpdateEmail = () => {
             if (inputemail.email === inputemail.email2) {
                 try{
                     await axios.put("http://localhost:8800/updateemail/" + user.userID, inputemail)
-                    navigate("/account", {state: {account: user}})
+                    navigate("/account")
                 }catch(err) {
                     console.log(err)
                 }

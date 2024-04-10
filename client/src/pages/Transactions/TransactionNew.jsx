@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { UserContext } from '../../App';
 
 const TransactionNew = () => {
+    const [user, setUser] = useContext(UserContext)
     const location = useLocation();
     const navigate = useNavigate();
-    const user = location.state.account;
 
     const [invalidTitle, setInvalidTitle] = useState('');
     const [invalidAmount, setInvalidAmount] = useState('');
@@ -66,7 +67,7 @@ const TransactionNew = () => {
         if (validForm()) {
             try {
                 await axios.post("http://localhost:8800/newtransaction/"+ user.userID, transaction);
-                navigate('/transactions', { state: { account: user } });
+                navigate('/transactions');
             } catch (err) {
                 console.log(err);
             }

@@ -9,10 +9,8 @@ import {
     Button,
     LinkToLogin
 } from './CreateAccount.styled';
-import { faTry } from '@fortawesome/free-solid-svg-icons';
 
-
-const CreateAccount = ({ history }) => {
+const CreateAccount = () => {
     const navigate = useNavigate();
 
     const [account, setAccount] = useState({
@@ -86,6 +84,7 @@ const CreateAccount = ({ history }) => {
     const checkValidEmail = async (e) => {
         try {
             const res =  await axios.get("http://localhost:8800/users");
+            console.log(res)
             let emails = res.data;
             
             let existingEmail = false;
@@ -113,7 +112,7 @@ const CreateAccount = ({ history }) => {
         if (validForm()) {
             try {
                 await axios.post('http://localhost:8800/createaccount', account);
-                navigate('/home', {state: {account}});
+                navigate('/home');
             } catch (err) {
                 console.log(err);
             }

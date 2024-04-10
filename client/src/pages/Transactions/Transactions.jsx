@@ -1,22 +1,23 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {useState} from 'react'
 import {useEffect} from 'react'
 import axios from 'axios'
 import { Link } from "react-router-dom"
 import {useLocation} from 'react-router-dom';
 import { useNavigate } from "react-router-dom"
+import { UserContext } from '../../App'
 
 const Transactions = () => {
+    const [user, setUser] = useContext(UserContext)
     const [transactions, setTransactions] = useState([])
 
     const navigate = useNavigate()
     const location = useLocation();
-    let user = location.state.account;
 
     const handleDelete = async(transaction) => {
         try{
             await axios.delete("http://localhost:8800/deletetransaction/" + transaction);
-            navigate("/transactions", {state: {account: user}})
+            navigate("/transactions")
         }catch(err) {
             console.log(err)
         }
@@ -49,7 +50,7 @@ const Transactions = () => {
                         <h2>Amount: {transactions.amount}</h2>
                         <h2>Date: {transactions.tDay} / {transactions.tMonth} / {transactions.tYear}</h2>
                         <button>
-                            <Link to="/updatetransaction" state= {{account: user, transactionID: transactions.transactionID}}>Update</Link>
+                            <Link to="/updatetransaction" state= {{transactionID: transactions.transactionID}}>Update</Link>
                         </button>
                         <button onClick = {()=>handleDelete(transactions.transactionID)}>Delete</button>
                         <button onClick = {()=>handleReceipt(transactions.transactionID)}>View receipts</button>
@@ -57,10 +58,10 @@ const Transactions = () => {
                 ))}
         </div>
         <button>
-            <Link to="/newtransaction" state= {{account: user}}>Create a transaction</Link>
+            <Link to="/newtransaction">Create a transaction</Link>
         </button>
         <button>
-            <Link to="/home" state= {{account: user}}>Return to home page</Link>
+            <Link to="/home">Return to home page</Link>
         </button>
     </div>
 )}

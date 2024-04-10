@@ -1,22 +1,21 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {useState} from 'react'
 import {useEffect} from 'react'
 import axios from 'axios'
 import { Link } from "react-router-dom"
 import {useLocation} from 'react-router-dom';
 import { useNavigate } from "react-router-dom"
+import { UserContext } from '../../App'
 
 const Savings = () => {
     const [savings, setSavings] = useState([])
-    
+    const [user, setUser] = useContext(UserContext)
 
     const navigate = useNavigate()
-    const location = useLocation();
-    let user = location.state.account;
     const handleDelete = async(savings) => {
         try{
             await axios.delete("http://localhost:8800/deletesavings/" + savings);
-            navigate("/savings", {state: {account: user}})
+            navigate("/savings")
         }catch(err) {
             console.log(err)
         }
@@ -51,10 +50,10 @@ const Savings = () => {
                 ))}
         </div>
         <button>
-            <Link to="/newsavings" state= {{account: user}}>Create a new savings profile</Link>
+            <Link to="/newsavings">Create a new savings profile</Link>
         </button>
         <button>
-            <Link to="/home" state= {{account:user}}>Return to homepage</Link>
+            <Link to="/home">Return to homepage</Link>
         </button>
     </div>
 )}
