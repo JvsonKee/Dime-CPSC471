@@ -46,8 +46,8 @@ const Transactions = () => {
             {transactions.map((transaction) => (
                 <TransactionItem key={transaction.transactionID}>
                     <h2>Title: {transaction.title}</h2>
-                    <h2>Payment method: {transaction.payment_method}</h2>
-                    <h2>Amount: {transaction.amount}</h2>
+                    <h2>Payment Method: {transaction.payment_method}</h2>
+                    <h2>Amount: ${transaction.amount}</h2>
                     <h2>Date: {transaction.tDay} / {transaction.tMonth} / {transaction.tYear}</h2>
                     <TransactionButton>
                         <Link to="/updatetransaction" state={{ transactionID: transaction.transactionID }}>Update</Link>

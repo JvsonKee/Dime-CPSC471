@@ -22,7 +22,7 @@ export const TransactionButton = styled.button`
     padding: 10px;
     margin: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-    background-color: #fff;
+    background-color: rgba(30, 216, 171, 0.50);
     color: #333;
     cursor: pointer;
     text-decoration: none;
