@@ -9,6 +9,9 @@ const TransactionNew = () => {
     const location = useLocation();
     const navigate = useNavigate();
 
+    const [payment, setPayments] = useState([])
+    const [transactions2, setTransactions2] = useState([])
+    let transactions = location.state.transactions
     const [invalidTitle, setInvalidTitle] = useState('');
     const [invalidAmount, setInvalidAmount] = useState('');
     const [paymentMethods, setPaymentMethods] = useState([]);
@@ -61,6 +64,31 @@ const TransactionNew = () => {
         setTransaction((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     };
 
+    function calculate() {
+        console.log(payment)
+        let fill_in = ""
+        for (let i = 0; i < payment.length; i++) {
+            if (payment[i].methodID === parseInt(transaction.payment_method)) {
+                fill_in = payment[i].methodType;
+                break;
+
+            }
+        }
+
+        let transaction_toadd = {
+            transactionID: transactions2[transactions2.length - 1].transactionID + 1,
+            tUserID: user.userID,
+            title: transaction.title,
+            payment_method: transaction.payment_method,
+            payment_name: fill_in,
+            amount: transaction.amount,
+            tDay: transaction.tDay,
+            tMonth: transaction.tMonth,
+            tYear: transaction.tYear
+        }
+        transactions.push(transaction_toadd)
+    }
+
     console.log(transaction)
 
     const handleClick = async (e) => {
@@ -68,12 +96,31 @@ const TransactionNew = () => {
         if (validForm()) {
             try {
                 await axios.post("http://localhost:8800/newtransaction/" + user.userID, transaction);
-                navigate('/transactions');
+                calculate()
+                navigate("/transactions", {state: {account: user, transactions: location.state.transactions}})
             } catch (err) {
                 console.log(err);
             }
         }
     };
+
+    useEffect(() => {
+        const fetchAllTransaction = async () => {
+            try{
+                const res = await axios.get("http://localhost:8800/transactions/" + user.userID)
+                setTransactions2(res.data)
+                console.log(res)
+                const res2 = await axios.get("http://localhost:8800/paymentmethodsdrop/" + user.userID)
+                setPayments(res2.data)
+                console.log(res2)
+            }catch(err){
+                console.log(err)
+            }
+        }
+
+        fetchAllTransaction()
+    }, [user.userID])
+
 
     return (
         <TransactionForm>
@@ -96,7 +143,7 @@ const TransactionNew = () => {
                 <Select onChange={handleChange} name="payment_method">
                     <option value="">Select Payment Method</option>
                     {paymentMethods.map((method) => (
-                        <option key={method.methodType} value={method.methodType}>
+                        <option key={method.methodID} value={method.methodID}>
                             {method.methodType}
                         </option>
                     ))}
