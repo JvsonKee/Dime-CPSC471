@@ -28,7 +28,6 @@ const Income = () => {
             try{
                 const res = await axios.get("http://localhost:8800/income/" + user.userID)
                 setIncome(res.data)
-                console.log(res)
             }catch(err){
                 console.log(err)
             }

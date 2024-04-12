@@ -1,29 +1,28 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import NavBar from '../../components/NavBar';
 import { ContentContainer, MainContainer, PageContainer, CardContainer } from '../../styles/Containers';
 import { useNavigate } from 'react-router-dom';
 import { Matrix, RectangleBox, SquareBox, TopBottom, VerticalBox, Top, Bottom } from './Home.styled';
 import { UserContext } from '../../App';
-import {useState} from 'react'
-import axios from 'axios'
-import {useEffect} from 'react'
+import axios from 'axios';
+import RecentTransactions from './RecentTransactions'
+import Incoming from './Incoming';
+import Calendar from './Calendar'
 
 const Home = () => {
 
     const [user, setUser] = useContext(UserContext)
+    const [transactions, setTransactions] = useState([])
+    const [incomes, setIncomes] = useState([])
+    const [payment, setPayments] = useState([])
+    const [categories, setCategories] = useState([])
+    const [budgets, setBudgets] = useState([])
 
     const navigate = useNavigate();
     
     const sendTo = (path) => {
-        navigate(path, {state: {account: user}})
+        navigate(path)
     }
-
-    const [transactions, setTransactions] = useState([])
-    const [payment, setPayments] = useState([])
-
-    const [categories, setCategories] = useState([])
-    const [budgets, setBudgets] = useState([])
-
 
     function calculate() {
         console.log(transactions)
@@ -68,6 +67,16 @@ const Home = () => {
             }
         }
         fetchAllTransaction()
+
+        const fetchAllIncome = async () => {
+            try{
+                const res = await axios.get("http://localhost:8800/income/" + user.userID)
+                setIncomes(res.data)
+            catch (err) { 
+                console.log(err)
+            }
+        }
+        fetchAllIncome()
         const fetchAllCategories = async () => {
             try{
                 const res = await axios.get("http://localhost:8800/categoriesdrop/" + user.userID)
@@ -78,7 +87,6 @@ const Home = () => {
             }
         }
         fetchAllCategories()
-
         const fetchAllBudgets = async () => {
             try{
                 const res = await axios.get("http://localhost:8800/budgets/" + user.userID)
@@ -93,7 +101,7 @@ const Home = () => {
 
     return (
     <PageContainer>
-        <NavBar account={user}/>
+        <NavBar/>
         <MainContainer>
             <ContentContainer>
                 <CardContainer>
@@ -102,10 +110,10 @@ const Home = () => {
                             Savings
                         </SquareBox>
                         <SquareBox onClick={() => sendTo('/income')}>
-                            Incomes
+                            <Incoming incomes={incomes}/>
                         </SquareBox>
                         <SquareBox>
-                            Calendar
+                            <Calendar transactions={transactions} />
                         </SquareBox>
                     </Top>
                     <Bottom>
@@ -119,7 +127,7 @@ const Home = () => {
                                 </RectangleBox>
                             </TopBottom>
                             <VerticalBox onClick = {() => calculate()}>
-                                Transactions
+                                <RecentTransactions transactions={transactions}/>
                             </VerticalBox>
                         </Matrix>
                     </Bottom>
