@@ -1,5 +1,4 @@
 import React, { useContext } from 'react'
-import {useLocation} from 'react-router-dom';
 import NavBar from '../../components/NavBar';
 import { ContentContainer, MainContainer, PageContainer, CardContainer } from '../../styles/Containers';
 import { useNavigate } from 'react-router-dom';
@@ -25,8 +24,6 @@ const Home = () => {
     const [categories, setCategories] = useState([])
     const [budgets, setBudgets] = useState([])
 
-    
-    const location = useLocation();
 
     function calculate() {
         console.log(transactions)
@@ -101,11 +98,11 @@ const Home = () => {
             <ContentContainer>
                 <CardContainer>
                     <Top>
-                        <SquareBox onClick={() => navigate("/savings", {state :{account: user}})}>
-                            Balance (dont click on this)
+                        <SquareBox onClick={() => sendTo("/savings")}>
+                            Savings
                         </SquareBox>
                         <SquareBox onClick={() => sendTo('/income')}>
-                            Incoming
+                            Incomes
                         </SquareBox>
                         <SquareBox>
                             Calendar
@@ -115,14 +112,14 @@ const Home = () => {
                         <Matrix>
                             <TopBottom>
                                 <RectangleBox onClick = {() => calculatebudget()}>
-                                    Budgets & Goals
+                                    Budgets
                                 </RectangleBox>
-                                <RectangleBox>
-                                    Premium Feature
+                                <RectangleBox onClick = {() => sendTo("/goals")}>
+                                    Goals
                                 </RectangleBox>
                             </TopBottom>
                             <VerticalBox onClick = {() => calculate()}>
-                                Recent Transactions
+                                Transactions
                             </VerticalBox>
                         </Matrix>
                     </Bottom>
