@@ -69,10 +69,10 @@ const Home = () => {
         fetchAllTransaction()
 
         const fetchAllIncome = async () => {
-            try{
+            try {
                 const res = await axios.get("http://localhost:8800/income/" + user.userID)
                 setIncomes(res.data)
-            catch (err) { 
+            } catch (err) { 
                 console.log(err)
             }
         }
