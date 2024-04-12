@@ -7,12 +7,14 @@ const GlobalStyle = createGlobalStyle`
         // black/blue theme
         --dime-green: #1ED8AB;
         --dime-dark-black: #303030;
-        --dark-grey: #9BA9B7;
+        --text-black: #393838;
+        --dark-grey: #7B8791;
         --light-grey: #ECEFFF;
     }
 
     body {
         background-color: var(--light-grey);
+        color: var(--text-black);
     }
 
     body, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a {

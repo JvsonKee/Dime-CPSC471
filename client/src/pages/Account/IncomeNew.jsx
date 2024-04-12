@@ -1,13 +1,13 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useNavigate } from "react-router-dom"
 import {useState} from 'react'
 import axios from 'axios'
 import {useLocation} from 'react-router-dom';
+import { UserContext } from '../../App';
 
 const IncomeNew = () => {
-
+    const [user, setUser] = useContext(UserContext)
     const location = useLocation();
-    let user = location.state.account;
 
     const [invalidIncomeSource, setInvalidIncomeSource] = useState('')
     const [invalidAmount, setInvalidAmount] = useState('')
@@ -72,7 +72,7 @@ const IncomeNew = () => {
         if (validForm()) {
             try{
                 await axios.post("http://localhost:8800/newincome/" + user.userID, income)
-                navigate("/income", {state: {account: user}})
+                navigate("/income")
             }catch (err) {
                 console.log(err)
             }

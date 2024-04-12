@@ -1,22 +1,24 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {useState} from 'react'
 import {useEffect} from 'react'
 import axios from 'axios'
 import { Link } from "react-router-dom"
 import {useLocation} from 'react-router-dom';
 import { useNavigate } from "react-router-dom"
+import { UserContext } from '../../App'
+import { TransactionsContainer, TransactionItem, TransactionButton, ButtonContainer, Title } from './Transactions.styled';
 
 const Transactions = () => {
+    const [user, setUser] = useContext(UserContext)
     const [transactions, setTransactions] = useState([])
 
     const navigate = useNavigate()
     const location = useLocation();
-    let user = location.state.account;
 
     const handleDelete = async(transaction) => {
         try{
             await axios.delete("http://localhost:8800/deletetransaction/" + transaction);
-            navigate("/transactions", {state: {account: user}})
+            navigate("/transactions")
         }catch(err) {
             console.log(err)
         }
@@ -38,31 +40,32 @@ const Transactions = () => {
         }
         fetchAllTransaction()
     },[user.userID])
-    return(
-        <div>
-            <h1>Transactions</h1>
-            <div className = "transactions">
-                {transactions.map((transactions)=>(
-                    <div className = "transactions" key={transactions.transactionID}>
-                        <h2>Title: {transactions.title}</h2>
-                        <h2>Payment method: {transactions.payment_method} </h2>
-                        <h2>Amount: {transactions.amount}</h2>
-                        <h2>Date: {transactions.tDay} / {transactions.tMonth} / {transactions.tYear}</h2>
-                        <button>
-                            <Link to="/updatetransaction" state= {{account: user, transactionID: transactions.transactionID}}>Update</Link>
-                        </button>
-                        <button onClick = {()=>handleDelete(transactions.transactionID)}>Delete</button>
-                        <button onClick = {()=>handleReceipt(transactions.transactionID)}>View receipts</button>
-                    </div>
-                ))}
-        </div>
-        <button>
-            <Link to="/newtransaction" state= {{account: user}}>Create a transaction</Link>
-        </button>
-        <button>
-            <Link to="/home" state= {{account: user}}>Return to home page</Link>
-        </button>
-    </div>
-)}
+    return (
+        <TransactionsContainer>
+            <Title>Transactions</Title>
+            {transactions.map((transaction) => (
+                <TransactionItem key={transaction.transactionID}>
+                    <h2>Title: {transaction.title}</h2>
+                    <h2>Payment Method: {transaction.payment_method}</h2>
+                    <h2>Amount: ${transaction.amount}</h2>
+                    <h2>Date: {transaction.tDay} / {transaction.tMonth} / {transaction.tYear}</h2>
+                    <TransactionButton>
+                        <Link to="/updatetransaction" state={{ transactionID: transaction.transactionID }}>Update</Link>
+                    </TransactionButton>
+                    <TransactionButton onClick={() => handleDelete(transaction.transactionID)}>Delete</TransactionButton>
+                    <TransactionButton onClick={() => handleReceipt(transaction.transactionID)}>View receipts</TransactionButton>
+                </TransactionItem>
+            ))}
+            <ButtonContainer>
+                <TransactionButton>
+                    <Link to="/newtransaction">New Transaction</Link>
+                </TransactionButton>
+                <TransactionButton>
+                    <Link to="/home">Return Home</Link>
+                </TransactionButton>
+            </ButtonContainer>
+        </TransactionsContainer>
+    );
+}
 
-export default Transactions
+export default Transactions;

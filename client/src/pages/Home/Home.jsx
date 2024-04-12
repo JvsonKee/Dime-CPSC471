@@ -1,16 +1,16 @@
-import React from 'react'
-import { Link } from "react-router-dom"
+import React, { useContext } from 'react'
 import {useLocation} from 'react-router-dom';
 import NavBar from '../../components/NavBar';
-import { ContentContainer, MainContainer, PageContainer, Content, CardContainer } from '../../styles/Containers';
+import { ContentContainer, MainContainer, PageContainer, CardContainer } from '../../styles/Containers';
 import { useNavigate } from 'react-router-dom';
 import { Matrix, RectangleBox, SquareBox, TopBottom, VerticalBox, Top, Bottom } from './Home.styled';
+import { UserContext } from '../../App';
 
 const Home = () => {
 
+    const [user, setUser] = useContext(UserContext)
+
     const navigate = useNavigate();
-    const location = useLocation();
-    let user = location.state.account;
     
     const sendTo = (path) => {
         navigate(path, {state: {account: user}})

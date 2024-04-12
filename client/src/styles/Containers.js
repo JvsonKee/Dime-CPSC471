@@ -31,7 +31,3 @@ export const CardContainer = styled.div`
     gap: 2%;
     width: 100%;
 `
-
-export const FlexColumn = styled.div`
-    display: flex;
-`

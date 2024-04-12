@@ -1,22 +1,23 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {useState} from 'react'
 import {useEffect} from 'react'
 import axios from 'axios'
 import { Link } from "react-router-dom"
 import {useLocation} from 'react-router-dom';
 import { useNavigate } from "react-router-dom"
+import { UserContext } from '../../App'
 
 const Income = () => {
+    const [user, setUser] = useContext(UserContext)
     const [income, setIncome] = useState([]);
     
     const navigate = useNavigate()
     const location = useLocation();
-    let user = location.state.account;
     
     const handleDelete = async(income) => {
         try{
             await axios.delete("http://localhost:8800/deleteincome/" + income);
-            navigate("/income", {state: {account: user}})
+            navigate("/income")
         }catch(err) {
             console.log(err)
         }
@@ -47,17 +48,17 @@ const Income = () => {
                         <h2>Last Received: {income.lastReceivedDay}/{income.lastReceivedMonth}/{income.lastReceivedYear}</h2>
                         <h2>Receive every: {income.receiveEvery}</h2>
                         <button>
-                            <Link to="/editincome" state= {{account: user, incomeID: income.incomeID}}>Edit</Link>
+                            <Link to="/editincome" state= {{incomeID: income.incomeID}}>Edit</Link>
                         </button>
                         <button onClick = {()=>handleDelete(income.incomeID)}>Delete</button>
                     </div>
                 ))}
         </div>
         <button>
-            <Link to="/newincome" state= {{account:user}}>Create a new income source</Link>
+            <Link to="/newincome">Create a new income source</Link>
         </button>
         <button>
-            <Link to="/account" state= {{account: user}}>Return to Account page</Link>
+            <Link to="/account">Return to Account page</Link>
         </button>
     </div>
 )}

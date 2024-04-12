@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import {
     Container,
     FormContainer,
@@ -9,7 +10,9 @@ import {
     LinkToLogin
 } from './CreateAccount.styled';
 
-const CreateAccount = ({ history }) => {
+const CreateAccount = () => {
+    const navigate = useNavigate();
+
     const [account, setAccount] = useState({
         fName: '',
         lName: '',
@@ -78,12 +81,38 @@ const CreateAccount = ({ history }) => {
         return valid;
     };
 
+    const checkValidEmail = async (e) => {
+        try {
+            const res =  await axios.get("http://localhost:8800/users");
+            console.log(res)
+            let emails = res.data;
+            
+            let existingEmail = false;
+
+            for (let i = 0; i < emails.length; i++) {
+        
+                if (emails[i].email === account.email) {
+                    existingEmail = true;
+                    setInvalidEmail("Account already exists with this email.")
+                    break;
+                }
+            }
+
+            if (existingEmail === false) {
+                handleClick(e);
+            }
+
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
     const handleClick = async (e) => {
         e.preventDefault();
         if (validForm()) {
             try {
                 await axios.post('http://localhost:8800/createaccount', account);
-                history.push('/');
+                navigate('/home');
             } catch (err) {
                 console.log(err);
             }
@@ -142,7 +171,7 @@ const CreateAccount = ({ history }) => {
                     onChange={handleChange}
                 />
                 {invalidStatus && <div>{invalidStatus}</div>}
-                <Button onClick={handleClick}>Create Account</Button>
+                <Button onClick={checkValidEmail}>Create Account</Button>
                 <LinkToLogin to="/">Already have an account? Login here.</LinkToLogin>
             </FormContainer>
         </Container>

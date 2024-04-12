@@ -25,6 +25,14 @@ app.get("/", (req,res)=>{
     })
 })
 
+app.get("/users", (req, res) => {
+    const q = "SELECT email from users"
+    db.query(q, [req.query.email], (err, data) => {
+        if (err) return res.json(err);
+        return res.json(data);
+    })
+})
+
 app.post("/createaccount", (req,res)=>{
     const q = "INSERT INTO users (`fName`,`lName`, `email`,`password`, `premium`) VALUES (?)"
     const values = [
@@ -44,7 +52,7 @@ app.post("/createaccount", (req,res)=>{
 app.put("/updateemail/:ID", (req,res)=>{
     const user_ID = req.params.ID
     const q = "UPDATE users SET `email` = ? WHERE userID = ?"
-    db.query(q, [req.body.email,user_ID], (err,data) => {
+    db.query(q, [req.body.first,user_ID], (err,data) => {
         if (err) return res.json(err)
         return res.json(data)
     })
@@ -53,7 +61,7 @@ app.put("/updateemail/:ID", (req,res)=>{
 app.put("/changepassword/:ID", (req,res)=>{
     const user_ID = req.params.ID
     const q = "UPDATE users SET `password` = ? WHERE userID = ?"
-    db.query(q, [req.body.password,user_ID], (err,data) => {
+    db.query(q, [req.body.first,user_ID], (err,data) => {
         if (err) return res.json(err)
         return res.json(data)
     })

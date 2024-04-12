@@ -1,18 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { UserContext } from '../../App';
+import { TransactionForm, Title, FormGroup, Label, Input, Select, Button } from './TransactionNew.styled';
 
 const TransactionNew = () => {
+    const [user, setUser] = useContext(UserContext);
     const location = useLocation();
     const navigate = useNavigate();
-    const user = location.state.account;
 
     const [invalidTitle, setInvalidTitle] = useState('');
     const [invalidAmount, setInvalidAmount] = useState('');
     const [paymentMethods, setPaymentMethods] = useState([]);
     const [transaction, setTransaction] = useState({
         title: '',
-        payment_method:'',
+        payment_method: '',
         amount: '',
         tDay: '',
         tMonth: '',
@@ -65,8 +67,8 @@ const TransactionNew = () => {
         e.preventDefault();
         if (validForm()) {
             try {
-                await axios.post("http://localhost:8800/newtransaction/"+ user.userID, transaction);
-                navigate('/transactions', { state: { account: user } });
+                await axios.post("http://localhost:8800/newtransaction/" + user.userID, transaction);
+                navigate('/transactions');
             } catch (err) {
                 console.log(err);
             }
@@ -74,53 +76,59 @@ const TransactionNew = () => {
     };
 
     return (
-        <div>
-            <div className="transactionForm">
-                <h1>Enter new transaction information.</h1>
+        <TransactionForm>
+            <Title>Create New Transaction</Title>
 
-                <h1>Title</h1>
+            <FormGroup>
+                <Label>Title</Label>
                 {invalidTitle && <div>{invalidTitle}</div>}
-                <input type="text" onChange={handleChange} name="title" />
+                <Input type="text" onChange={handleChange} name="title" />
+            </FormGroup>
 
-                <h1>Amount</h1>
+            <FormGroup>
+                <Label>Amount</Label>
                 {invalidAmount && <div>{invalidAmount}</div>}
-                <input type="number" onChange={handleChange} name="amount" />
+                <Input type="number" onChange={handleChange} name="amount" />
+            </FormGroup>
 
-
-                <h1>Payment Method</h1>
-                <select onChange={handleChange} name = "payment_method">
+            <FormGroup>
+                <Label>Payment Method</Label>
+                <Select onChange={handleChange} name="payment_method">
                     <option value="">Select Payment Method</option>
                     {paymentMethods.map((method) => (
                         <option key={method.methodType} value={method.methodType}>
                             {method.methodType}
                         </option>
                     ))}
-                </select>
+                </Select>
+            </FormGroup>
 
-                <h1>Date</h1>
+            <FormGroup>
+                <Label>Date</Label>
                 <div>
-                    <select onChange={handleChange} name="tDay">
+                    <Select onChange={handleChange} name="tDay">
                         <option value="">Day</option>
                         {days.map((day) => (
                             <option key={day} value={day}>{day}</option>
                         ))}
-                    </select>
-                    <select onChange={handleChange} name="tMonth">
+                    </Select>
+                    <Select onChange={handleChange} name="tMonth">
                         <option value="">Month</option>
                         {months.map((month) => (
                             <option key={month} value={month}>{month}</option>
                         ))}
-                    </select>
-                    <select onChange={handleChange} name="tYear">
+                    </Select>
+                    <Select onChange={handleChange} name="tYear">
                         <option value="">Year</option>
                         {years.map((year) => (
                             <option key={year} value={year}>{year}</option>
                         ))}
-                    </select>
+                    </Select>
                 </div>
-            </div>
-            <button onClick={handleClick}>Submit</button>
-        </div>
+            </FormGroup>
+
+            <Button onClick={handleClick}>Submit</Button>
+        </TransactionForm>
     );
 };
 
