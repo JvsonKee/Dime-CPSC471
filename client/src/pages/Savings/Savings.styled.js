@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
-export const TransactionsContainer = styled.div`
+export const SavingsContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
 `;
 
-export const TransactionItem = styled.div`
+export const SavingsItem = styled.div`
     width: calc(33.33% - 225px); /* Adjust the width as needed */
     border: 1px solid #ccc;
     border-radius: 15px;
@@ -16,7 +16,7 @@ export const TransactionItem = styled.div`
     background-color: #f9f9f9;
 `;
 
-export const TransactionButton = styled.button`
+export const SavingsButton = styled.button`
     border: 1px solid #ccc;
     border-radius: 15px;
     padding: 10px;
@@ -26,10 +26,7 @@ export const TransactionButton = styled.button`
     color: #333;
     cursor: pointer;
     text-decoration: none;
-    font-size: 15px; /* Adjust the font size as needed */
-    &:hover {
-        background-color: #00cc9f;
-    }
+    font-size: 15px; /* Adjust the font size as needed *//
 `;
 
 export const ButtonContainer = styled.div`
@@ -41,7 +38,18 @@ export const ButtonContainer = styled.div`
     right: 0;
 `;
 
+export const Button = styled(SavingsButton)`
+background-color: rgba(30, 216, 171, 0.50);
+    color: #fff;
+    margin-left: 10px;
+
+    &:hover {
+        background-color: #00cc9f;
+    }
+`;
+
 export const Title = styled.h1`
     text-align: center;
+    margin-bottom: 20px;
     width: 100%;
 `;
