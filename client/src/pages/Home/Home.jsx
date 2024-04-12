@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import RecentTransactions from './RecentTransactions'
 import Incoming from './Incoming';
+import Calendar from './Calendar'
 
 const Home = () => {
 
@@ -26,7 +27,6 @@ const Home = () => {
             try{
                 const res = await axios.get("http://localhost:8800/transactions/" + user.userID)
                 setTransactions(res.data)
-                console.log(res)
             }catch(err){
                 console.log(err)
             }
@@ -39,15 +39,12 @@ const Home = () => {
             try{
                 const res = await axios.get("http://localhost:8800/income/" + user.userID)
                 setIncomes(res.data)
-                console.log(res)
             }catch(err){
                 console.log(err)
             }
         }
         fetchAllIncome()
     },[user.userID])
-
-    console.log({transactions})
 
     return (
     <PageContainer>
@@ -63,7 +60,7 @@ const Home = () => {
                             <Incoming incomes={incomes}/>
                         </SquareBox>
                         <SquareBox>
-                            Calendar
+                            <Calendar transactions={transactions} />
                         </SquareBox>
                     </Top>
                     <Bottom>

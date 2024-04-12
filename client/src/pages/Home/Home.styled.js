@@ -93,17 +93,17 @@ export const TransactionTop = styled.div`
 `   
 
 export const TransactionTitle = styled.div`
-    font-size: 20px;
+    font-size: 18px;
 `
 
 export const TransactionAmount = styled.div`
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
     color: #FF7175;
 `
 
 export const TransactionDate = styled.div`
-    font-size: 14px;
+    font-size: 13px;
     color: var(--dark-grey);
 `
 
@@ -116,11 +116,11 @@ export const IncomeItem = styled.div`
 `
 
 export const IncomeName = styled.div`
-    font-size: 20px;
+    font-size: 18px;
 `
 
 export const IncomeAmount = styled.div`
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
     color: var(--dime-green);
 `
