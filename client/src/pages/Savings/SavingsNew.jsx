@@ -3,6 +3,14 @@ import { useNavigate } from "react-router-dom"
 import {useState} from 'react'
 import axios from 'axios'
 import { UserContext } from '../../App';
+import {
+    SavingsForm,
+    FormGroup,
+    Label,
+    Input,
+    Button,
+    Title,
+} from './SavingsUpdate.styled';
 
 const SavingsNew = () => {
     const [user, setUser] = useContext(UserContext)
@@ -51,25 +59,38 @@ const SavingsNew = () => {
     }
     console.log(savings)
 
-    return <div>
-    <div className = 'savingsForm'>
-        <h1>Enter new savings information.</h1>
+    return (
+        <SavingsForm>
+            <Title>Create New Savings</Title>
 
-        <h1>Title *</h1>
-        {invalidTitle && <div>{invalidTitle}</div>}
-        <input type = "text" onChange = {handleChange} name = "title"/>
+            <FormGroup>
+                <Label>Title *</Label>
+                {invalidTitle && <div>{invalidTitle}</div>}
+                <Input type="text" onChange={handleChange} name="title" />
+            </FormGroup>
 
-        <h1>Description</h1>
-        <input type = "text" onChange = {handleChange} name = "description"/>
+            <FormGroup>
+                <Label>Description</Label>
+                <Input
+                    type="text"
+                    onChange={handleChange}
+                    name="description"
+                />
+            </FormGroup>
 
-        <h1>Amount *</h1>
-        {invalidAmount && <div>{invalidAmount}</div>}
-        <input type = "number" onChange = {handleChange} name = "amount"/>
-    </div>
-    <button onClick = {handleClick}>
-        Submit
-    </button>
-    </div>
-}
+            <FormGroup>
+                <Label>Amount *</Label>
+                {invalidAmount && <div>{invalidAmount}</div>}
+                <Input
+                    type="number"
+                    onChange={handleChange}
+                    name="amount"
+                />
+            </FormGroup>
+
+            <Button onClick={handleClick}>Submit</Button>
+        </SavingsForm>
+    );
+};
 
 export default SavingsNew

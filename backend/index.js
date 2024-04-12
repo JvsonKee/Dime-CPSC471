@@ -224,6 +224,15 @@ app.get("/savings/:ID", (req,res)=>{
     })
 })
 
+app.get("/prefillsavings/:ID", (req,res)=>{
+    const savings_ID = req.params.ID
+    const q = "SELECT title, description, amount FROM savings WHERE savingsID = ?"
+    db.query(q, [savings_ID], (err,data) => {
+        if (err) return res.json(err)
+        return res.json(data)
+    })
+})
+
 app.put("/updatesavings/:ID", (req,res)=>{
     const savings_ID = req.params.ID
     const q = "UPDATE savings SET `title` = ?,  `description` = ?, `amount` = ? WHERE savingsID = ? "
@@ -350,11 +359,97 @@ app.post("/newreceipt/:ID", (req,res)=>{
 
 app.get("/paymentmethodsdrop/:ID", (req,res)=>{
     const user_ID = req.params.ID
-    const q = "SELECT methodType FROM payment_methods WHERE pUserID = ?"
+    const q = "SELECT methodID, methodType FROM payment_methods WHERE pUserID = ?"
     db.query(q, [user_ID], (err,data) => {
         if (err) return res.json(err)
         return res.json(data)
     })
+})
+
+app.post("/createcategory/:ID", (req,res)=>{
+    const q = "INSERT INTO category (`cUserID`, `categoryName`) VALUES (?)"
+    const values = [
+        req.params.ID,
+        req.body.categoryName
+    ]
+    db.query(q,[values],(err,data)=> {
+        if (err) return res.json(err)
+        return res.json(data)
+    })
+})
+
+app.put("/updatecategory/:ID", (req,res)=>{
+    const categoryID = req.params.ID
+    const q = "UPDATE category SET `categoryName` = ? WHERE categoryID = ? "
+    db.query(q, [req.body.categoryName, categoryID], (err,data) => {
+        if (err) return res.json(err)
+        return res.json(data)
+    })
+})
+
+app.get("/categoriesdrop/:ID", (req,res)=>{
+    const user_ID = req.params.ID
+    const q = "SELECT categoryID, categoryName FROM category WHERE cUserID = ?"
+    db.query(q, [user_ID], (err,data) => {
+        if (err) return res.json(err)
+        return res.json(data)
+    })
+})
+
+app.delete("/deletecategory/:ID", (req,res) =>{
+    const categoryID = req.params.ID;
+    const q = "DELETE FROM category where categoryID = ? "
+    db.query(q, [categoryID], (err,data) => {
+        if (err) return res.json(err);
+        return res.json(data);
+    });
+})
+
+app.post("/createbudget/:ID", (req,res)=>{
+    const q = "INSERT INTO budget (`bUserID`,`description`, `category`, `amount`, `startDay`, `startMonth`, `startYear`, `endDay`, `endMonth`, `endYear`) VALUES (?)"
+    const values = [
+        req.params.ID,
+        req.body.description,
+        req.body.category,
+        req.body.amount,
+        req.body.startDay,
+        req.body.startMonth,
+        req.body.startYear,
+        req.body.endDay,
+        req.body.endMonth,
+        req.body.endYear
+    ]
+    db.query(q,[values],(err,data)=> {
+        if (err) return res.json(err)
+        return res.json(data)
+    })
+})
+
+app.put("/updatebudget/:ID", (req,res)=>{
+    const budget_ID = req.params.ID
+    const q = "UPDATE budget SET `description` = ?, `category` = ?, `amount` = ?, `startDay` = ?, `startMonth` = ?, `startYear` = ?, `endDay` = ?, `endMonth` = ?, `endYear` = ? WHERE budgetID = ? "
+    db.query(q, [req.body.description,req.body.category, req.body.amount, req.body.startDay, req.body.startMonth, req.body.startYear, req.body.endDay, req.body.endMonth, req.body.endYear, budget_ID], (err,data) => {
+        if (err) return res.json(err)
+        return res.json(data)
+    })
+})
+
+app.get("/budgets/:ID", (req,res)=>{
+    const user_ID = req.params.ID
+    const q = "SELECT * FROM budget WHERE bUserID = ?"
+    db.query(q, [user_ID], (err,data) => {
+        if (err) return res.json(err)
+        return res.json(data)
+    })
+})
+
+app.delete("/deletebudget/:ID", (req,res) =>{
+    const budgetID = req.params.ID;
+    const q = "DELETE FROM budget where budgetID = ? "
+    db.query(q, [budgetID], (err,data) => {
+        if (err) return res.json(err);
+        return res.json(data);
+    });
 })
 
 app.listen(8800, ()=> {

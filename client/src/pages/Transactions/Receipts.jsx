@@ -1,23 +1,22 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import {useState} from 'react'
 import {useEffect} from 'react'
 import axios from 'axios'
 import { Link } from "react-router-dom"
 import {useLocation} from 'react-router-dom';
 import { useNavigate } from "react-router-dom"
-import { UserContext } from '../../App'
 
 const Receipts = () => {
-    const [user, setUser] = useContext(UserContext)
     const [receipts, setReceipts] = useState([])
 
     const navigate = useNavigate()
     const location = useLocation();
+    let user = location.state.account;
 
     const handleDelete = async(receipt) => {
         try{
             await axios.delete("http://localhost:8800/deletereceipt/" + receipt);
-            navigate("/receipts", {state: {transactionID: location.state.transactionID}})
+            navigate("/receipts", {state: {account: user, transactionID: location.state.transactionID, transactions: location.state.transactions}})
         }catch(err) {
             console.log(err)
         }
@@ -43,17 +42,17 @@ const Receipts = () => {
                     <div className = "receipts" key={receipts.receiptID}>
                         <h2>Receipts</h2>
                         <button>
-                            <Link to="/updatereceipt" state= {{transactionID: location.state.transactionID, receiptID: receipts.receiptID}}>Update</Link>
+                            <Link to="/updatereceipt" state= {{account: user, transactionID: location.state.transactionID, receiptID: receipts.receiptID, transactions: location.state.transactions}}>Update</Link>
                         </button>
                         <button onClick = {()=>handleDelete(receipts.receiptID)}>Delete</button>
                     </div>
                 ))}
         </div>
         <button>
-            <Link to="/newreceipt" state= {{transactionID: location.state.transactionID}}>Upload a new receipt</Link>
+            <Link to="/newreceipt" state= {{account: user, transactionID: location.state.transactionID, transactions: location.state.transactions}}>Upload a new receipt</Link>
         </button>
         <button>
-            <Link to="/transactions">Return to Transactions</Link>
+            <Link to="/transactions" state= {{account: user, transactions: location.state.transactions}}>Return to Transactions</Link>
         </button>
     </div>
 )}
