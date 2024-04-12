@@ -6,3 +6,6 @@ export let years = []
 for (let i = currentYear; i < currentYear + 10; i++) {
     years.push(i)
 }
+
+
+export const WEEKDAYS = ["S", "M", "T", "W", "T", "F", "S"]
