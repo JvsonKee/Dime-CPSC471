@@ -17,6 +17,7 @@ const Transactions = () => {
     const handleDelete = async(transaction) => {
         try{
             await axios.delete("http://localhost:8800/deletetransaction/" + transaction);
+            console.log(transaction)
             let j = 0
             for (let i = 0; i < location.state.transactions.length;  i++) {
                 if (location.state.transactions[i].transactionID === parseInt(transaction)) {
