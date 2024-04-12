@@ -5,6 +5,7 @@ export const InformationContainer = styled.div`
     flex-direction: column;
     gap: 5%;
     height: 100%;
+    margin-top: 10%;
 `
 
 export const NameEmailWrapper = styled.div`

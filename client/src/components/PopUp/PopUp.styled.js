@@ -27,7 +27,7 @@ export const PopUpContainer = styled.div`
 
 export const FormContainer = styled.div`
     display: flex;
-    flex-direction: column;
+    flex-direction: column; 
     justify-content: center;
     gap: 8%;
     width: 80%;
@@ -88,4 +88,94 @@ export const CloseButton = styled(FontAwesomeIcon)`
 
 export const ConfirmButton = styled(SubmitButton)`
     width: 50%;
+`
+
+export const DropdownContainer = styled.div`
+    display: flex;
+    justify-content: space-evenly;
+`
+
+export const DropWrapper = styled.div`
+    display: flex;
+    gap: 5px;
+`
+
+export const Dropdown = styled.select`
+
+`
+
+export const InfoWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+`
+
+export const InfoMatrix = styled.div`
+    display: flex;
+    justify-content: center;
+    gap: 10%;
+    flex-direction: column;
+    height: 33%;
+    padding-left: 15px;
+    font-size: 15px;
+    background-color: var(--light-grey);
+    transition: 0.3s ease-in-out;
+    
+    &:hover {
+        cursor: pointer;
+        background-color: #D4D9F0;
+    }
+`
+
+export const InfoHeader = styled.div`
+    font-weight: bold;
+`
+
+export const InfoContent = styled.div`
+
+`
+
+export const EditCardContainer = styled.div`
+    display: flex;
+`
+
+export const EditWrapper = styled.div`
+
+`
+
+export const SubmitEditButton = styled.button`
+
+`
+
+export const Top = styled.div`
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+`
+
+export const Bottom = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+`
+
+export const DeleteCardButton = styled.button`
+    border: none;
+    width: 90px;
+    height: 25px; 
+    color: white;
+    font-size: 12px;
+    border-radius: 20px;
+    background-color: var(--red);
+    transition: 0.3s ease-in-out;
+   
+   &:hover {
+        cursor: pointer;
+        background-color: #ED5353;
+    }
 `

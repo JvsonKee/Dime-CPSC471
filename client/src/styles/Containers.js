@@ -10,6 +10,7 @@ export const MainContainer = styled.div`
     align-items: center;
     width: 80%;
     height: 100vh;
+    /* overflow: hidden; */
 `
 
 export const ContentContainer = styled.div`
