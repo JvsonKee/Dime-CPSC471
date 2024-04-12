@@ -60,7 +60,7 @@ export const Bottom = styled.div`
     height: 65%;
 `
 
-export const RecentTransactionsContainer = styled.div`
+export const ColumnBoxContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 5%;
@@ -72,7 +72,7 @@ export const RecentTransactionsContainer = styled.div`
 export const BoxHeader = styled.h2`
 `
 
-export const RecentTransactionsWrapper = styled.div`
+export const BoxContentWrapper = styled.div`
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -84,7 +84,6 @@ export const TransactionItem = styled.div`
     flex-direction: column;
     justify-content: space-evenly;
     height: 15%;
-    /* background-color: pink; */
     border-bottom: 1px solid var(--dark-grey);
 `
 
@@ -105,4 +104,22 @@ export const TransactionAmount = styled.div`
 export const TransactionDate = styled.div`
     font-size: 14px;
     color: var(--dark-grey);
+`
+
+export const IncomeItem = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 20%;
+    border-bottom: 1px solid var(--dark-grey);
+`
+
+export const IncomeName = styled.div`
+    font-size: 20px;
+`
+
+export const IncomeAmount = styled.div`
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--dime-green);
 `

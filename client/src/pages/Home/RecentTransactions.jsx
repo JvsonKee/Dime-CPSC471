@@ -1,11 +1,11 @@
-import { BoxHeader, RecentTransactionsContainer, RecentTransactionsWrapper, TransactionDate, TransactionItem, TransactionTitle, TransactionAmount, TransactionTop } from "./Home.styled"
+import { BoxHeader, ColumnBoxContainer, BoxContentWrapper, TransactionDate, TransactionItem, TransactionTitle, TransactionAmount, TransactionTop } from "./Home.styled"
 
 const RecentTransactions = ({transactions}) => {
     console.log({transactions})
     return (
-        <RecentTransactionsContainer>
+        <ColumnBoxContainer>
             <BoxHeader>Recent Transactions</BoxHeader>
-            <RecentTransactionsWrapper>
+            <BoxContentWrapper>
                 {
                     transactions.map((transaction, key) => (
                         <TransactionItem key={key}>
@@ -17,8 +17,8 @@ const RecentTransactions = ({transactions}) => {
                         </TransactionItem>
                     ))
                 }
-            </RecentTransactionsWrapper>
-        </RecentTransactionsContainer>
+            </BoxContentWrapper>
+        </ColumnBoxContainer>
     )
 }
 

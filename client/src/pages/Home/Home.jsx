@@ -7,11 +7,13 @@ import { UserContext } from '../../App';
 import { useEffect } from 'react';
 import axios from 'axios';
 import RecentTransactions from './RecentTransactions'
+import Incoming from './Incoming';
 
 const Home = () => {
 
     const [user, setUser] = useContext(UserContext)
     const [transactions, setTransactions] = useState([])
+    const [incomes, setIncomes] = useState([])
 
     const navigate = useNavigate();
     
@@ -32,6 +34,19 @@ const Home = () => {
         fetchAllTransaction()
     },[user.userID])
 
+    useEffect(() => {
+        const fetchAllIncome = async () => {
+            try{
+                const res = await axios.get("http://localhost:8800/income/" + user.userID)
+                setIncomes(res.data)
+                console.log(res)
+            }catch(err){
+                console.log(err)
+            }
+        }
+        fetchAllIncome()
+    },[user.userID])
+
     console.log({transactions})
 
     return (
@@ -45,7 +60,7 @@ const Home = () => {
                             Balance (dont click on this)
                         </SquareBox>
                         <SquareBox onClick={() => sendTo('/income')}>
-                            Incoming
+                            <Incoming incomes={incomes}/>
                         </SquareBox>
                         <SquareBox>
                             Calendar
