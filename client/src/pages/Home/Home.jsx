@@ -1,24 +1,42 @@
-import React, { useContext } from 'react'
-import {useLocation} from 'react-router-dom';
+import React, { useContext, useState } from 'react'
 import NavBar from '../../components/NavBar';
 import { ContentContainer, MainContainer, PageContainer, CardContainer } from '../../styles/Containers';
 import { useNavigate } from 'react-router-dom';
 import { Matrix, RectangleBox, SquareBox, TopBottom, VerticalBox, Top, Bottom } from './Home.styled';
 import { UserContext } from '../../App';
+import { useEffect } from 'react';
+import axios from 'axios';
+import RecentTransactions from './RecentTransactions'
 
 const Home = () => {
 
     const [user, setUser] = useContext(UserContext)
+    const [transactions, setTransactions] = useState([])
 
     const navigate = useNavigate();
     
     const sendTo = (path) => {
-        navigate(path, {state: {account: user}})
+        navigate(path)
     }
+
+    useEffect(() => {
+        const fetchAllTransaction = async () => {
+            try{
+                const res = await axios.get("http://localhost:8800/transactions/" + user.userID)
+                setTransactions(res.data)
+                console.log(res)
+            }catch(err){
+                console.log(err)
+            }
+        }
+        fetchAllTransaction()
+    },[user.userID])
+
+    console.log({transactions})
 
     return (
     <PageContainer>
-        <NavBar account={user}/>
+        <NavBar/>
         <MainContainer>
             <ContentContainer>
                 <CardContainer>
@@ -44,7 +62,7 @@ const Home = () => {
                                 </RectangleBox>
                             </TopBottom>
                             <VerticalBox onClick={() => sendTo('/transactions')}>
-                                Recent Transactions
+                                <RecentTransactions transactions={transactions}/>
                             </VerticalBox>
                         </Matrix>
                     </Bottom>

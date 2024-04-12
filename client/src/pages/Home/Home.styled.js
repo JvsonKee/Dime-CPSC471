@@ -27,6 +27,9 @@ export const RectangleBox = styled(CardBase)`
 `
 
 export const VerticalBox = styled(CardBase)`
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 28%;
 `
 
@@ -55,4 +58,51 @@ export const Bottom = styled.div`
     display: flex;
     width: 100%;
     height: 65%;
+`
+
+export const RecentTransactionsContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 5%;
+    width: 95%;
+    height: 95%;
+`
+
+
+export const BoxHeader = styled.h2`
+`
+
+export const RecentTransactionsWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: scroll;
+`
+
+export const TransactionItem = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 15%;
+    /* background-color: pink; */
+    border-bottom: 1px solid var(--dark-grey);
+`
+
+export const TransactionTop = styled.div`
+    display: flex;
+    justify-content: space-between;
+`   
+
+export const TransactionTitle = styled.div`
+    font-size: 20px;
+`
+
+export const TransactionAmount = styled.div`
+    font-size: 20px;
+    font-weight: bold;
+`
+
+export const TransactionDate = styled.div`
+    font-size: 14px;
+    color: var(--dark-grey);
 `
