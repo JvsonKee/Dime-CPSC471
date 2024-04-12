@@ -1,7 +1,7 @@
 import { BoxHeader, ColumnBoxContainer, BoxContentWrapper, TransactionDate, TransactionItem, TransactionTitle, TransactionAmount, TransactionTop } from "./Home.styled"
 
 const RecentTransactions = ({transactions}) => {
-    console.log({transactions})
+
     return (
         <ColumnBoxContainer>
             <BoxHeader>Recent Transactions</BoxHeader>

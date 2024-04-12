@@ -2,7 +2,6 @@ import { BoxContentWrapper, BoxHeader, ColumnBoxContainer, IncomeAmount, IncomeI
 
 const Incoming = ({incomes})  => {
 
-    console.log({incomes})
     return (
         <ColumnBoxContainer>
             <BoxHeader>Incoming</BoxHeader>
