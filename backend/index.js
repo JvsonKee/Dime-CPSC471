@@ -274,6 +274,15 @@ app.get("/transactions/:ID", (req,res)=>{
     })
 })
 
+app.get("/monthlytransactions/:ID", (req, res) => {
+    const user_ID = req.params.ID
+    const q = "SELECT * FROM transactions WHERE tUserID = ? AND tMonth = 4"
+    db.query(q, [user_ID], (err, data) => {
+        if (err) return res.json(err)
+        return res.json(data)
+    })
+})
+
 app.post("/newtransaction/:ID", (req,res)=>{
     const q = "INSERT INTO transactions (`tUserID`,`title`, `payment_method`, `amount`, `tDay`, `tMonth`, `tYear`) VALUES (?)"
     const values = [
