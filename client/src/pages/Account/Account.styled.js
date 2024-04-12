@@ -17,7 +17,7 @@ export const ProfileContainer = styled.div`
 `
 
 export const ProfileHeader = styled.h1`
-
+    /* align-self: flex-start;/ */
 `
 
 export const AccountContentContainer = styled.div`
@@ -37,9 +37,12 @@ export const Left = styled.div`
 
 export const Right = styled.div`
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    width: 70%;
+    /* justify-content: center; */
+    width: 78%;
+    overflow: scroll;
+    /* background-color: green; */
 `
 
 export const AccountNav = styled.div`
@@ -77,8 +80,12 @@ export const LogoutLink = styled(Link)`
 `
 
 export const MainContent = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 8%;
     width: 90%;
     height: 90%;
+    /* background-color: pink; */
 `
 
 export const Icon = styled(FontAwesomeIcon)`

@@ -10,6 +10,7 @@ const GlobalStyle = createGlobalStyle`
         --text-black: #393838;
         --dark-grey: #7B8791;
         --light-grey: #ECEFFF;
+        --red: #EC7474;
     }
 
     body {

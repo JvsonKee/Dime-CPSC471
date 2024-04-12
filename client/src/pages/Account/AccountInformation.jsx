@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { InfoHeader, InfoMatrix, InformationContainer, Info, AccountInfoButton, ButtonContainer, StatusHeader, NameEmailWrapper } from "./AccountInformation.styled"
 import PopUp from "../../components/PopUp/PopUp";
 import { UserContext } from "../../App";
+import { ProfileHeader } from "./Account.styled";
 
 const AccountInformation = () => {
     const [user, setUser] = useContext(UserContext)
@@ -38,6 +39,8 @@ const AccountInformation = () => {
 
     return (
         <InformationContainer>
+            <ProfileHeader>Hello, {user.fName.charAt(0).toUpperCase() + user.fName.slice(1)}</ProfileHeader>
+
             {popUp ? <PopUp mode={mode} popUp={handlePopUp}/> : null}
             {user.premium === "y" ? <StatusHeader style={{color: "var(--dime-green)"}}>Premium</StatusHeader> : user.premium === "n" ? <StatusHeader style={{color: "#5C5959"}}>Standard</StatusHeader> : null}
            

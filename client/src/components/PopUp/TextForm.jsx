@@ -116,8 +116,8 @@ const TextForm = ( {mode, popUp} ) => {
 
     return (
         <FormContainer>
-            <TextInput onChange={handleChange} placeholder={newString} name="first"/>
-            <TextInput onChange={handleChange} placeholder={confirmString} name="second"/>
+            <TextInput type="text" onChange={handleChange} placeholder={newString} name="first"/>
+            <TextInput type="text" onChange={handleChange} placeholder={confirmString} name="second"/>
             {error ? <div>{error}</div> : null}
             <SubmitButton onClick={checkValidEmail}>Submit</SubmitButton>
         </FormContainer>
