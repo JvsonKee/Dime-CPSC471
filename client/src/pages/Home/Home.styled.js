@@ -99,7 +99,7 @@ export const TransactionTitle = styled.div`
 export const TransactionAmount = styled.div`
     font-size: 20px;
     font-weight: bold;
-    color: #EC7474;
+    color: #FF7175;
 `
 
 export const TransactionDate = styled.div`
