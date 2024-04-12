@@ -19,9 +19,9 @@ const UpdateSavings = () => {
     const [invalidTitle, setInvalidTitle] = useState('');
     const [invalidAmount, setInvalidAmount] = useState('');
     const [savings, setSavings] = useState({
-        title: '',
-        description: '',
-        amount: '',
+        title: location.state.savingsPass[0].title,
+        description: location.state.savingsPass[0].description,
+        amount: location.state.savingsPass[0].amount
     });
 
     const navigate = useNavigate();
@@ -68,7 +68,7 @@ const UpdateSavings = () => {
             <FormGroup>
                 <Label>Title *</Label>
                 {invalidTitle && <div>{invalidTitle}</div>}
-                <Input type="text" onChange={handleChange} name="title" />
+                <Input type="text" onChange={handleChange} name="title" value = {savings.title}/>
             </FormGroup>
 
             <FormGroup>
@@ -77,6 +77,7 @@ const UpdateSavings = () => {
                     type="text"
                     onChange={handleChange}
                     name="description"
+                    value  = {savings.description}
                 />
             </FormGroup>
 
@@ -87,6 +88,7 @@ const UpdateSavings = () => {
                     type="number"
                     onChange={handleChange}
                     name="amount"
+                    value = {savings.amount}
                 />
             </FormGroup>
 
