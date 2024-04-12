@@ -28,6 +28,11 @@ import UpdateTransaction from "./pages/Transactions/TransactionUpdate";
 import Receipts from "./pages/Transactions/Receipts"
 import UpdateReceipt from "./pages/Transactions/ReceiptUpdate"
 import ReceiptNew from "./pages/Transactions/ReceiptNew"
+import CreateBudget from "./pages/Budgets/CreateBudget"
+import UpdateBudget from "./pages/Budgets/UpdateBudget"
+import CreateCategory from "./pages/Budgets/CreateCategory"
+import UpdateCategory from "./pages/Budgets/UpdateCategory"
+import Categories from "./pages/Budgets/Categories"
 import GlobalStyle from "./styles/Global";
 import { createContext } from "react";
 import { useState } from "react";
@@ -72,6 +77,11 @@ function App() {
 					<Route path = "/receipts" element={<Receipts/>}/>
 					<Route path = "/updatereceipt" element={<UpdateReceipt/>}/>
 					<Route path = "/newreceipt" element={<ReceiptNew/>}/>
+					<Route path = "/createbudget" element = {<CreateBudget/>}/>
+					<Route path = "/updatebudget" element={<UpdateBudget/>}/>
+					<Route path = "/createcategory" element={<CreateCategory/>}/>
+					<Route path = "/updatecategory" element={<UpdateCategory/>}/>
+					<Route path = "/categories" element = {<Categories/>}/>
 				</Routes>
 			</BrowserRouter>
 		</UserContext.Provider>
