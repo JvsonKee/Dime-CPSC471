@@ -11,7 +11,7 @@ const Incoming = ({incomes})  => {
                     incomes.map((income, key) => (
                         <IncomeItem key={key}>
                             <IncomeName>{income.incomeSource}</IncomeName>
-                            <IncomeAmount>+ ${income.incomeAmount}</IncomeAmount>
+                            <IncomeAmount>${income.incomeAmount}</IncomeAmount>
                         </IncomeItem>
                     ))
                 }
