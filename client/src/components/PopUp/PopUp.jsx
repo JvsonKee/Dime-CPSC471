@@ -1,15 +1,12 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { CloseButton, PopUpContainer, PopUpWrapper } from "./PopUp.styled"
 import TextForm from "./TextForm";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import ConfirmForm from "./ConfirmForm";
 import PaymentMethodForm from "./PaymentMethodForm";
 import EditPaymentForm from "./EditPaymentForm";
-import { PaymentContext } from "../../pages/Account/PaymentMethods";
 
-const PopUp = ( {popUp, mode, data, onUpdate} ) => {
-
-    const [paymentMethods, setPaymentMethods] = useContext(PaymentContext)
+const PopUp = ( {popUp, mode, data} ) => {
     
     const [isOpen, setIsOpen] = useState(true);
 
