@@ -1,13 +1,12 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { useNavigate } from "react-router-dom"
 import {useState} from 'react'
 import axios from 'axios'
 import {useLocation} from 'react-router-dom';
-import { UserContext } from '../../App';
 
 const ReceiptNew = () => {
-    const [user, setUser] = useContext(UserContext)
     const location = useLocation();
+    let user = location.state.account;
 
     const [invalidImage, setInvalidImage] = useState('')
 
@@ -37,7 +36,7 @@ const ReceiptNew = () => {
         if (validForm()) {
             try{
                 await axios.post("http://localhost:8800/newreceipt/"+ location.state.transactionID, receipt)
-                navigate("/receipts", {state: {transactionID: location.state.transactionID}})
+                navigate("/receipts", {state: {account: user, transactionID: location.state.transactionID, transactions: location.state.transactions}})
             }catch (err) {
                 console.log(err)
             }
