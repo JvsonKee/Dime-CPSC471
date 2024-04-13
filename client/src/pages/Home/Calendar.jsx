@@ -21,6 +21,7 @@ const Calendar = () => {
     })
 
     const startDayIndex = getDay(firstDay)
+    console.log({startDayIndex})
 
     useEffect(() => {
         const fetchMonthlyTransactions = async () => {
@@ -59,7 +60,7 @@ const Calendar = () => {
                 <DaysContainer>
                     {
                         Array.from({length: startDayIndex}).map((_, index) => (
-                            <div key={`empty-${index}`}></div>
+                            <div style={{width: '14%'}}key={`empty-${index}`}></div>
                         ))
                     }
                     {
