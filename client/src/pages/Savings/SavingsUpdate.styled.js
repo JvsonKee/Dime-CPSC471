@@ -47,3 +47,9 @@ export const Title = styled.h1`
     text-align: center;
     margin-bottom: 20px;
 `;
+
+export const InvalidFeedback = styled.div`
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+`;

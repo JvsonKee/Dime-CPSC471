@@ -10,6 +10,7 @@ import {
     Input,
     Button,
     Title,
+    InvalidFeedback,
 } from './SavingsUpdate.styled';
 
 const SavingsNew = () => {
@@ -65,7 +66,7 @@ const SavingsNew = () => {
 
             <FormGroup>
                 <Label>Title *</Label>
-                {invalidTitle && <div>{invalidTitle}</div>}
+                {invalidTitle && <InvalidFeedback>{invalidTitle}</InvalidFeedback>}
                 <Input type="text" onChange={handleChange} name="title" />
             </FormGroup>
 
@@ -80,7 +81,7 @@ const SavingsNew = () => {
 
             <FormGroup>
                 <Label>Amount *</Label>
-                {invalidAmount && <div>{invalidAmount}</div>}
+                {invalidAmount && <InvalidFeedback>{invalidAmount}</InvalidFeedback>}
                 <Input
                     type="number"
                     onChange={handleChange}

@@ -55,3 +55,9 @@ export const Button = styled.button`
         background-color: #00cc9f;
     }
 `;
+
+export const InvalidFeedback = styled.div`
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+`;
