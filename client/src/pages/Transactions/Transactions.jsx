@@ -13,8 +13,24 @@ const Transactions = () => {
     const [user, setUser] = useContext(UserContext)
     const [transactions, setTransactions] = useState([])
     const [totalSpent, setTotalSpent] = useState(0)
+    var transaction_pass = []
+    var transaction_id = 0
 
     const navigate = useNavigate()
+
+    const fetchTransaction = async() => {
+        try{
+            const res = await axios.get("http://localhost:8800/prefilltransaction/" + transaction_id)
+            transaction_pass = res.data
+            console.log(transaction_pass)
+        }catch(err){
+            console.log(err)
+        }
+    }
+    function setTransactionVar(transactionID) {
+        transaction_id = transactionID
+        fetchTransaction().then(() => navigate("/updatetransaction", {state: {account:user, transactionID: transaction_id, transactionPass: transaction_pass}}))
+    }
 
     useEffect(() => {
         const getTotalSpent = async () => {
@@ -74,8 +90,7 @@ const Transactions = () => {
                                             <div>{transaction.tDay} / {transaction.tMonth} / {transaction.tYear}</div>
                                         </Mid>
                                         <Bottom>
-                                            <TransactionButton>
-                                                <StyledLink to="/updatetransaction" state= {{transactionID: transaction.transactionID}}>Edit</StyledLink>
+                                            <TransactionButton onClick = {()=>setTransactionVar(transaction.transactionID)}>Edit
                                             </TransactionButton>
                                             <TransactionButton style={{backgroundColor: 'var(--red)'}} onClick={() => handleDelete(transaction.transactionID)}>Delete</TransactionButton>
                                             <TransactionButton onClick={() => handleReceipt(transaction.transactionID)}>View receipts</TransactionButton>

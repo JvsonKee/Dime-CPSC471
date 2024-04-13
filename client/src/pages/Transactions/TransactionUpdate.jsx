@@ -14,12 +14,12 @@ const UpdateTransaction = () => {
     const [paymentMethods, setPaymentMethods] = useState([]);
 
     const [transaction, setTransaction] = useState({
-        title: '',
-        payment_method: '',
-        amount: '',
-        tDay: '',
-        tMonth: '',
-        tYear: ''
+        title: location.state.transactionPass[0].title,
+        payment_method: location.state.transactionPass[0].payment_method,
+        amount: location.state.transactionPass[0].amount,
+        tDay: location.state.transactionPass[0].tDay,
+        tMonth: location.state.transactionPass[0].tMonth,
+        tYear: location.state.transactionPass[0].tYear
     });
 
     const days = Array.from({ length: 31 }, (_, i) => i + 1);
@@ -107,18 +107,18 @@ const UpdateTransaction = () => {
             <FormGroup>
                 <Label>Title</Label>
                 {invalidTitle && <InvalidFeedback>{invalidTitle}</InvalidFeedback>}
-                <Input type="text" onChange={handleChange} name="title" />
+                <Input type="text" onChange={handleChange} name="title" value = {transaction.title}/>
             </FormGroup>
 
             <FormGroup>
                 <Label>Amount</Label>
                 {invalidAmount && <InvalidFeedback>{invalidAmount}</InvalidFeedback>}
-                <Input type="number" onChange={handleChange} name="amount" />
+                <Input type="number" onChange={handleChange} name="amount" value = {transaction.amount}/>
             </FormGroup>
 
             <FormGroup>
                 <Label>Payment Method</Label>
-                <Select onChange={handleChange} name="payment_method">
+                <Select onChange={handleChange} name="payment_method" value = {transaction.payment_method}>
                     <option value="">Select Payment Method</option>
                     {paymentMethods.map((method) => (
                         <option key={method.methodID} value={method.methodID}>
@@ -131,19 +131,19 @@ const UpdateTransaction = () => {
             <FormGroup>
                 <Label>Date</Label>
                 <div>
-                    <Select onChange={handleChange} name="tDay">
+                    <Select onChange={handleChange} name="tDay" value = {transaction.tDay}>
                         <option value="">Day</option>
                         {days.map((day) => (
                             <option key={day} value={day}>{day}</option>
                         ))}
                     </Select>
-                    <Select onChange={handleChange} name="tMonth">
+                    <Select onChange={handleChange} name="tMonth" value = {transaction.tMonth}>
                         <option value="">Month</option>
                         {months.map((month) => (
                             <option key={month} value={month}>{month}</option>
                         ))}
                     </Select>
-                    <Select onChange={handleChange} name="tYear">
+                    <Select onChange={handleChange} name="tYear" value = {transaction.tYear}>
                         <option value="">Year</option>
                         {years.map((year) => (
                             <option key={year} value={year}>{year}</option>

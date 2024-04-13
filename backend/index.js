@@ -497,6 +497,15 @@ app.get("/prefillincome/:ID", (req,res)=>{
     })
 })
 
+app.get("/prefilltransaction/:ID", (req,res)=>{
+    const transaction_ID = req.params.ID
+    const q = "SELECT  title, payment_method, amount, tDay, tMonth, tYear FROM transactions WHERE transactionID = ?"
+    db.query(q, [transaction_ID], (err,data) => {
+        if (err) return res.json(err)
+        return res.json(data)
+    })
+})
+
 app.listen(8800, ()=> {
     console.log("Connected to backend")
 })
