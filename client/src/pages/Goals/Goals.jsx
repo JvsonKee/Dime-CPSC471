@@ -90,7 +90,7 @@ const Goals = () => {
                         </ItemContainer>
                         <ButtonContainer>
                                 <TransactionButton>
-                                    <StyledLink to = "/newgoals" state = {{ account: user } }>Create New Savings Goal</StyledLink>
+                                    <StyledLink to = "/newgoals" state = {{ account: user } }>Create New Goal</StyledLink>
                                 </TransactionButton>
                         </ButtonContainer>
                     </GoalsContainer>

@@ -93,7 +93,7 @@ const EditIncome = () => {
 
     return (
         <IncomeForm>
-            <Title>Enter updated income source information.</Title>
+            <Title>Enter Updated Income Source Information</Title>
     
             <FormGroup>
                 <Label>Source *</Label>

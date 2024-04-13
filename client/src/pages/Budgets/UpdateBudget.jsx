@@ -78,7 +78,7 @@ const UpdateBudget = () => {
 
     return (
         <BudgetForm>
-            <Title>Enter new budget information.</Title>
+            <Title>Enter Updated Budget Information</Title>
 
             <FormGroup>
                 <Label>Description *</Label>

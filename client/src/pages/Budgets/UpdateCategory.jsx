@@ -53,7 +53,7 @@ const UpdateCategory = () => {
 
     return (
         <CategoryForm>
-            <Title>Enter new title of category</Title>
+            <Title>Enter Updated Title of Category</Title>
             <FormGroup>
                 {invalidTitle && <div>{invalidTitle}</div>}
                 <Input type = "text" onChange = {handleChange} name = "categoryName"/>

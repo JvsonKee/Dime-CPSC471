@@ -76,7 +76,7 @@ const GoalsNew = () => {
 
     return (
         <GoalForm>
-            <Title>Enter new savings goal information.</Title>
+            <Title>Enter New Goal Information</Title>
 
             <FormGroup>
                 <Label>Title *</Label>

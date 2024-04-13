@@ -48,7 +48,7 @@ const CreateCategory = () => {
 
     return (
         <CategoryForm>
-            <Title>Enter title of new category</Title>
+            <Title>Enter Title of New Category</Title>
             <FormGroup>
                 {invalidTitle && <div>{invalidTitle}</div>}
                 <Input type = "text" onChange = {handleChange} name = "categoryName"/>

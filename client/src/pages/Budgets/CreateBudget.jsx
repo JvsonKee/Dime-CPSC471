@@ -80,7 +80,7 @@ const CreateBudget = () => {
 
     return (
         <BudgetForm>
-            <Title>Enter New Budget Information.</Title>
+            <Title>Enter New Budget Information</Title>
 
             <FormGroup>
                 <Label>Description *</Label>
@@ -107,7 +107,7 @@ const CreateBudget = () => {
             </FormGroup>
 
             <FormGroup>
-                <Label>Start Date</Label>
+                <Label>Start Date *</Label>
                 <div>
                     <Select onChange={handleChange} name="startDay">
                         <option value="">Day</option>
@@ -131,7 +131,7 @@ const CreateBudget = () => {
             </FormGroup>
 
             <FormGroup>
-                <Label>End Date</Label>
+                <Label>End Date *</Label>
                 <div>
                     <Select onChange={handleChange} name="endDay">
                         <option value="">Day</option>
