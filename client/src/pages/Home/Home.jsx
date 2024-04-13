@@ -121,7 +121,7 @@ const Home = () => {
                                     : 
                                     user.premium === "y" ?
                                         <RectangleBox>
-                                            Premium
+                                            <h2>Premium</h2>
                                         </RectangleBox>
                                     : null
                                 }
