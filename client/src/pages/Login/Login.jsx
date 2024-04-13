@@ -76,7 +76,6 @@ const Login = () => {
             </LeftContainer>
             <RightContainer>
                 <h1>DIME</h1>
-                <div>some-type-of-graphic</div>
             </RightContainer>
 
         </LoginContainer>
