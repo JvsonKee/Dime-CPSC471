@@ -21,6 +21,9 @@ const Budgets = () => {
     const location = useLocation();
     const [budgets, setBudgets] = useState([])
 
+    var budget_pass = []
+    var budget_id = 0
+
 
     const handleDeleteBudget = async(budget) => {
         try{
@@ -30,6 +33,22 @@ const Budgets = () => {
             console.log(err)
         }
     }
+
+    const fetchBudget = async() => {
+        try{
+            const res = await axios.get("http://localhost:8800/prefillbudget/" + budget_id)
+            budget_pass = res.data
+            console.log(budget_pass)
+        }catch(err){
+            console.log(err)
+        }
+    }
+
+    function setBudgetVar(budgetID) {
+        budget_id = budgetID
+        fetchBudget().then(() => navigate("/updatebudget", {state: {account:user, budgetID: budget_id, budgetPass: budget_pass}}))
+     }
+ 
 
     useEffect(() => {
         const fetchBudgets = async () => {
@@ -63,7 +82,7 @@ const Budgets = () => {
                                         <div>End: {budget.endDay} / {budget.endMonth} / {budget.endYear}</div>
                                     </Mid>
                                     <Bottom>
-                                        <TransactionButton onClick={() => navigate("/updatebudget", { state: { budgetID: budget.budgetID }})}>Edit</TransactionButton>
+                                        <TransactionButton onClick={() => setBudgetVar(budget.budgetID)}>Edit</TransactionButton>
                                         <TransactionButton style={{backgroundColor: 'var(--red)'}} onClick={() => handleDeleteBudget(budget.budgetID)}>Delete</TransactionButton>
                                     </Bottom>
                                 </BudgetItem>

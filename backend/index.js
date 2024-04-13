@@ -506,6 +506,15 @@ app.get("/prefilltransaction/:ID", (req,res)=>{
     })
 })
 
+app.get("/prefillbudget/:ID", (req,res)=>{
+    const budget_ID = req.params.ID
+    const q = "SELECT  description,category,amount,startDay,startMonth,startYear, endDay,endMonth,endYear FROM budget WHERE budgetID = ?"
+    db.query(q, [budget_ID], (err,data) => {
+        if (err) return res.json(err)
+        return res.json(data)
+    })
+})
+
 app.listen(8800, ()=> {
     console.log("Connected to backend")
 })
