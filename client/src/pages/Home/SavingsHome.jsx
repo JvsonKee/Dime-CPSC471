@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react"
-import { BoxContentWrapper, BoxHeader, ColumnBoxContainer, IncomeAmount, IncomeItem, IncomeName, SavingsWrapper, TotalSavings } from "./Home.styled"
+import { BoxContentWrapper, BoxHeader, ColumnBoxContainer, SavingsWrapper, TotalSavings } from "./Home.styled"
 import axios from "axios"
 import { UserContext } from "../../App"
 
-const SavingsHome = ({savings}) => {
+const SavingsHome = () => {
 
     const [user, setUser] = useContext(UserContext);
     const [totalSavings, setTotalSavings] = useState()
