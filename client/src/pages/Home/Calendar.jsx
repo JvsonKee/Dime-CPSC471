@@ -1,5 +1,5 @@
 import { format, startOfMonth, endOfMonth, eachDayOfInterval, getDay, getMonth } from "date-fns"
-import { CalendarContainer, CalendarGrid, CalendarHeader, Day, DayHeader, DayNumber, Dot } from "./Calendar.styled";
+import { CalendarContainer, CalendarGrid, CalendarHeader, Day, DayHeader, DayNumber, DaysContainer, Dot, HeaderContainer } from "./Calendar.styled";
 import { WEEKDAYS } from "../../util";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
@@ -50,23 +50,27 @@ const Calendar = () => {
        <CalendarContainer>
             <CalendarHeader>{format(currentDate, "MMMM yyyy")}</CalendarHeader>
             <CalendarGrid>
-                {
-                    WEEKDAYS.map((day, index) => (
-                    <DayHeader key={index}>{day}</DayHeader>
-                ))}
-                {
-                    Array.from({length: startDayIndex}).map((_, index) => (
-                        <div key={`empty-${index}`}></div>
-                    ))
-                }
-                {
-                    daysInMonth.map((day, index) => (
-                        <Day key={index}>
-                            <DayNumber>{format(day, "d")}</DayNumber>
-                            {transactionDays.includes(index + 1) ? <Dot style={{backgroundColor: "#FF7175"}}></Dot> : null}
-                        </Day>
-                    ))
-                }
+                <HeaderContainer>
+                    {
+                        WEEKDAYS.map((day, index) => (
+                        <DayHeader key={index}>{day}</DayHeader>
+                    ))}
+                </HeaderContainer>
+                <DaysContainer>
+                    {
+                        Array.from({length: startDayIndex}).map((_, index) => (
+                            <div key={`empty-${index}`}></div>
+                        ))
+                    }
+                    {
+                        daysInMonth.map((day, index) => (
+                            <Day key={index}>
+                                <DayNumber>{format(day, "d")}</DayNumber>
+                                {transactionDays.includes(index + 1) ? <Dot style={{backgroundColor: "#FF7175"}}></Dot> : null}
+                            </Day>
+                        ))
+                    }
+                </DaysContainer>
             </CalendarGrid>
        </CalendarContainer>
     )

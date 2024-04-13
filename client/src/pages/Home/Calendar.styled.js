@@ -13,21 +13,31 @@ export const CalendarHeader = styled.h3`
 `
 
 export const CalendarGrid = styled.div`
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    grid-gap: 2px;
+    display: flex;
+    flex-direction: column;
     height: 100%;
+`
+
+export const HeaderContainer = styled.div`
+    display: flex;
+    width: 100%;
 `
 
 export const DayHeader = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    /* background-color: beige; */
-    height: 70%;
     font-size: 14px;
     font-weight: bold;
     margin-bottom: 5px;
+    width: 14%;
+    height: 70%;
+`
+
+export const DaysContainer = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    height: 100%;
 `
 
 export const Day = styled.div`
@@ -38,7 +48,8 @@ export const Day = styled.div`
     border-radius: 10px;
     transition: 0.3s ease-in-out;
     padding-top: 5px;
-    height: 35px;
+    width: 14%;
+    height: 15%;
 
     &:hover {
         background-color: var(--light-grey);
