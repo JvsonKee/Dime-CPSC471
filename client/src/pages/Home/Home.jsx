@@ -119,7 +119,7 @@ const Home = () => {
                     <Bottom>
                         <Matrix>
                             <TopBottom>
-                                <RectangleBox onClick = {() => calculatebudget()}>
+                                <RectangleBox onClick = {() => sendTo('/budgets')}>
                                     Budgets
                                 </RectangleBox>
                                 <RectangleBox onClick = {() => sendTo("/goals")}>

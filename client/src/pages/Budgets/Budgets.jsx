@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
 import { Link } from "react-router-dom"
 import {useLocation} from 'react-router-dom';
@@ -11,13 +11,16 @@ import {
     Button,
     BudgetButton,
 } from './Budgets.styled';
+import { UserContext } from '../../App';
+import { ContentContainer, MainContainer, PageContainer } from '../../styles/Containers';
+import NavBar from '../../components/NavBar';
 
 const Budgets = () => {
-
+    const [user, setUser] = useContext(UserContext)
     const navigate = useNavigate()
     const location = useLocation();
-    let user = location.state.account;
-    let budgets = location.state.budgets
+    const [budgets, setBudgets] = useState([])
+
 
     const handleDeleteBudget = async(budget) => {
         try{
@@ -37,32 +40,52 @@ const Budgets = () => {
         }
     }
 
+    useEffect(() => {
+        const fetchAllBudgets = async () => {
+            try{
+                const res = await axios.get("http://localhost:8800/budgets/" + user.userID)
+                setBudgets(res.data)
+                console.log(res)
+            }catch(err){
+                console.log(err)
+            }
+        }
+        fetchAllBudgets()
+    }, [user.userID])
+
     return (
-        <BudgetsContainer>
-            <Title>Budgets</Title>
-            {budgets.map(budget => (
-                <BudgetItem key={budget.budgetID}>
-                    <h2>Description: {budget.description}</h2>
-                    <p>Category: {budget.category_name}</p>
-                    <p>Amount: {budget.amount}</p>
-                    <p>Start date: {budget.startDay} / {budget.startMonth} / {budget.startYear}</p>
-                    <p>End date: {budget.endDay} / {budget.endMonth} / {budget.endYear}</p>
-                    <Button onClick={() => navigate("/updatebudget", { state: { account: user, budgets: location.state.budgets, budgetID: budget.budgetID }})}>Update</Button>
-                    <Button onClick={() => handleDeleteBudget(budget.budgetID)}>Delete</Button>
-                </BudgetItem>
-            ))}
-            <ButtonContainer>
-                <Button>
-                    <Link to= "/createbudget" state= {{ account: user, budgets: location.state.budgets }}>Create New Budget</Link>
-                </Button>
-                <Button>
-                    <Link to= "/categories" state = {{ account: user, budgets: location.state.budgets }}>Update My Categories</Link>
-                </Button>
-                <Button>
-                    <Link to = "/home"  state = {{ account: user }}>Return Home</Link>
-                </Button>
-            </ButtonContainer>
-        </BudgetsContainer>
+        <PageContainer>
+            <NavBar />
+            <MainContainer>
+                <ContentContainer>
+                    <BudgetsContainer>
+                        <Title>Budgets</Title>
+                        {budgets.map(budget => (
+                            <BudgetItem key={budget.budgetID}>
+                                <h2>Description: {budget.description}</h2>
+                                <p>Category: {budget.category_name}</p>
+                                <p>Amount: {budget.amount}</p>
+                                <p>Start date: {budget.startDay} / {budget.startMonth} / {budget.startYear}</p>
+                                <p>End date: {budget.endDay} / {budget.endMonth} / {budget.endYear}</p>
+                                <Button onClick={() => navigate("/updatebudget", { state: { account: user, budgets: location.state.budgets, budgetID: budget.budgetID }})}>Update</Button>
+                                <Button onClick={() => handleDeleteBudget(budget.budgetID)}>Delete</Button>
+                            </BudgetItem>
+                        ))}
+                        <ButtonContainer>
+                            <Button>
+                                <Link to= "/createbudget">Create New Budget</Link>
+                            </Button>
+                            <Button>
+                                <Link to= "/categories">Update My Categories</Link>
+                            </Button>
+                            <Button>
+                                <Link to = "/home">Return Home</Link>
+                            </Button>
+                        </ButtonContainer>
+                    </BudgetsContainer>
+                </ContentContainer>
+            </MainContainer>
+        </PageContainer>
     );
 };
 
