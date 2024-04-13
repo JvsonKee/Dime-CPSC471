@@ -8,6 +8,7 @@ import axios from 'axios';
 import RecentTransactions from './RecentTransactions'
 import Incoming from './Incoming';
 import Calendar from './Calendar'
+import SavingsHome from './SavingsHome';
 
 const Home = () => {
 
@@ -17,39 +18,12 @@ const Home = () => {
     const [payment, setPayments] = useState([])
     const [categories, setCategories] = useState([])
     const [budgets, setBudgets] = useState([])
+    const [savings, setSavings] = useState([])
 
     const navigate = useNavigate();
     
     const sendTo = (path) => {
         navigate(path)
-    }
-
-    function calculate() {
-        console.log(transactions)
-        console.log(payment)
-        for (let j = 0; j < transactions.length; j++) {
-            for (let i = 0; i < payment.length; i++) {
-                if (payment[i].methodID === transactions[j].payment_method) {
-                    transactions[j].payment_name = payment[i].methodType;
-                    console.log("Here")
-                    break;
-                }
-            }
-        }
-        navigate("/transactions" ,{state :{account: user, transactions:transactions}})
-    }
-
-    function calculatebudget() {
-        for (let j = 0; j < budgets.length; j++) {
-            for (let i = 0; i < categories.length; i++) {
-                if (categories[i].categoryID === budgets[j].category) {
-                    budgets[j].category_name = categories[i].categoryName;
-                    console.log("Here")
-                    break;
-                }
-            }
-        }
-        navigate("/budgets", {state :{account: user, budgets: budgets}})
     }
 
     useEffect(() => 
@@ -97,6 +71,16 @@ const Home = () => {
             }
         }
         fetchAllBudgets()
+
+        const fetchSavings = async () => {
+            try {
+                const res = await axios.get(`http://localhost:8800/savings/${user.userID}`);
+                setSavings(res.data) 
+            } catch (err) {
+                console.log(err)
+            }
+        }
+        fetchSavings()
     },[user.userID])
 
     return (
@@ -107,7 +91,7 @@ const Home = () => {
                 <CardContainer>
                     <Top>
                         <SquareBox onClick={() => sendTo("/savings")}>
-                            Savings
+                            <SavingsHome savings={savings}/>
                         </SquareBox>
                         <SquareBox onClick={() => sendTo('/income')}>
                             <Incoming incomes={incomes}/>

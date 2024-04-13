@@ -89,3 +89,12 @@ export const StyledLink = styled(Link)`
     color: white;
     font-weight: bold;
 `
+
+export const TotalSpent = styled.div`
+    font-size: 25px;
+
+    span {
+        font-weight: bold;
+        color: var(--red);
+    }
+`

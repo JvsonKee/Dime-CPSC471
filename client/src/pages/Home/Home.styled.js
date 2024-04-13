@@ -124,3 +124,17 @@ export const IncomeAmount = styled.div`
     font-weight: bold;
     color: var(--dime-green);
 `
+
+export const SavingsWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+`
+
+export const TotalSavings = styled.div`
+    font-size: 50px;
+    font-weight: bold;
+
+    color: #5E94FF;
+`

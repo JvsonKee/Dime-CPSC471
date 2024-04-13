@@ -9,21 +9,25 @@ import {
     SavingsItem,
     Title,
     ButtonContainer,
-    Button,
-    SavingsButton,
+    TotalSavings,
 } from './Savings.styled';
+import { ContentContainer, MainContainer, PageContainer } from '../../styles/Containers';
+import NavBar from '../../components/NavBar';
+import { ItemContainer, Top, TName, TPrice, Mid, Bottom, TransactionButton } from '../Transactions/Transactions.styled';
 
 const Savings = () => {
     const [savings, setSavings] = useState([]);
+    const [totalSavings, setTotalSavings] = useState(0);
+
     var savings_pass = []
     var savings_id = 0
     const [user, setUser] = useContext(UserContext);
 
     const navigate = useNavigate();
-    const handleDelete = async (savings) => {
+    const handleDelete = async (savingsID) => {
         try {
-            await axios.delete(`http://localhost:8800/deletesavings/${savings}`);
-            navigate('/savings');
+            await axios.delete("http://localhost:8800/deletesavings/" + savingsID);
+            setSavings(savings => savings.filter(item => item.savingsID !== savingsID));
         } catch (err) {
             console.log(err);
         }
@@ -38,6 +42,24 @@ const Savings = () => {
             console.log(err)
         }
     }
+
+    useEffect(() => {
+        const getSavingsSum = async () => {
+            try {
+                const res = await axios.get("http://localhost:8800/sumsavings/" + user.userID)
+                setTotalSavings(res.data[0].total)
+            } catch (err) {
+                console.log(err)
+            }
+        }
+        getSavingsSum()
+    }, [user.userID])
+
+    // const computeTotalSavings = () => {
+    //     for (let i = 0; i < savings.length; i++) {
+    //         setTotalSavings(totalSavings + savings[i].amount)
+    //     }
+    // }
      
     function setSavingsVar(savingsID) {
        savings_id = savingsID
@@ -57,32 +79,49 @@ const Savings = () => {
         fetchAllSavings();
     }, [user.userID]);
 
+    useEffect(() => {
+
+    })
 
     useEffect(() => {
         fetchSaving()
     })
 
+
     return (
-        <SavingsContainer>
-            <Title>Savings</Title>
-            {savings.map((saving) => (
-                <SavingsItem key={saving.savingsID}>
-                    <h2>Title: {saving.title}</h2>
-                    {saving.description && <h2>Description: {saving.description}</h2>}
-                    <h2>Amount: {saving.amount}</h2>
-                    <SavingsButton onClick = {()=>setSavingsVar(saving.savingsID)}>Update</SavingsButton>
-                    <SavingsButton onClick={() => handleDelete(saving.savingsID)}>Delete</SavingsButton>
-                </SavingsItem>
-            ))}
-            <ButtonContainer>
-                <Button>
-                    <Link to="/newsavings">Create New Savings Profile</Link>
-                </Button>
-                <Button>
-                    <Link to="/home">Return Home</Link>
-                </Button>
-            </ButtonContainer>
-        </SavingsContainer>
+        <PageContainer>
+            <NavBar />
+            <MainContainer>
+                <ContentContainer>
+                    <SavingsContainer>
+                        <Title>Savings</Title>
+                        <TotalSavings>Total saved: <span>${totalSavings}</span></TotalSavings>
+                        <ItemContainer>
+                            {savings.map((saving) => (
+                                <SavingsItem key={saving.savingsID}>
+                                    <Top>
+                                        <TName>{saving.title}</TName>
+                                        <TPrice>${saving.amount}</TPrice>
+                                    </Top>
+                                    <Mid>
+                                        {saving.description && <div>{saving.description}</div>}
+                                    </Mid>
+                                    <Bottom>
+                                        <TransactionButton onClick = {()=>setSavingsVar(saving.savingsID)}>Edit</TransactionButton>
+                                        <TransactionButton onClick={() => handleDelete(saving.savingsID)}>Delete</TransactionButton>
+                                    </Bottom>
+                                </SavingsItem>
+                            ))}
+                        </ItemContainer>
+                        <ButtonContainer>
+                            <TransactionButton>
+                                <Link to="/newsavings" style={{color: 'white', textDecoration: 'none'}}>Create New Savings Profile</Link>
+                            </TransactionButton>
+                        </ButtonContainer>
+                    </SavingsContainer>
+                </ContentContainer>
+            </MainContainer>
+        </PageContainer>
     );
 };
 
