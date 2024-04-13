@@ -15,8 +15,6 @@ const Calendar = () => {
     const currentMonth = getMonth(currentDate) + 1
     const currentYear = getYear(currentDate)
 
-    console.log({currentYear})
-
     const daysInMonth = eachDayOfInterval({
         start: firstDay,
         end: lastDay
@@ -34,7 +32,7 @@ const Calendar = () => {
             }
         }
         fetchMonthlyTransactions()
-    }, [user.userID, currentMonth])
+    }, [user.userID, currentMonth, currentYear])
 
     let transactionDays = []
 
@@ -46,7 +44,6 @@ const Calendar = () => {
 
     if (transactions) {
         getTransactionDays()
-        console.log(transactionDays)
     }
 
     return (
