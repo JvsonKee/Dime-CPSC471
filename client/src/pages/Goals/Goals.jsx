@@ -3,15 +3,15 @@ import {useState} from 'react'
 import {useEffect} from 'react'
 import axios from 'axios'
 import { Link } from "react-router-dom"
-import {useLocation} from 'react-router-dom';
 import { useNavigate } from "react-router-dom"
-
+import { UserContext } from '../../App';
+import { useContext } from 'react';
 const Goals = () => {
     const [goals, setGoals] = useState([])
 
     const navigate = useNavigate()
-    const location = useLocation();
-    let user = location.state.account;
+    const [user, setUser] = useContext(UserContext);
+
 
     const handleDelete = async(goals) => {
         try{
