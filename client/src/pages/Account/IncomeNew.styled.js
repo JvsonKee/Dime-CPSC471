@@ -9,6 +9,14 @@ export const IncomeForm = styled.div`
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 `;
 
+export const Select = styled.select`
+    width: calc(100% - 20px); /* Adjust the width minus padding */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+`;
+
 export const FormGroup = styled.div`
     margin-bottom: 20px;
 `;
