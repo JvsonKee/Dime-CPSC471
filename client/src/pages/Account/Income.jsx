@@ -21,6 +21,8 @@ import { Bottom, ItemContainer, Mid, StyledLink, TName, TPrice, Top, Transaction
 const Income = () => {
     const [user, setUser] = useContext(UserContext)
     const [income, setIncome] = useState([]);
+    var income_pass = []
+    var income_id = 0
     
     const navigate = useNavigate()
     
@@ -32,6 +34,21 @@ const Income = () => {
             console.log(err)
         }
     }
+
+    const fetchIncome= async() => {
+        try{
+            const res = await axios.get("http://localhost:8800/prefillincome/" + income_id)
+            income_pass = res.data
+            console.log(income_pass)
+        }catch(err){
+            console.log(err)
+        }
+    }
+
+    function setIncomeVar(incomeID) {
+        income_id = incomeID
+        fetchIncome().then(() => navigate("/editincome", {state: {account:user, incomeID: income_id, incomePass: income_pass}}))
+     }
 
     useEffect(() => {
         const fetchAllIncome = async () => {
@@ -64,8 +81,7 @@ const Income = () => {
                                         <div>Receive every: {income.receiveEvery}</div>
                                     </Mid>
                                     <Bottom>
-                                        <TransactionButton>
-                                            <StyledLink to="/editincome" state={{ incomeID: income.incomeID }}>Edit</StyledLink>
+                                        <TransactionButton onClick = {() => setIncomeVar(income.incomeID)}>Edit
                                         </TransactionButton>
                                         <TransactionButton style={{backgroundColor: 'var(--red)'}} onClick={() => handleDelete(income.incomeID)}>Delete</TransactionButton>
                                     </Bottom>

@@ -28,12 +28,12 @@ const EditIncome = () => {
     // let user = location.state.account
 
     const[income,setIncome] = useState({
-        incomeSource:"",
-        incomeAmount:"",
-        lastReceivedDay:"",
-        lastReceivedMonth: "",
-        lastReceivedYear: "",
-        receiveEvery: ""
+        incomeSource: location.state.incomePass[0].incomeSource,
+        incomeAmount: location.state.incomePass[0].incomeAmount,
+        lastReceivedDay:location.state.incomePass[0].lastReceivedDay,
+        lastReceivedMonth: location.state.incomePass[0].lastReceivedMonth,
+        lastReceivedYear: location.state.incomePass[0].lastReceivedYear,
+        receiveEvery: location.state.incomePass[0].receiveEvery
     })
 
     const navigate = useNavigate()
@@ -98,37 +98,37 @@ const EditIncome = () => {
             <FormGroup>
                 <Label>Source *</Label>
                 {invalidIncomeSource && <InvalidFeedback>{invalidIncomeSource}</InvalidFeedback>}
-                <Input type="text" onChange={handleChange} name="incomeSource" />
+                <Input type="text" onChange={handleChange} name="incomeSource" value = {income.incomeSource}/>
             </FormGroup>
     
             <FormGroup>
                 <Label>Amount *</Label>
                 {invalidAmount && <InvalidFeedback>{invalidAmount}</InvalidFeedback>}
-                <Input type="number" onChange={handleChange} name="incomeAmount" />
+                <Input type="number" onChange={handleChange} name="incomeAmount" value = {income.incomeAmount}/>
             </FormGroup>
     
             <FormGroup>
                 <Label>Last received day *</Label>
                 {invalidDay && <InvalidFeedback>{invalidDay}</InvalidFeedback>}
-                <Input type="number" onChange={handleChange} name="lastReceivedDay" />
+                <Input type="number" onChange={handleChange} name="lastReceivedDay" value = {income.lastReceivedDay}/>
             </FormGroup>
     
             <FormGroup>
                 <Label>Last received month *</Label>
                 {invalidMonth && <InvalidFeedback>{invalidMonth}</InvalidFeedback>}
-                <Input type="number" onChange={handleChange} name="lastReceivedMonth" />
+                <Input type="number" onChange={handleChange} name="lastReceivedMonth" value = {income.lastReceivedMonth}/>
             </FormGroup>
     
             <FormGroup>
                 <Label>Last received year *</Label>
                 {invalidYear && <InvalidFeedback>{invalidYear}</InvalidFeedback>}
-                <Input type="number" onChange={handleChange} name="lastReceivedYear" />
+                <Input type="number" onChange={handleChange} name="lastReceivedYear" value = {income.lastReceivedYear} />
             </FormGroup>
     
             <FormGroup>
                 <Label>Receive every *</Label>
                 {invalidFrequency && <InvalidFeedback>{invalidFrequency}</InvalidFeedback>}
-                <Input type="text" onChange={handleChange} name="receiveEvery" />
+                <Input type="text" onChange={handleChange} name="receiveEvery" value = {income.receiveEvery}/>
             </FormGroup>
     
             <Button onClick={handleClick}>Submit</Button>

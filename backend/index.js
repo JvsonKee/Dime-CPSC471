@@ -488,6 +488,15 @@ app.delete("/deletebudget/:ID", (req,res) =>{
     });
 })
 
+app.get("/prefillincome/:ID", (req,res)=>{
+    const income_ID = req.params.ID
+    const q = "SELECT incomeSource, incomeAmount,lastReceivedDay,lastReceivedMonth,lastReceivedYear,receiveEvery FROM income WHERE incomeID = ?"
+    db.query(q, [income_ID], (err,data) => {
+        if (err) return res.json(err)
+        return res.json(data)
+    })
+})
+
 app.listen(8800, ()=> {
     console.log("Connected to backend")
 })
