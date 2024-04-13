@@ -4,6 +4,15 @@ import {useState} from 'react'
 import axios from 'axios'
 import {useLocation} from 'react-router-dom';
 import { UserContext } from '../../App';
+import {
+    IncomeForm,
+    Title,
+    FormGroup,
+    Label,
+    Input,
+    Button,
+    InvalidFeedback,
+} from './IncomeNew.styled';
 
 const IncomeNew = () => {
     const [user, setUser] = useContext(UserContext)
@@ -80,38 +89,48 @@ const IncomeNew = () => {
     }
     console.log(income)
 
-    return <div>
-    <div className = 'incomeForm'>
-        <h1>Enter new income source information.</h1>
-
-        <h1>Source *</h1>
-        {invalidIncomeSource && <div>{invalidIncomeSource}</div>}
-        <input type = "text" onChange = {handleChange} name = "incomeSource"/>
-
-        <h1>Amount *</h1>
-        {invalidAmount && <div>{invalidAmount}</div>}
-        <input type = "number" onChange = {handleChange} name = "incomeAmount"/>
-        
-        <h1>Last received day *</h1>
-        {invalidDay && <div>{invalidDay}</div>}
-        <input type = "number" onChange = {handleChange} name = "lastReceivedDay"/>
-        
-        <h1>Last received month *</h1>
-        {invalidMonth && <div>{invalidMonth}</div>}
-        <input type = "number" onChange = {handleChange} name = "lastReceivedMonth"/>
-        
-        <h1>Last received year *</h1>
-        {invalidYear && <div>{invalidYear}</div>}
-        <input type = "number" onChange = {handleChange} name = "lastReceivedYear"/>
-        
-        <h1>Receive every *</h1>
-        {invalidFrequency && <div>{invalidFrequency}</div>}
-        <input type = "text" onChange = {handleChange} name = "receiveEvery"/>
-    </div>
-    <button onClick = {handleClick}>
-        Submit
-    </button>
-    </div>
-}
-
+    return (
+        <IncomeForm>
+            <Title>Enter New Income Source Information</Title>
+    
+            <FormGroup>
+                <Label>Source *</Label>
+                {invalidIncomeSource && <InvalidFeedback>{invalidIncomeSource}</InvalidFeedback>}
+                <Input type="text" onChange={handleChange} name="incomeSource" />
+            </FormGroup>
+    
+            <FormGroup>
+                <Label>Amount *</Label>
+                {invalidAmount && <InvalidFeedback>{invalidAmount}</InvalidFeedback>}
+                <Input type="number" onChange={handleChange} name="incomeAmount" />
+            </FormGroup>
+    
+            <FormGroup>
+                <Label>Last received day *</Label>
+                {invalidDay && <InvalidFeedback>{invalidDay}</InvalidFeedback>}
+                <Input type="number" onChange={handleChange} name="lastReceivedDay" />
+            </FormGroup>
+    
+            <FormGroup>
+                <Label>Last received month *</Label>
+                {invalidMonth && <InvalidFeedback>{invalidMonth}</InvalidFeedback>}
+                <Input type="number" onChange={handleChange} name="lastReceivedMonth" />
+            </FormGroup>
+    
+            <FormGroup>
+                <Label>Last received year *</Label>
+                {invalidYear && <InvalidFeedback>{invalidYear}</InvalidFeedback>}
+                <Input type="number" onChange={handleChange} name="lastReceivedYear" />
+            </FormGroup>
+    
+            <FormGroup>
+                <Label>Receive every *</Label>
+                {invalidFrequency && <InvalidFeedback>{invalidFrequency}</InvalidFeedback>}
+                <Input type="text" onChange={handleChange} name="receiveEvery" />
+            </FormGroup>
+    
+            <Button onClick={handleClick}>Submit</Button>
+        </IncomeForm>
+    );    
+};
 export default IncomeNew
