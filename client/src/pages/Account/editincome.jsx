@@ -6,6 +6,7 @@ import {useLocation} from 'react-router-dom';
 import { UserContext } from '../../App';
 import { useContext } from 'react';
 import {
+    Select,
     IncomeForm,
     Title,
     FormGroup,
@@ -26,6 +27,11 @@ const EditIncome = () => {
 
     const location = useLocation();
     // let user = location.state.account
+
+    const days = Array.from({ length: 31 }, (_, i) => i + 1);
+    const months = Array.from({ length: 12 }, (_, i) => i + 1);
+    const years = Array.from({ length: 10 }, (_, i) => new Date().getFullYear() + i);
+
 
     const[income,setIncome] = useState({
         incomeSource: location.state.incomePass[0].incomeSource,
@@ -50,6 +56,7 @@ const EditIncome = () => {
             setInvalidAmount("Invalid income amount")
             valid = false;
         }
+        /*
 
         if (income.lastReceivedDay === "") {
             setInvalidDay("Invalid day")
@@ -65,6 +72,7 @@ const EditIncome = () => {
             setInvalidYear("Invalid year")
             valid = false;
         }
+        */
 
         if (income.receiveEvery === "") {
             setInvalidFrequency("Invalid frequency")
@@ -108,21 +116,27 @@ const EditIncome = () => {
             </FormGroup>
     
             <FormGroup>
-                <Label>Last received day *</Label>
-                {invalidDay && <InvalidFeedback>{invalidDay}</InvalidFeedback>}
-                <Input type="number" onChange={handleChange} name="lastReceivedDay" value = {income.lastReceivedDay}/>
-            </FormGroup>
-    
-            <FormGroup>
-                <Label>Last received month *</Label>
-                {invalidMonth && <InvalidFeedback>{invalidMonth}</InvalidFeedback>}
-                <Input type="number" onChange={handleChange} name="lastReceivedMonth" value = {income.lastReceivedMonth}/>
-            </FormGroup>
-    
-            <FormGroup>
-                <Label>Last received year *</Label>
-                {invalidYear && <InvalidFeedback>{invalidYear}</InvalidFeedback>}
-                <Input type="number" onChange={handleChange} name="lastReceivedYear" value = {income.lastReceivedYear} />
+                <Label>Last Received Date *</Label>
+                <div>
+                    <Select onChange={handleChange} name="lastReceivedDay" value = {income.lastReceivedDay}>
+                        <option value="">Day</option>
+                        {days.map((day) => (
+                            <option key={day} value={day}>{day}</option>
+                        ))}
+                    </Select>
+                    <Select onChange={handleChange} name="lastReceivedMonth" value = {income.lastReceivedMonth}>
+                        <option value="">Month</option>
+                        {months.map((month) => (
+                            <option key={month} value={month}>{month}</option>
+                        ))}
+                    </Select>
+                    <Select onChange={handleChange} name="lastReceivedYear" value = {income.lastReceivedYear}>
+                        <option value="">Year</option>
+                        {years.map((year) => (
+                            <option key={year} value={year}>{year}</option>
+                        ))}
+                    </Select>
+                </div>
             </FormGroup>
     
             <FormGroup>
