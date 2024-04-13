@@ -3,6 +3,14 @@ import axios from 'axios'
 import { Link } from "react-router-dom"
 import {useLocation} from 'react-router-dom';
 import { useNavigate } from "react-router-dom"
+import {
+    BudgetsContainer,
+    BudgetItem,
+    Title,
+    ButtonContainer,
+    Button,
+    BudgetButton,
+} from './Budgets.styled';
 
 const Budgets = () => {
 
@@ -29,34 +37,27 @@ const Budgets = () => {
         }
     }
 
-    return(
-        <div>
-            <h1>Budgets</h1>
-            <div className = "budgets">
-                {budgets.map((budgets)=>(
-                    <div className = "budgets" key={budgets.budgetID}>
-                        <h2>Description: {budgets.description}</h2>
-                        <h2>Category: {budgets.category_name}</h2>
-                        <h2>Amount: {budgets.amount}</h2>
-                        <h2>Start date: {budgets.startDay} / {budgets.startMonth} / {budgets.startYear}</h2>
-                        <h2>End date: {budgets.endDay} / {budgets.endMonth} / {budgets.endYear}</h2>
-                        <button>
-                            <Link to="/updatebudget" state= {{account: user, budgets: location.state.budgets, budgetID: budgets.budgetID}}>Update</Link>
-                        </button>
-                        <button onClick = {()=>handleDeleteBudget(budgets.budgetID)}>Delete</button>
-                    </div>
-                ))}
-        </div>
-        <button>
-            <Link to="/createbudget" state= {{account: user, budgets: location.state.budgets}}>Create a new budget</Link>
-        </button>
-        <button>
-            <Link to="/categories" state= {{account: user, budgets: location.state.budgets}}>Update my categories</Link>
-        </button>
-        <button>
-            <Link to="/home" state= {{account: user}}>Return to homepage</Link>
-        </button>
-    </div>
-)}
+    return (
+        <BudgetsContainer>
+            <Title>Budgets</Title>
+            {budgets.map(budget => (
+                <BudgetItem key={budget.budgetID}>
+                    <h2>Description: {budget.description}</h2>
+                    <p>Category: {budget.category_name}</p>
+                    <p>Amount: {budget.amount}</p>
+                    <p>Start date: {budget.startDay} / {budget.startMonth} / {budget.startYear}</p>
+                    <p>End date: {budget.endDay} / {budget.endMonth} / {budget.endYear}</p>
+                    <Button onClick={() => navigate("/updatebudget", { state: { account: user, budgets: location.state.budgets, budgetID: budget.budgetID }})}>Update</Button>
+                    <Button onClick={() => handleDeleteBudget(budget.budgetID)}>Delete</Button>
+                </BudgetItem>
+            ))}
+            <ButtonContainer>
+                <Button as={Link} to={{ pathname: "/createbudget", state: { account: user, budgets: location.state.budgets }}}>Create New Budget</Button>
+                <Button as={Link} to={{ pathname: "/categories", state: { account: user, budgets: location.state.budgets }}}>Update My Categories</Button>
+                <Button as={Link} to={{ pathname: "/home", state: { account: user }}}>Return Home</Button>
+            </ButtonContainer>
+        </BudgetsContainer>
+    );
+};
 
 export default Budgets

@@ -6,6 +6,15 @@ import { Link } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
 import { UserContext } from '../../App';
 import { useContext } from 'react';
+import {
+    GoalsContainer,
+    GoalItem,
+    Title,
+    ButtonContainer,
+    Button,
+    GoalButton,
+} from './Goals.styled';
+
 const Goals = () => {
     const [goals, setGoals] = useState([])
 
@@ -34,30 +43,30 @@ const Goals = () => {
         }
         fetchAllGoals()
     },[user.userID])
-    return(
+
+    return (
         <div>
-            <h1>Savings goals</h1>
-            <div className = "goals">
-                {goals.map((goals)=>(
-                    <div className = "goals" key={goals.goalID}>
-                        <h2>Title: {goals.title}</h2>
-                        {goals.description && <h2>Description: {goals.description}</h2>}
-                        <h2>Target amount: {goals.amount}</h2>
-                        <h2>Target date: {goals.gDay} / {goals.gMonth} / {goals.gYear}</h2>
-                        <button>
-                            <Link to="/updategoals" state= {{account: user, goalID: goals.goalID}}>Update</Link>
-                        </button>
-                        <button onClick = {()=>handleDelete(goals.goalID)}>Delete</button>
-                    </div>
+            <Title>Savings Goals</Title>
+            <GoalsContainer>
+                {goals.map((goal) => (
+                    <GoalItem key={goal.goalID}>
+                        <h2>Title: {goal.title}</h2>
+                        {goal.description && <h2>Description: {goal.description}</h2>}
+                        <h2>Target amount: {goal.amount}</h2>
+                        <h2>Target date: {goal.gDay} / {goal.gMonth} / {goal.gYear}</h2>
+                        <Button>
+                            <Link to="/updategoals" state={{ account: user, goalID: goal.goalID }}>Update</Link>
+                        </Button>
+                        <Button onClick={() => handleDelete(goal.goalID)}>Delete</Button>
+                    </GoalItem>
                 ))}
+            </GoalsContainer>
+            <ButtonContainer>
+                <Button as={Link} to={{ pathname: "/newgoals", state: { account: user } }}>Create New Savings Goal</Button>
+                <Button as={Link} to={{ pathname: "/home", state: { account: user } }}>Return Home</Button>
+            </ButtonContainer>
         </div>
-        <button>
-            <Link to="/newgoals" state= {{account: user}}>Create a savings goal</Link>
-        </button>
-        <button>
-            <Link to="/home" state= {{account: user}}>Return to homepage</Link>
-        </button>
-    </div>
-)}
+    );
+};
 
 export default Goals

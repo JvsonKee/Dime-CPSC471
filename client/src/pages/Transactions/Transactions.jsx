@@ -55,7 +55,7 @@ const Transactions = () => {
             ))}
             <ButtonContainer>
                 <TransactionButton>
-                    <Link to="/newtransaction" state= {{account: user, transactions: location.state.transactions}}>Create a transaction</Link>
+                    <Link to="/newtransaction" state= {{account: user, transactions: location.state.transactions}}>Create New Transaction</Link>
                 </TransactionButton>
                 <TransactionButton>
                     <Link to="/home">Return Home</Link>
