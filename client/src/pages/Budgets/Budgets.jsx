@@ -63,7 +63,7 @@ const Budgets = () => {
                                         <div>End: {budget.endDay} / {budget.endMonth} / {budget.endYear}</div>
                                     </Mid>
                                     <Bottom>
-                                        <TransactionButton onClick={() => navigate("/updatebudget", { state: { budgetID: budget.budgetID }})}>Update</TransactionButton>
+                                        <TransactionButton onClick={() => navigate("/updatebudget", { state: { budgetID: budget.budgetID }})}>Edit</TransactionButton>
                                         <TransactionButton style={{backgroundColor: 'var(--red)'}} onClick={() => handleDeleteBudget(budget.budgetID)}>Delete</TransactionButton>
                                     </Bottom>
                                 </BudgetItem>
