@@ -77,7 +77,7 @@ const Transactions = () => {
                                             <TransactionButton>
                                                 <StyledLink to="/updatetransaction" state= {{transactionID: transaction.transactionID}}>Edit</StyledLink>
                                             </TransactionButton>
-                                            <TransactionButton onClick={() => handleDelete(transaction.transactionID)}>Delete</TransactionButton>
+                                            <TransactionButton style={{backgroundColor: 'var(--red)'}} onClick={() => handleDelete(transaction.transactionID)}>Delete</TransactionButton>
                                             <TransactionButton onClick={() => handleReceipt(transaction.transactionID)}>View receipts</TransactionButton>
                                         </Bottom>
                                     </TransactionItem>

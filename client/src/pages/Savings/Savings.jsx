@@ -54,12 +54,6 @@ const Savings = () => {
         }
         getSavingsSum()
     }, [user.userID])
-
-    // const computeTotalSavings = () => {
-    //     for (let i = 0; i < savings.length; i++) {
-    //         setTotalSavings(totalSavings + savings[i].amount)
-    //     }
-    // }
      
     function setSavingsVar(savingsID) {
        savings_id = savingsID
@@ -108,7 +102,7 @@ const Savings = () => {
                                     </Mid>
                                     <Bottom>
                                         <TransactionButton onClick = {()=>setSavingsVar(saving.savingsID)}>Edit</TransactionButton>
-                                        <TransactionButton onClick={() => handleDelete(saving.savingsID)}>Delete</TransactionButton>
+                                        <TransactionButton style={{backgroundColor: 'var(--red)'}} onClick={() => handleDelete(saving.savingsID)}>Delete</TransactionButton>
                                     </Bottom>
                                 </SavingsItem>
                             ))}
