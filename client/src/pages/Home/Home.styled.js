@@ -47,6 +47,12 @@ export const TopBottom = styled.div`
     width: 66%;
 `
 
+export const BudgetAndGoalHolder = styled.div`
+    display: flex;
+    gap: 3%;
+    height: 50%;
+`
+
 export const Top = styled.div`
     display: flex;
     gap: 2%;
