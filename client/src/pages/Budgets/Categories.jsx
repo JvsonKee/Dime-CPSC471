@@ -5,7 +5,7 @@ import axios from 'axios'
 import { Link } from "react-router-dom"
 import {useLocation} from 'react-router-dom';
 import { useNavigate } from "react-router-dom"
-
+import { CategoryContainer, CategoryItem, CategoryButton, ButtonContainer, Title } from './Categories.styled';
 const Categories = () => {
     const [category, setCategory] = useState([]);
     
@@ -45,26 +45,26 @@ const Categories = () => {
 
 
     return(
-        <div>
-            <h1>Categories</h1>
-            <div className = "category">
-                {category.map((category)=>(
-                    <div className = "category" key={category.categoryID}>
-                        <h2>Name: {category.categoryName}</h2>
-                        <button>
-                            <Link to="/updatecategory" state= {{account: user, budgets: location.state.budgets, categoryID: category.categoryID}}>Edit</Link>
-                        </button>
-                        <button onClick = {()=>handleDelete(category.categoryID)}>Delete</button>
-                    </div>
-                ))}
-        </div>
-        <button>
-            <Link to="/createcategory" state= {{account:user, budgets: location.state.budgets}}>Create a new category</Link>
-        </button>
-        <button>
-            <Link to="/budgets" state= {{account: user, budgets:location.state.budgets}}>Return to Budgets page</Link>
-        </button>
-    </div>
+        <CategoryContainer>
+            <Title>Categories</Title>
+            {category.map((category)=>(
+                <CategoryItem key={category.categoryID}>
+                    <h2>Name: {category.categoryName}</h2>
+                    <CategoryButton>
+                        <Link to="/updatecategory" state= {{account: user, budgets: location.state.budgets, categoryID: category.categoryID}}>Edit</Link>
+                    </CategoryButton>
+                    <CategoryButton onClick = {()=>handleDelete(category.categoryID)}>Delete</CategoryButton>
+                </CategoryItem>
+            ))}
+            <ButtonContainer>
+                <CategoryButton>
+                    <Link to="/createcategory" state= {{account:user, budgets: location.state.budgets}}>Create a new category</Link>
+                </CategoryButton>
+                <CategoryButton>
+                    <Link to="/budgets" state= {{account: user, budgets:location.state.budgets}}>Return to Budgets page</Link>
+                </CategoryButton>
+            </ButtonContainer>
+        </CategoryContainer>
 )}
 
 export default Categories

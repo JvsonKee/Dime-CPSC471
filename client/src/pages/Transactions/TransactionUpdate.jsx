@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../App';
-import { TransactionForm, Title, FormGroup, Label, Input, Select, Button } from './TransactionUpdate.styled';
+import { TransactionForm, Title, FormGroup, Label, Input, Select, Button, InvalidFeedback } from './TransactionUpdate.styled';
 
 const UpdateTransaction = () => {
     const [user, setUser] = useContext(UserContext);
@@ -106,13 +106,13 @@ const UpdateTransaction = () => {
 
             <FormGroup>
                 <Label>Title</Label>
-                {invalidTitle && <div>{invalidTitle}</div>}
+                {invalidTitle && <InvalidFeedback>{invalidTitle}</InvalidFeedback>}
                 <Input type="text" onChange={handleChange} name="title" />
             </FormGroup>
 
             <FormGroup>
                 <Label>Amount</Label>
-                {invalidAmount && <div>{invalidAmount}</div>}
+                {invalidAmount && <InvalidFeedback>{invalidAmount}</InvalidFeedback>}
                 <Input type="number" onChange={handleChange} name="amount" />
             </FormGroup>
 

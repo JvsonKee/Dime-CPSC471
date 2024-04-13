@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const TransactionForm = styled.div`
+export const BudgetForm = styled.div`
     max-width: 500px;
     margin: 0 auto;
     padding: 20px;
@@ -24,14 +24,14 @@ export const Label = styled.h2`
 
 export const Input = styled.input`
     width: calc(100% - 20px); /* Adjust the width minus padding */
-    padding: 10px; /* Add padding */
+    padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
 `;
 
 export const Select = styled.select`
-    width: 100%;
+    width: calc(100% - 20px); /* Adjust the width minus padding */
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -46,7 +46,7 @@ export const Button = styled.button`
     border: none;
     border-radius: 5px;
     background-color: rgba(30, 216, 171, 0.50);
-    color: #000; /* Black text color */
+    color: black;
     font-size: 18px;
     cursor: pointer;
     transition: background-color 0.3s ease;

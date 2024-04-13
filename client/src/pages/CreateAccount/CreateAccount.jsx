@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -9,9 +9,12 @@ import {
     Button,
     LinkToLogin
 } from './CreateAccount.styled';
+import { UserContext } from '../../App';
 
 const CreateAccount = () => {
     const navigate = useNavigate();
+
+    const [user, setUser] = useContext(UserContext)
 
     const [account, setAccount] = useState({
         fName: '',
@@ -112,9 +115,18 @@ const CreateAccount = () => {
         if (validForm()) {
             try {
                 await axios.post('http://localhost:8800/createaccount', account);
-                navigate('/home');
             } catch (err) {
                 console.log(err);
+            }
+
+            try {
+                const res = await axios.get("http://localhost:8800/", {params: {email: account.email, password: account.password}})
+                if (res.data.length !== 0) {
+                    setUser(res.data[0])
+                    navigate('/home')
+                }
+            } catch (err) {
+                console.log(err)
             }
         }
     };

@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-export const TransactionForm = styled.div`
+export const ReceiptForm = styled.div`
     max-width: 500px;
     margin: 0 auto;
     padding: 20px;
@@ -54,10 +54,4 @@ export const Button = styled.button`
     &:hover {
         background-color: #00cc9f;
     }
-`;
-
-export const InvalidFeedback = styled.div`
-    color: red;
-    font-size: 14px;
-    margin-top: 5px;
 `;
