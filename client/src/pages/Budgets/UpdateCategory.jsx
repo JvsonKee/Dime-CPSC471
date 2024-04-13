@@ -1,17 +1,17 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useNavigate } from "react-router-dom"
 import {useState} from 'react'
 import axios from 'axios'
 import {useLocation} from 'react-router-dom';
 import { CategoryForm, Title, FormGroup, Label, Input, Select, Button } from './UpdateCategory.styled';
+import { UserContext } from '../../App';
 
 const UpdateCategory = () => {
 
+    const [user, setUser] = useContext(UserContext)
     const [invalidTitle, setInvalidTitle] = useState('')
 
     const location = useLocation();
-    let user = location.state.account
-    let budgets = location.state.budgets
 
     const[category,setCategory] = useState({
         categoryName: "",
@@ -37,11 +37,11 @@ const UpdateCategory = () => {
         e.preventDefault()
         if (validForm()) {
             try{
-                for (let i = 0; i < budgets.length; i++) {
-                    if (parseInt(budgets[i].category) === location.state.categoryID) {
-                        budgets[i].category_name = category.categoryName
-                    }
-                }
+                // for (let i = 0; i < budgets.length; i++) {
+                //     if (parseInt(budgets[i].category) === location.state.categoryID) {
+                //         budgets[i].category_name = category.categoryName
+                //     }
+                // }
                 await axios.put("http://localhost:8800/updatecategory/" + location.state.categoryID,category)
                 navigate("/categories", {state: {account: user, budgets: location.state.budgets}})
             }catch (err) {

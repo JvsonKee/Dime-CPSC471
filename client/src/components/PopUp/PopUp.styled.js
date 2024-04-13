@@ -92,6 +92,7 @@ export const ConfirmButton = styled(SubmitButton)`
 
 export const DropdownContainer = styled.div`
     display: flex;
+    gap: 10px;
     justify-content: space-evenly;
 `
 
@@ -142,11 +143,25 @@ export const EditCardContainer = styled.div`
 `
 
 export const EditWrapper = styled.div`
-
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
 `
 
 export const SubmitEditButton = styled.button`
+    margin-right: 15px;
+    border: none;
+    background-color: var(--dime-green);
+    border-radius: 20px;
+    height: 25px;
+    color: white;
+    font-weight: bold;
+    transition: 0.3s ease-in-out;
 
+    &:hover {
+        cursor: pointer;
+        background-color: #1DC79E;
+    }   
 `
 
 export const Top = styled.div`

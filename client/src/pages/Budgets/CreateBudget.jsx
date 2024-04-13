@@ -9,13 +9,6 @@ const CreateBudget = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const [user, setUser] = useContext(UserContext)
-
-
-    let budgets_loc = location.state.budgets
-
-    const [categories2, setCategories2] = useState([])
-    const [budgets2, setBudgets2] = useState([])
-
     const [invalidDescription, setIDescription] = useState('');
     //const [invalidCategory, setICategory] = useState('');
     const [invalidAmount, setIAmount] = useState('');
@@ -80,62 +73,19 @@ const CreateBudget = () => {
         setBudget((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     };
 
-    function calculate() {
-        let fill_in = ""
-        for (let i = 0; i < categories2.length; i++) {
-            if (categories2[i].categoryID === parseInt(budget.category)) {
-                fill_in = categories2[i].categoryName;
-                break;
-            }
-        }
-
-        let budget_toadd = {
-            budgetID: budgets2[budgets2.length -1].budgetID + 1,
-            bUserID: user.userID,
-            description: budget.description,
-            category: budget.category,
-            category_name: fill_in,
-            amount: budget.amount,
-            startDay: budget.startDay,
-            startMonth: budget.startMonth,
-            startYear: budget.startYear,
-            endDay: budget.endDay,
-            endMonth: budget.endMonth,
-            endYear: budget.endYear
-        }
-        budgets_loc.push(budget_toadd)
-    }
-    console.log(budget)
 
     const handleClick = async (e) => {
         e.preventDefault();
         if (validForm()) {
             try {
                 await axios.post("http://localhost:8800/createbudget/"+ user.userID, budget);
-                calculate()
-                navigate('/budgets', { state: { account: user, budgets: location.state.budgets} });
+                // calculate()
+                navigate('/budgets');
             } catch (err) {
                 console.log(err);
             }
         }
     };
-
-    useEffect(() => {
-        const fetchAllBudgets = async () => {
-            try{
-                const res = await axios.get("http://localhost:8800/budgets/" + user.userID)
-                setBudgets2(res.data)
-                console.log(res)
-                const res2 = await axios.get("http://localhost:8800/categoriesdrop/" + user.userID)
-                setCategories2(res2.data)
-                console.log(res2)
-            }catch(err){
-                console.log(err)
-            }
-        }
-
-        fetchAllBudgets()
-    }, [user.userID])
 
     return (
         <BudgetForm>

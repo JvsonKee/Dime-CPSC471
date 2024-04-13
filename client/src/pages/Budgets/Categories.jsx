@@ -1,30 +1,21 @@
-import React from 'react'
-import {useState} from 'react'
-import {useEffect} from 'react'
+import React, { useContext } from 'react'
+import {useState, useEffect} from 'react'
 import axios from 'axios'
-import { Link } from "react-router-dom"
-import {useLocation} from 'react-router-dom';
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import { CategoryContainer, CategoryItem, CategoryButton, ButtonContainer, Title } from './Categories.styled';
+import { UserContext } from '../../App'
+
 const Categories = () => {
-    const [category, setCategory] = useState([]);
+    const [user, setUser] = useContext(UserContext)
+    const [categories, setCategories] = useState([]);
     
     const navigate = useNavigate()
-    const location = useLocation();
-    let user = location.state.account;
-    let budgets = location.state.budgets
     
     const handleDelete = async(category) => {
         try{
-            for (let i = 0; i < budgets.length; i++) {
-                if (parseInt(budgets[i].category) === category) {
-                    await axios.delete("http://localhost:8800/deletebudget/" + budgets[i].budgetID);
-                    budgets.splice(i,1)
-                }
-            }
             await axios.delete("http://localhost:8800/deletecategory/" + category);
-
-            navigate("/categories", {state: {account: user, budgets: location.state.budgets}})
+            setCategories(categories => categories.filter(item => item.categoryID !== category))
+            navigate("/categories")
         }catch(err) {
             console.log(err)
         }
@@ -34,7 +25,7 @@ const Categories = () => {
         const fetchAllCategories = async () => {
             try{
                 const res = await axios.get("http://localhost:8800/categoriesdrop/" + user.userID)
-                setCategory(res.data)
+                setCategories(res.data)
                 console.log(res)
             }catch(err){
                 console.log(err)
@@ -47,21 +38,21 @@ const Categories = () => {
     return(
         <CategoryContainer>
             <Title>Categories</Title>
-            {category.map((category)=>(
+            {categories.map((category)=>(
                 <CategoryItem key={category.categoryID}>
                     <h2>Name: {category.categoryName}</h2>
                     <CategoryButton>
-                        <Link to="/updatecategory" state= {{account: user, budgets: location.state.budgets, categoryID: category.categoryID}}>Edit</Link>
+                        <Link to="/updatecategory" state= {{account: user, categoryID: category.categoryID}}>Edit</Link>
                     </CategoryButton>
                     <CategoryButton onClick = {()=>handleDelete(category.categoryID)}>Delete</CategoryButton>
                 </CategoryItem>
             ))}
             <ButtonContainer>
                 <CategoryButton>
-                    <Link to="/createcategory" state= {{account:user, budgets: location.state.budgets}}>Create a new category</Link>
+                    <Link to="/createcategory">Create a new category</Link>
                 </CategoryButton>
                 <CategoryButton>
-                    <Link to="/budgets" state= {{account: user, budgets:location.state.budgets}}>Return to Budgets page</Link>
+                    <Link to="/budgets">Return to Budgets page</Link>
                 </CategoryButton>
             </ButtonContainer>
         </CategoryContainer>

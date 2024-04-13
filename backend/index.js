@@ -224,6 +224,24 @@ app.get("/savings/:ID", (req,res)=>{
     })
 })
 
+app.get("/sumsavings/:ID", (req, res) => {
+    const user_ID = req.params.ID;
+    const q = "SELECT SUM(amount) AS total FROM savings WHERE sUserID = ?"
+    db.query(q, [user_ID], (err, data) => {
+        if (err) return res.json(err)
+        return res.json(data)
+    })
+})
+
+app.get("/sumtransactions/:ID", (req, res) => {
+    const user_ID = req.params.ID;
+    const q = "SELECT SUM(amount) AS total FROM transactions WHERE tUserID = ?"
+    db.query(q, [user_ID], (err, data) => {
+        if (err) return res.json(err)
+        return res.json(data)
+    })
+})
+
 app.get("/prefillsavings/:ID", (req,res)=>{
     const savings_ID = req.params.ID
     const q = "SELECT title, description, amount FROM savings WHERE savingsID = ?"
@@ -244,7 +262,7 @@ app.put("/updatesavings/:ID", (req,res)=>{
 
 app.delete("/deletesavings/:ID", (req,res) =>{
     const savingsID = req.params.ID;
-    const q = "DELETE FROM savings where savingsID = ? "
+    const q = "DELETE FROM savings where savingsID = ?"
     db.query(q, [savingsID], (err,data) => {
         if (err) return res.json(err);
         return res.json(data);

@@ -33,6 +33,16 @@ const EditPaymentForm = ({data, popUp}) => {
 
         try {
             await axios.put("http://localhost:8800/editpaymentmethod/"+ card.methodID, card)
+            setPaymentMethods(prevPaymentMethods => {
+                const index = prevPaymentMethods.findIndex(item => item.methodID === card.methodID);
+                if (index !== -1) {
+                    const newPaymentMethods = [...prevPaymentMethods];
+                    newPaymentMethods[index] = card;
+                    return newPaymentMethods;
+                }
+                return prevPaymentMethods;
+            })
+
             closePopUp()
         } catch (err) {
             console.log(err)
@@ -42,6 +52,7 @@ const EditPaymentForm = ({data, popUp}) => {
     const deleteCard = async (card) => {
         try {
             await axios.delete("http://localhost:8800/deletepayment/" + card);
+            setPaymentMethods(paymentMethods => paymentMethods.filter(item => item.methodID !== card))
             closePopUp()
         } catch (err) {
             console.log(err)
@@ -92,7 +103,7 @@ const EditPaymentForm = ({data, popUp}) => {
 
 
 const EditCard = ({mode, active, data, parentCardData}) => {
-
+    
     const [card, setCard] = useState(data)
 
     const handleChange = (e) => {
@@ -125,7 +136,7 @@ const EditCard = ({mode, active, data, parentCardData}) => {
                 : 
                 mode === "number" ?
                 <EditWrapper>
-                    <input type="text" onChange={handleChange} name="cardNumber"/>
+                    <input style={{width: "60%"}} type="text" onChange={handleChange} name="cardNumber"/>
                     <SubmitEditButton onClick={handleEditSubmit}>submit</SubmitEditButton>
                 </EditWrapper> 
                 : 
@@ -133,7 +144,6 @@ const EditCard = ({mode, active, data, parentCardData}) => {
                 <EditWrapper>
                     <DropdownContainer>
                         <DropWrapper>
-                            <label>Month:</label>
                             <Dropdown onChange={handleChange} name="expiryMonth">
                                 <option>Expiry month</option>
                                 {
@@ -144,7 +154,6 @@ const EditCard = ({mode, active, data, parentCardData}) => {
                             </Dropdown>
                         </DropWrapper>
                         <DropWrapper>
-                            <label>Year:</label>
                             <Dropdown onChange={handleChange} name="expiryYear">
                                 <option>Expiry year</option>
                                 {years.map((year, key) => (

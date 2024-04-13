@@ -1,13 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useNavigate } from "react-router-dom"
 import {useState} from 'react'
 import axios from 'axios'
 import {useLocation} from 'react-router-dom';
 import { CategoryForm, Title, FormGroup, Label, Input, Select, Button } from './CreateCategory.styled';
+import { UserContext } from '../../App';
 
 const CreateCategory = () => {
+    const [user, setUser] = useContext(UserContext)
     const location = useLocation();
-    let user = location.state.account;
 
     const [invalidTitle, setInvalidTitle] = useState('')
  
@@ -37,7 +38,7 @@ const CreateCategory = () => {
         if (validForm()) {
             try{
                 await axios.post("http://localhost:8800/createcategory/"+ user.userID, category)
-                navigate("/categories", {state: {account: user, budgets: location.state.budgets}})
+                navigate("/categories")
             }catch (err) {
                 console.log(err)
             }
