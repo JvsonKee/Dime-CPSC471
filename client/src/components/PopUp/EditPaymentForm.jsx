@@ -33,6 +33,7 @@ const EditPaymentForm = ({data, popUp}) => {
 
         try {
             await axios.put("http://localhost:8800/editpaymentmethod/"+ card.methodID, card)
+            console.log({card})
             setPaymentMethods(prevPaymentMethods => {
                 const index = prevPaymentMethods.findIndex(item => item.methodID === card.methodID);
                 if (index !== -1) {
@@ -117,8 +118,6 @@ const EditCard = ({mode, active, data, parentCardData}) => {
         parentCardData(card)
         // console.log("helo")
     }
-
-    console.log({card})
 
     return (
         <EditCardContainer>
