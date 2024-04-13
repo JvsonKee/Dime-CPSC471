@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom"
 import {useState} from 'react'
 import axios from 'axios'
 import {useLocation} from 'react-router-dom';
+import { ReceiptForm, Title, FormGroup, Label, Input, Select, Button } from './ReceiptUpdate.styled';
 
 const UpdateReceipt = () => {
     const location = useLocation();
@@ -44,19 +45,16 @@ const UpdateReceipt = () => {
     }
     console.log(receipt)
 
-    return <div>
-    <div className = 'receiptForm'>
-        <h1>Upload updated receipt image.</h1>
-
-        <h1>Image</h1>
-        {invalidImage && <div>{invalidImage}</div>}
-        <input type = "text" onChange = {handleChange} name = "image"/>
-
-    </div>
-    <button onClick = {handleClick}>
-        Submit
-    </button>
-    </div>
+    return (
+        <ReceiptForm>
+            <Title>Upload updated receipt image.</Title>
+            <FormGroup>
+                {invalidImage && <div>{invalidImage}</div>}
+                <input type = "text" onChange = {handleChange} name = "image"/>
+            </FormGroup>
+            <Button onClick = {handleClick}>Submit </Button>
+        </ReceiptForm>
+    )
 }
 
 export default UpdateReceipt
