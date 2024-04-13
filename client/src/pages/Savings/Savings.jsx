@@ -47,7 +47,12 @@ const Savings = () => {
         const getSavingsSum = async () => {
             try {
                 const res = await axios.get("http://localhost:8800/sumsavings/" + user.userID)
-                setTotalSavings(res.data[0].total)
+                let total = res.data[0].total;
+                if (total !== null) {
+                    setTotalSavings(total)
+                } else {
+                    setTotalSavings(0)
+                }
             } catch (err) {
                 console.log(err)
             }

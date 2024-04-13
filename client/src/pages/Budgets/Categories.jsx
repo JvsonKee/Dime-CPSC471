@@ -4,18 +4,18 @@ import axios from 'axios'
 import { useNavigate, Link } from "react-router-dom"
 import { CategoryContainer, CategoryItem, CategoryButton, ButtonContainer, Title } from './Categories.styled';
 import { UserContext } from '../../App'
+import { ContentContainer, MainContainer, PageContainer } from '../../styles/Containers';
+import NavBar from '../../components/NavBar';
+import { ItemContainer, TransactionButton, StyledLink } from '../Transactions/Transactions.styled';
 
 const Categories = () => {
     const [user, setUser] = useContext(UserContext)
     const [categories, setCategories] = useState([]);
     
-    const navigate = useNavigate()
-    
     const handleDelete = async(category) => {
         try{
             await axios.delete("http://localhost:8800/deletecategory/" + category);
             setCategories(categories => categories.filter(item => item.categoryID !== category))
-            navigate("/categories")
         }catch(err) {
             console.log(err)
         }
@@ -36,26 +36,35 @@ const Categories = () => {
 
 
     return(
-        <CategoryContainer>
-            <Title>Categories</Title>
-            {categories.map((category)=>(
-                <CategoryItem key={category.categoryID}>
-                    <h2>Name: {category.categoryName}</h2>
-                    <CategoryButton>
-                        <Link to="/updatecategory" state= {{account: user, categoryID: category.categoryID}}>Edit</Link>
-                    </CategoryButton>
-                    <CategoryButton onClick = {()=>handleDelete(category.categoryID)}>Delete</CategoryButton>
-                </CategoryItem>
-            ))}
-            <ButtonContainer>
-                <CategoryButton>
-                    <Link to="/createcategory">Create a new category</Link>
-                </CategoryButton>
-                <CategoryButton>
-                    <Link to="/budgets">Return to Budgets page</Link>
-                </CategoryButton>
-            </ButtonContainer>
-        </CategoryContainer>
+        <PageContainer>
+            <NavBar />
+            <MainContainer>
+                <ContentContainer>
+                    <CategoryContainer>
+                        <Title>Categories</Title>
+                        <ItemContainer>
+                            {categories.map((category)=>(
+                                <CategoryItem key={category.categoryID}>
+                                    <h2>{category.categoryName}</h2>
+                                    <TransactionButton>
+                                        <StyledLink to="/updatecategory" state= {{categoryID: category.categoryID}}>Edit</StyledLink>
+                                    </TransactionButton>
+                                    <TransactionButton style={{backgroundColor: "var(--red)"}} onClick = {()=>handleDelete(category.categoryID)}>Delete</TransactionButton>
+                                </CategoryItem>
+                            ))}
+                        </ItemContainer>
+                        <ButtonContainer>
+                            <TransactionButton>
+                                <StyledLink to="/createcategory">Create a new category</StyledLink>
+                            </TransactionButton>
+                            <TransactionButton>
+                                <StyledLink to="/budgets">Return to Budgets page</StyledLink>
+                            </TransactionButton>
+                        </ButtonContainer>
+                    </CategoryContainer>
+                </ContentContainer>
+            </MainContainer>
+        </PageContainer>
 )}
 
 export default Categories

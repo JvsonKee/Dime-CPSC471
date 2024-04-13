@@ -1,24 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { BudgetForm, Title, FormGroup, Label, Input, Select, Button, InvalidFeedback } from './CreateBudget.styled';
+import { UserContext } from '../../App';
 
 const UpdateBudget = () => {
-    const location = useLocation();
-    const navigate = useNavigate();
-    const user = location.state.account;
-
+    const [user, setUser] = useContext(UserContext)
     const [invalidDescription, setIDescription] = useState('');
-    //const [invalidCategory, setICategory] = useState('');
     const [invalidAmount, setIAmount] = useState('');
-    /*const [invalidStartDay, setIStartDay] = useState('');
-    const [invalidStartMonth, setIStartMonth] = useState('');
-    const [invalidStartYear, setIStartYear] = useState('');
-    const [invalidEndDay, setIEndDay] = useState('');
-    const [invalidEndMonth, setIEndMonth] = useState('');
-    const [invalidEndYear, setIEndYear] = useState('');*/
-
-    let budgets = location.state.budgets
     const [categories, setCategories] = useState([]);
     const [budget, setBudget] = useState({
         description: '',
@@ -31,6 +20,8 @@ const UpdateBudget = () => {
         endMonth: '',
         endYear: ''
     });
+    const location = useLocation();
+    const navigate = useNavigate();
 
     const days = Array.from({ length: 31 }, (_, i) => i + 1);
     const months = Array.from({ length: 12 }, (_, i) => i + 1);
@@ -72,42 +63,12 @@ const UpdateBudget = () => {
         setBudget((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     };
 
-    console.log(budget)
-
-    let fill_in = ""
-    function calculate() {
-        for (let i = 0; i < budgets.length; i++) {
-            if (budgets[i].budgetID === location.state.budgetID) {
-               
-                for (let i = 0; i < categories.length; i++) {
-                    if (categories[i].categoryID === parseInt(budget.category)) {
-                        fill_in = categories[i].categoryName;
-                        break;
-
-                    }
-                }
-                budgets[i].description = budget.description
-                budgets[i].category_name = fill_in
-                budgets[i].category = budget.category
-                budgets[i].amount = budget.amount
-                budgets[i].startDay = budget.startDay
-                budgets[i].startMonth = budget.startMonth
-                budgets[i].startYear = budget.startYear
-                budgets[i].endDay = budget.endDay
-                budgets[i].endMonth = budget.endMonth
-                budgets[i].endYear = budget.endYear
-                break
-            }
-        }
-    }
-
     const handleClick = async (e) => {
         e.preventDefault();
         if (validForm()) {
             try {
                 await axios.put("http://localhost:8800/updatebudget/"+ location.state.budgetID, budget);
-                calculate()
-                navigate('/budgets', { state: { account: user, budgets: location.state.budgets } });
+                navigate('/budgets');
             } catch (err) {
                 console.log(err);
             }

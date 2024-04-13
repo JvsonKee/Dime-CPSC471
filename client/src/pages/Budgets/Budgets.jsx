@@ -9,11 +9,11 @@ import {
     Title,
     ButtonContainer,
     Button,
-    BudgetButton,
 } from './Budgets.styled';
 import { UserContext } from '../../App';
 import { ContentContainer, MainContainer, PageContainer } from '../../styles/Containers';
 import NavBar from '../../components/NavBar';
+import { Bottom, ItemContainer, Mid, TName, TPrice, Top, TransactionButton, StyledLink } from '../Transactions/Transactions.styled';
 
 const Budgets = () => {
     const [user, setUser] = useContext(UserContext)
@@ -25,32 +25,22 @@ const Budgets = () => {
     const handleDeleteBudget = async(budget) => {
         try{
             await axios.delete("http://localhost:8800/deletebudget/" + budget);
-            let j = 0
-            for (let i = 0; i < location.state.budgets.length;  i++) {
-                if (location.state.budgets[i].budgetID === parseInt(budget)) {
-                    j = i
-                    break
-                }
-            }
-            console.log(j)
-            location.state.budgets.splice(j,1)
-            navigate("/budgets", {state: {account: user, budgets: location.state.budgets}})
+            setBudgets(budgets => budgets.filter(item => item.budgetID !== budget))
         }catch(err) {
             console.log(err)
         }
     }
 
     useEffect(() => {
-        const fetchAllBudgets = async () => {
-            try{
-                const res = await axios.get("http://localhost:8800/budgets/" + user.userID)
+        const fetchBudgets = async () => {
+            try {
+                const res = await axios.get("http://localhost:8800/budgetswithcategoryname/" + user.userID);
                 setBudgets(res.data)
-                console.log(res)
-            }catch(err){
+            } catch (err) {
                 console.log(err)
             }
         }
-        fetchAllBudgets()
+        fetchBudgets()
     }, [user.userID])
 
     return (
@@ -60,27 +50,32 @@ const Budgets = () => {
                 <ContentContainer>
                     <BudgetsContainer>
                         <Title>Budgets</Title>
-                        {budgets.map(budget => (
-                            <BudgetItem key={budget.budgetID}>
-                                <h2>Description: {budget.description}</h2>
-                                <p>Category: {budget.category_name}</p>
-                                <p>Amount: {budget.amount}</p>
-                                <p>Start date: {budget.startDay} / {budget.startMonth} / {budget.startYear}</p>
-                                <p>End date: {budget.endDay} / {budget.endMonth} / {budget.endYear}</p>
-                                <Button onClick={() => navigate("/updatebudget", { state: { account: user, budgets: location.state.budgets, budgetID: budget.budgetID }})}>Update</Button>
-                                <Button onClick={() => handleDeleteBudget(budget.budgetID)}>Delete</Button>
-                            </BudgetItem>
-                        ))}
+                        <ItemContainer>
+                            {budgets.map(budget => (
+                                <BudgetItem key={budget.budgetID}>
+                                    <Top>
+                                        <TName>{budget.categoryName}</TName>
+                                        <TPrice>${budget.amount}</TPrice>
+                                    </Top>
+                                    <Mid>
+                                        <div>{budget.description}</div>
+                                        <div>Start: {budget.startDay} / {budget.startMonth} / {budget.startYear}</div>
+                                        <div>End: {budget.endDay} / {budget.endMonth} / {budget.endYear}</div>
+                                    </Mid>
+                                    <Bottom>
+                                        <TransactionButton onClick={() => navigate("/updatebudget", { state: { budgetID: budget.budgetID }})}>Update</TransactionButton>
+                                        <TransactionButton style={{backgroundColor: 'var(--red)'}} onClick={() => handleDeleteBudget(budget.budgetID)}>Delete</TransactionButton>
+                                    </Bottom>
+                                </BudgetItem>
+                            ))}
+                        </ItemContainer>
                         <ButtonContainer>
-                            <Button>
-                                <Link to= "/createbudget">Create New Budget</Link>
-                            </Button>
-                            <Button>
-                                <Link to= "/categories">Update My Categories</Link>
-                            </Button>
-                            <Button>
-                                <Link to = "/home">Return Home</Link>
-                            </Button>
+                            <TransactionButton>
+                                <StyledLink to= "/createbudget">Create New Budget</StyledLink>
+                            </TransactionButton>
+                            <TransactionButton>
+                                <StyledLink to= "/categories">Update My Categories</StyledLink>
+                            </TransactionButton>
                         </ButtonContainer>
                     </BudgetsContainer>
                 </ContentContainer>

@@ -6,19 +6,10 @@ import { useContext } from 'react';
 import { BudgetForm, Title, FormGroup, Label, Input, Select, Button, InvalidFeedback } from './CreateBudget.styled';
 
 const CreateBudget = () => {
-    const location = useLocation();
     const navigate = useNavigate();
     const [user, setUser] = useContext(UserContext)
     const [invalidDescription, setIDescription] = useState('');
-    //const [invalidCategory, setICategory] = useState('');
     const [invalidAmount, setIAmount] = useState('');
-    /*const [invalidStartDay, setIStartDay] = useState('');
-    const [invalidStartMonth, setIStartMonth] = useState('');
-    const [invalidStartYear, setIStartYear] = useState('');
-    const [invalidEndDay, setIEndDay] = useState('');
-    const [invalidEndMonth, setIEndMonth] = useState('');
-    const [invalidEndYear, setIEndYear] = useState('');*/
-
     const [categories, setCategories] = useState([]);
   
     const [budget, setBudget] = useState({

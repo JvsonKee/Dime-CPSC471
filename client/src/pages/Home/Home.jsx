@@ -10,6 +10,7 @@ import Incoming from './Incoming';
 import Calendar from './Calendar'
 import SavingsHome from './SavingsHome';
 import GoalsHome from './GoalsHome';
+import BudgetsHome from './BudgetsHome';
 
 const Home = () => {
 
@@ -106,7 +107,7 @@ const Home = () => {
                             <TopBottom>
                                 <BudgetAndGoalHolder>
                                     <SquareBox style={{width: '44.5%'}}onClick = {() => sendTo('/budgets')}>
-                                        Budgets
+                                        <BudgetsHome />
                                     </SquareBox>
                                     <SquareBox style={{width: '44.5%'}} onClick = {() => sendTo("/goals")}>
                                         <GoalsHome />

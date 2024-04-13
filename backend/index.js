@@ -310,6 +310,15 @@ app.get("/transactionswithpaymenttitle/:ID", (req, res) => {
     })
 })
 
+app.get("/budgetswithcategoryname/:ID", (req, res) => {
+    const user_ID = req.params.ID;
+    const q = "SELECT categoryID, categoryName, budgetID, description, amount, startDay, startMonth, startYear, endDay, endMonth, endYear FROM category JOIN budget WHERE categoryID = category and bUserID = ?"
+    db.query(q, [user_ID], (err, data) => {
+        if (err) return res.json(err)
+        return res.json(data)
+    })
+})
+
 app.get("/monthlytransactions/:ID", (req, res) => {
     const user_ID = req.params.ID
     const q = "SELECT * FROM transactions WHERE tUserID = ? AND tMonth = ? AND tYear = ?"

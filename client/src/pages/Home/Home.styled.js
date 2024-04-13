@@ -43,14 +43,14 @@ export const Matrix = styled.div`
 export const TopBottom = styled.div`
     display: flex;
     flex-direction: column;
-    gap: 4%;
+    gap: 3%;
     width: 66%;
 `
 
 export const BudgetAndGoalHolder = styled.div`
     display: flex;
     gap: 3%;
-    height: 50%;
+    height: 55%;
 `
 
 export const Top = styled.div`
