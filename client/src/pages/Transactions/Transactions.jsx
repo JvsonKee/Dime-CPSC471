@@ -72,7 +72,7 @@ const Transactions = () => {
                             </ItemContainer>
                             <ButtonContainer>
                                 <TransactionButton>
-                                    <Link to="/newtransaction">Create a transaction</Link>
+                                    <Link style={{color: 'white', textDecoration: 'none'}} to="/newtransaction">Add Transaction</Link>
                                 </TransactionButton>
                             </ButtonContainer>
                         </TransactionsContainer>
