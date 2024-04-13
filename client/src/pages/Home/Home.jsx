@@ -58,7 +58,7 @@ const Home = () => {
             try{
                 const res = await axios.get("http://localhost:8800/transactions/" + user.userID)
                 setTransactions(res.data)
-                console.log(res)
+                console.log("here" , res)
                 const res2 = await axios.get("http://localhost:8800/paymentmethodsdrop/" + user.userID)
                 setPayments(res2.data)
                 console.log(res2)
@@ -126,7 +126,7 @@ const Home = () => {
                                     Goals
                                 </RectangleBox>
                             </TopBottom>
-                            <VerticalBox onClick = {() => calculate()}>
+                            <VerticalBox onClick = {() => sendTo("/transactions")}>
                                 <RecentTransactions transactions={transactions}/>
                             </VerticalBox>
                         </Matrix>

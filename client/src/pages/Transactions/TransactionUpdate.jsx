@@ -12,7 +12,6 @@ const UpdateTransaction = () => {
     const [invalidTitle, setInvalidTitle] = useState('');
     const [invalidAmount, setInvalidAmount] = useState('');
     const [paymentMethods, setPaymentMethods] = useState([]);
-    let transactions = location.state.transactions
 
     const [transaction, setTransaction] = useState({
         title: '',
@@ -63,38 +62,38 @@ const UpdateTransaction = () => {
         setTransaction((prev) => ({ ...prev, [e.target.name]: e.target.value }))
     }
 
-    let fill_in = ""
-    function calculate() {
-        for (let i = 0; i < transactions.length; i++) {
-            if (transactions[i].transactionID === location.state.transactionID) {
+    // let fill_in = ""
+    // function calculate() {
+    //     for (let i = 0; i < transactions.length; i++) {
+    //         if (transactions[i].transactionID === location.state.transactionID) {
                
-                for (let i = 0; i < paymentMethods.length; i++) {
-                    if (paymentMethods[i].methodID === parseInt(transaction.payment_method)) {
-                        fill_in = paymentMethods[i].methodType;
-                        console.log("itwenthere but still")
-                        break;
+    //             for (let i = 0; i < paymentMethods.length; i++) {
+    //                 if (paymentMethods[i].methodID === parseInt(transaction.payment_method)) {
+    //                     fill_in = paymentMethods[i].methodType;
+    //                     console.log("itwenthere but still")
+    //                     break;
 
-                    }
-                }
-                transactions[i].title = transaction.title
-                transactions[i].payment_name = fill_in
-                transactions[i].payment_method = transaction.payment_method
-                transactions[i].amount = transaction.amount
-                transactions[i].tDay = transaction.tDay
-                transactions[i].tMonth = transaction.tMonth
-                transactions[i].tYear = transaction.tYear
-                break
-            }
-        }
-    }
+    //                 }
+    //             }
+    //             transactions[i].title = transaction.title
+    //             transactions[i].payment_name = fill_in
+    //             transactions[i].payment_method = transaction.payment_method
+    //             transactions[i].amount = transaction.amount
+    //             transactions[i].tDay = transaction.tDay
+    //             transactions[i].tMonth = transaction.tMonth
+    //             transactions[i].tYear = transaction.tYear
+    //             break
+    //         }
+    //     }
+    // }
 
     const handleClick = async (e) => {
         e.preventDefault()
         if (validForm()) {
             try {
                 await axios.put("http://localhost:8800/updatetransaction/" + location.state.transactionID, transaction)
-                calculate()
-                navigate("/transactions", {state: {account: user, transactions: location.state.transactions}})
+                // calculate()
+                navigate("/transactions")
             } catch (err) {
                 console.log(err)
             }

@@ -3,15 +3,17 @@ import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../App';
 import { TransactionForm, Title, FormGroup, Label, Input, Select, Button } from './TransactionNew.styled';
+import { TransactionContext } from './Transactions';
 
 const TransactionNew = () => {
     const [user, setUser] = useContext(UserContext);
+    // const [transactions, setTransactions] = useContext(TransactionContext)
     const location = useLocation();
     const navigate = useNavigate();
 
     const [payment, setPayments] = useState([])
     const [transactions2, setTransactions2] = useState([])
-    let transactions = location.state.transactions
+    // let transactions = location.state.transactions
     const [invalidTitle, setInvalidTitle] = useState('');
     const [invalidAmount, setInvalidAmount] = useState('');
     const [paymentMethods, setPaymentMethods] = useState([]);
@@ -91,7 +93,7 @@ const TransactionNew = () => {
             tYear: transaction.tYear
         };
     
-        transactions.push(transaction_toadd);
+        // transactions.push(transaction_toadd);
     }
 
     console.log(transaction)
@@ -101,8 +103,9 @@ const TransactionNew = () => {
         if (validForm()) {
             try {
                 await axios.post("http://localhost:8800/newtransaction/" + user.userID, transaction);
-                calculate()
-                navigate("/transactions", {state: {account: user, transactions: location.state.transactions}})
+                // calculate()
+                // setTransactions(...transactions, transaction)
+                navigate("/transactions")
             } catch (err) {
                 console.log(err);
             }
