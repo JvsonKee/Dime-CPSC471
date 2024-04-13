@@ -52,9 +52,15 @@ const Budgets = () => {
                 </BudgetItem>
             ))}
             <ButtonContainer>
-                <Button as={Link} to={{ pathname: "/createbudget", state: { account: user, budgets: location.state.budgets }}}>Create New Budget</Button>
-                <Button as={Link} to={{ pathname: "/categories", state: { account: user, budgets: location.state.budgets }}}>Update My Categories</Button>
-                <Button as={Link} to={{ pathname: "/home", state: { account: user }}}>Return Home</Button>
+                <Button>
+                    <Link to= "/createbudget" state= {{ account: user, budgets: location.state.budgets }}>Create New Budget</Link>
+                </Button>
+                <Button>
+                    <Link to= "/categories" state = {{ account: user, budgets: location.state.budgets }}>Update My Categories</Link>
+                </Button>
+                <Button>
+                    <Link to = "/home"  state = {{ account: user }}>Return Home</Link>
+                </Button>
             </ButtonContainer>
         </BudgetsContainer>
     );
