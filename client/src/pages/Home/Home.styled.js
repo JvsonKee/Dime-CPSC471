@@ -83,6 +83,7 @@ export const BoxContentWrapper = styled.div`
     flex-direction: column;
     height: 100%;
     overflow: scroll;
+    overflow-x: hidden;
 `
 
 export const TransactionItem = styled.div`
