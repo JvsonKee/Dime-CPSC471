@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { UserContext } from '../../App';
+import { useContext } from 'react';
 
 const CreateBudget = () => {
     const location = useLocation();
     const navigate = useNavigate();
-    const user = location.state.account;
+    const [user, setUser] = useContext(UserContext)
+
 
     let budgets_loc = location.state.budgets
 
