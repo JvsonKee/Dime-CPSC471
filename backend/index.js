@@ -285,7 +285,7 @@ app.get("/transactions/:ID", (req,res)=>{
 
 app.get("/transactionswithpaymenttitle/:ID", (req, res) => {
     const user_ID = req.params.ID
-    const q = "SELECT methodType, methodID, tDay, tMonth, tYear, title, amount, transactionID FROM payment_methods JOIN transactions WHERE methodID = payment_method"
+    const q = "SELECT methodType, methodID, tDay, tMonth, tYear, title, amount, transactionID FROM payment_methods JOIN transactions WHERE methodID = payment_method AND tUserID = ?"
     db.query(q, [user_ID], (err, data) => {
         if (err) return res.json(err)
         return res.json(data)
