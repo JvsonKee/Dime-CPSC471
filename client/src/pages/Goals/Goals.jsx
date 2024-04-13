@@ -62,8 +62,12 @@ const Goals = () => {
                 ))}
             </GoalsContainer>
             <ButtonContainer>
-                <Button as={Link} to={{ pathname: "/newgoals", state: { account: user } }}>Create New Savings Goal</Button>
-                <Button as={Link} to={{ pathname: "/home", state: { account: user } }}>Return Home</Button>
+                <Button>
+                    <Link to = "/newgoals" state = {{ account: user } }>Create New Savings Goal</Link>
+                </Button>
+                <Button>
+                    <Link to = "/home" state = {{ account: user }}>Return Home</Link>
+                </Button>
             </ButtonContainer>
         </div>
     );
