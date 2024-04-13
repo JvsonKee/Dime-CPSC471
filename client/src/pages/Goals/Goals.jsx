@@ -5,6 +5,7 @@ import axios from 'axios'
 import { Link } from "react-router-dom"
 import { UserContext } from '../../App';
 import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
     GoalsContainer,
     GoalItem,
@@ -18,9 +19,12 @@ import { Bottom, ItemContainer, Mid, StyledLink, TName, TPrice, Top, Transaction
 
 const Goals = () => {
     const [goals, setGoals] = useState([])
+    const navigate = useNavigate();
 
     const [user, setUser] = useContext(UserContext);
 
+    var goal_pass = []
+    var goal_id = 0
 
     const handleDelete = async(goalID) => {
         try{
@@ -30,6 +34,21 @@ const Goals = () => {
             console.log(err)
         }
     }
+    const fetchGoal = async() => {
+        try{
+            const res = await axios.get("http://localhost:8800/prefillgoal/" + goal_id)
+            goal_pass = res.data
+            console.log(goal_pass)
+        }catch(err){
+            console.log(err)
+        }
+    }
+
+    function setGoalVar(goalID) {
+        goal_id = goalID
+        fetchGoal().then(() => navigate("/updategoals", {state: {account:user, goalID: goal_id, goalPass: goal_pass}}))
+    }
+
 
     useEffect(() => {
         const fetchAllGoals = async () => {
@@ -63,9 +82,7 @@ const Goals = () => {
                                         <div>Target date: {goal.gDay} / {goal.gMonth} / {goal.gYear}</div>
                                     </Mid>
                                     <Bottom>
-                                        <TransactionButton>
-                                            <StyledLink to="/updategoals" state={{ account: user, goalID: goal.goalID }}>Edit</StyledLink>
-                                        </TransactionButton>
+                                        <TransactionButton onClick = {()=>setGoalVar(goal.goalID)}>Edit</TransactionButton>
                                         <TransactionButton style={{backgroundColor: 'var(--red)'}}onClick={() => handleDelete(goal.goalID)}>Delete</TransactionButton>
                                     </Bottom>
                                 </GoalItem>

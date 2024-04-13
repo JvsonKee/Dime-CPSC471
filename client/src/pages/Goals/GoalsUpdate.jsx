@@ -17,12 +17,12 @@ const UpdateGoals = () => {
     const [invalidYear, setInvalidYear] = useState('')
 
     const[goal,setGoal] = useState({
-        title:"",
-        description:null,
-        amount:"",
-        gDay: "",
-        gMonth:"",
-        gYear:""
+        title: location.state.goalPass[0].title,
+        description: location.state.goalPass[0].description,
+        amount:location.state.goalPass[0].amount,
+        gDay: location.state.goalPass[0].gDay,
+        gMonth:location.state.goalPass[0].gMonth,
+        gYear:location.state.goalPass[0].gYear
     })
 
     const navigate = useNavigate()
@@ -82,36 +82,36 @@ const UpdateGoals = () => {
             <FormGroup>
                 <Label>Title *</Label>
                 {invalidTitle && <div>{invalidTitle}</div>}
-                <Input type = "text" onChange = {handleChange} name = "title"/>
+                <Input type = "text" onChange = {handleChange} name = "title" value = {goal.title}/>
             </FormGroup>
 
             <FormGroup>
                 <Label>Description</Label>
-                <Input type = "text" onChange = {handleChange} name = "description"/>
+                <Input type = "text" onChange = {handleChange} name = "description" value = {goal.description}/>
             </FormGroup>
 
             <FormGroup>
                 <Label>Amount *</Label>
                 {invalidAmount && <div>{invalidAmount}</div>}
-                <Input type = "number" onChange = {handleChange} name = "amount"/>
+                <Input type = "number" onChange = {handleChange} name = "amount" value = {goal.amount}/>
             </FormGroup>
 
             <FormGroup>
                 <Label>Target day *</Label>
                 {invalidDay && <div>{invalidDay}</div>}
-                <Input type = "number" onChange = {handleChange} name = "gDay"/>
+                <Input type = "number" onChange = {handleChange} name = "gDay" value = {goal.gDay}/>
             </FormGroup>
 
             <FormGroup>
                 <Label>Target month *</Label>
                 {invalidMonth && <div>{invalidMonth}</div>}
-                <Input type = "number" onChange = {handleChange} name = "gMonth"/>
+                <Input type = "number" onChange = {handleChange} name = "gMonth" value = {goal.gMonth}/>
             </FormGroup>
 
             <FormGroup>
                 <Label>Target year *</Label>
                 {invalidYear && <div>{invalidYear}</div>}
-                <Input type = "number" onChange = {handleChange} name = "gYear"/>
+                <Input type = "number" onChange = {handleChange} name = "gYear" value = {goal.gYear}/>
             </FormGroup>
 
             <Button onClick = {handleClick}>
