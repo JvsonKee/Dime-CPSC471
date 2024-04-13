@@ -65,18 +65,22 @@ const TransactionNew = () => {
     };
 
     function calculate() {
-        console.log(payment)
-        let fill_in = ""
+        console.log(payment);
+        let fill_in = "";
+        let transactionID = 1; // Default value if transactions2 is empty
+        if (transactions2.length > 0) {
+            transactionID = transactions2[transactions2.length - 1].transactionID + 1;
+        }
+        
         for (let i = 0; i < payment.length; i++) {
             if (payment[i].methodID === parseInt(transaction.payment_method)) {
                 fill_in = payment[i].methodType;
                 break;
-
             }
         }
-
+    
         let transaction_toadd = {
-            transactionID: transactions2[transactions2.length - 1].transactionID + 1,
+            transactionID: transactionID,
             tUserID: user.userID,
             title: transaction.title,
             payment_method: transaction.payment_method,
@@ -85,8 +89,9 @@ const TransactionNew = () => {
             tDay: transaction.tDay,
             tMonth: transaction.tMonth,
             tYear: transaction.tYear
-        }
-        transactions.push(transaction_toadd)
+        };
+    
+        transactions.push(transaction_toadd);
     }
 
     console.log(transaction)
