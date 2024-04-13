@@ -135,19 +135,19 @@ const TransactionNew = () => {
             <Title>Create New Transaction</Title>
 
             <FormGroup>
-                <Label>Title</Label>
+                <Label>Title *</Label>
                 {invalidTitle && <InvalidFeedback>{invalidTitle}</InvalidFeedback>}
                 <Input type="text" onChange={handleChange} name="title" />
             </FormGroup>
 
             <FormGroup>
-                <Label>Amount</Label>
+                <Label>Amount *</Label>
                 {invalidAmount && <InvalidFeedback>{invalidAmount}</InvalidFeedback>}
                 <Input type="number" onChange={handleChange} name="amount" />
             </FormGroup>
 
             <FormGroup>
-                <Label>Payment Method</Label>
+                <Label>Payment Method *</Label>
                 <Select onChange={handleChange} name="payment_method">
                     <option value="">Select Payment Method</option>
                     {paymentMethods.map((method) => (
@@ -159,7 +159,7 @@ const TransactionNew = () => {
             </FormGroup>
 
             <FormGroup>
-                <Label>Date</Label>
+                <Label>Date *</Label>
                 <div>
                     <Select onChange={handleChange} name="tDay">
                         <option value="">Day</option>
