@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../App';
 import { useContext } from 'react';
+import { BudgetForm, Title, FormGroup, Label, Input, Select, Button, InvalidFeedback } from './CreateBudget.styled';
 
 const CreateBudget = () => {
     const location = useLocation();
@@ -137,76 +138,84 @@ const CreateBudget = () => {
     }, [user.userID])
 
     return (
-        <div>
-            <div className="budgetForm">
-                <h1>Enter new budget information.</h1>
+        <BudgetForm>
+            <Title>Enter New Budget Information.</Title>
 
-                <h1>Description *</h1>
-                {invalidDescription && <div>{invalidDescription}</div>}
-                <input type="text" onChange={handleChange} name="description" />
+            <FormGroup>
+                <Label>Description *</Label>
+                {invalidDescription && <InvalidFeedback>{invalidDescription}</InvalidFeedback>}
+                <Input type="text" onChange={handleChange} name="description" />
+            </FormGroup>
 
-
-                <h1>Category *</h1>
-                <select onChange={handleChange} name = "category">
+            <FormGroup>
+                <Label>Category *</Label>
+                <Select onChange={handleChange} name="category">
                     <option value="">Select Category</option>
                     {categories.map((cat) => (
                         <option key={cat.categoryID} value={cat.categoryID}>
                             {cat.categoryName}
                         </option>
                     ))}
-                </select>
+                </Select>
+            </FormGroup>
 
-                <h1>Amount *</h1>
-                {invalidAmount && <div>{invalidAmount}</div>}
-                <input type="number" onChange={handleChange} name="amount" />
+            <FormGroup>
+                <Label>Amount *</Label>
+                {invalidAmount && <InvalidFeedback>{invalidAmount}</InvalidFeedback>}
+                <Input type="number" onChange={handleChange} name="amount" />
+            </FormGroup>
 
-                <h1>Start Date</h1>
+            <FormGroup>
+                <Label>Start Date</Label>
                 <div>
-                    <select onChange={handleChange} name="startDay">
+                    <Select onChange={handleChange} name="startDay">
                         <option value="">Day</option>
                         {days.map((day) => (
                             <option key={day} value={day}>{day}</option>
                         ))}
-                    </select>
-                    <select onChange={handleChange} name="startMonth">
+                    </Select>
+                    <Select onChange={handleChange} name="startMonth">
                         <option value="">Month</option>
                         {months.map((month) => (
                             <option key={month} value={month}>{month}</option>
                         ))}
-                    </select>
-                    <select onChange={handleChange} name="startYear">
+                    </Select>
+                    <Select onChange={handleChange} name="startYear">
                         <option value="">Year</option>
                         {years.map((year) => (
                             <option key={year} value={year}>{year}</option>
                         ))}
-                    </select>
+                    </Select>
                 </div>
+            </FormGroup>
 
-                <h1>End Date</h1>
+            <FormGroup>
+                <Label>End Date</Label>
                 <div>
-                    <select onChange={handleChange} name="endDay">
+                    <Select onChange={handleChange} name="endDay">
                         <option value="">Day</option>
                         {days.map((day) => (
                             <option key={day} value={day}>{day}</option>
                         ))}
-                    </select>
-                    <select onChange={handleChange} name="endMonth">
+                    </Select>
+                    <Select onChange={handleChange} name="endMonth">
                         <option value="">Month</option>
                         {months.map((month) => (
                             <option key={month} value={month}>{month}</option>
                         ))}
-                    </select>
-                    <select onChange={handleChange} name="endYear">
+                    </Select>
+                    <Select onChange={handleChange} name="endYear">
                         <option value="">Year</option>
                         {years.map((year) => (
                             <option key={year} value={year}>{year}</option>
                         ))}
-                    </select>
+                    </Select>
                 </div>
-            </div>
-            <button onClick={handleClick}>Submit</button>
-        </div>
-    );
+            </FormGroup>
+
+            <Button onClick={handleClick}>Submit</Button>
+        </BudgetForm>
+    )
 };
 
 export default CreateBudget;
