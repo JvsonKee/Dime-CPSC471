@@ -2,13 +2,15 @@ import React, { useContext, useState, useEffect } from 'react'
 import NavBar from '../../components/NavBar';
 import { ContentContainer, MainContainer, PageContainer, CardContainer } from '../../styles/Containers';
 import { useNavigate } from 'react-router-dom';
-import { Matrix, RectangleBox, SquareBox, TopBottom, VerticalBox, Top, Bottom } from './Home.styled';
+import { Matrix, RectangleBox, SquareBox, TopBottom, VerticalBox, Top, Bottom, BudgetAndGoalHolder } from './Home.styled';
 import { UserContext } from '../../App';
 import axios from 'axios';
 import RecentTransactions from './RecentTransactions'
 import Incoming from './Incoming';
 import Calendar from './Calendar'
 import SavingsHome from './SavingsHome';
+import GoalsHome from './GoalsHome';
+import BudgetsHome from './BudgetsHome';
 
 const Home = () => {
 
@@ -103,12 +105,26 @@ const Home = () => {
                     <Bottom>
                         <Matrix>
                             <TopBottom>
-                                <RectangleBox onClick = {() => sendTo('/budgets')}>
-                                    Budgets
-                                </RectangleBox>
-                                <RectangleBox onClick = {() => sendTo("/goals")}>
-                                    Goals
-                                </RectangleBox>
+                                <BudgetAndGoalHolder>
+                                    <SquareBox style={{width: '44.5%'}}onClick = {() => sendTo('/budgets')}>
+                                        <BudgetsHome />
+                                    </SquareBox>
+                                    <SquareBox style={{width: '44.5%'}} onClick = {() => sendTo("/goals")}>
+                                        <GoalsHome />
+                                    </SquareBox>
+                                </BudgetAndGoalHolder>
+                                {
+                                    user.premium === "n" ?
+                                        <RectangleBox> 
+                                            Upgrade to premium to unlock this feature.
+                                        </RectangleBox>
+                                    : 
+                                    user.premium === "y" ?
+                                        <RectangleBox>
+                                            Premium
+                                        </RectangleBox>
+                                    : null
+                                }
                             </TopBottom>
                             <VerticalBox onClick = {() => sendTo("/transactions")}>
                                 <RecentTransactions transactions={transactions}/>

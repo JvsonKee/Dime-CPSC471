@@ -59,6 +59,6 @@ export const TotalSavings = styled.div`
     
     span {
         font-weight: bold;
-        color: var(--dime-green);
+        color: #5E94FF;
     }
 `

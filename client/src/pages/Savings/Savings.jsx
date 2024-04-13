@@ -47,19 +47,18 @@ const Savings = () => {
         const getSavingsSum = async () => {
             try {
                 const res = await axios.get("http://localhost:8800/sumsavings/" + user.userID)
-                setTotalSavings(res.data[0].total)
+                let total = res.data[0].total;
+                if (total !== null) {
+                    setTotalSavings(total)
+                } else {
+                    setTotalSavings(0)
+                }
             } catch (err) {
                 console.log(err)
             }
         }
         getSavingsSum()
     }, [user.userID])
-
-    // const computeTotalSavings = () => {
-    //     for (let i = 0; i < savings.length; i++) {
-    //         setTotalSavings(totalSavings + savings[i].amount)
-    //     }
-    // }
      
     function setSavingsVar(savingsID) {
        savings_id = savingsID
@@ -108,7 +107,7 @@ const Savings = () => {
                                     </Mid>
                                     <Bottom>
                                         <TransactionButton onClick = {()=>setSavingsVar(saving.savingsID)}>Edit</TransactionButton>
-                                        <TransactionButton onClick={() => handleDelete(saving.savingsID)}>Delete</TransactionButton>
+                                        <TransactionButton style={{backgroundColor: 'var(--red)'}} onClick={() => handleDelete(saving.savingsID)}>Delete</TransactionButton>
                                     </Bottom>
                                 </SavingsItem>
                             ))}

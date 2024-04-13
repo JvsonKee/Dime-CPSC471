@@ -1,18 +1,23 @@
 import { useContext, useEffect, useState } from "react"
-import { BoxContentWrapper, BoxHeader, ColumnBoxContainer, IncomeAmount, IncomeItem, IncomeName, SavingsWrapper, TotalSavings } from "./Home.styled"
+import { BoxContentWrapper, BoxHeader, ColumnBoxContainer, SavingsWrapper, TotalSavings } from "./Home.styled"
 import axios from "axios"
 import { UserContext } from "../../App"
 
-const SavingsHome = ({savings}) => {
+const SavingsHome = () => {
 
     const [user, setUser] = useContext(UserContext);
-    const [totalSavings, setTotalSavings] = useState()
+    const [totalSavings, setTotalSavings] = useState(0)
     
     useEffect(() => {
         const getSavingsSum = async () => {
             try {
                 const res = await axios.get("http://localhost:8800/sumsavings/" + user.userID)
-                setTotalSavings(res.data[0].total)
+                let total = res.data[0].total;
+                if (total !== null) {
+                    setTotalSavings(total)
+                } else {
+                    setTotalSavings(0)
+                }
             } catch (err) {
                 console.log(err)
             }

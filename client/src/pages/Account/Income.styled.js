@@ -2,18 +2,23 @@ import styled from 'styled-components';
 
 export const IncomeContainer = styled.div`
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-direction: column;
+    gap: 2%;
+    width: 100%;
+    padding: 2%;
+    background-color: white;
+    border-radius: 20px;
 `;
 
 export const IncomeItem = styled.div`
-    width: calc(33.33% - 225px); /* Adjust the width as needed */
-    border: 1px solid #ccc;
-    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 45%;
+    border-radius: 20px;
+    height: 120px;
     padding: 15px;
-    margin: 20px 20px; /* Adjust the margin to control space between income bubbles */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-    background-color: #f9f9f9;
+    background-color: var(--light-grey);
 `;
 
 export const IncomeButton = styled.button`
@@ -32,14 +37,8 @@ export const IncomeButton = styled.button`
 export const ButtonContainer = styled.div`
     display: flex;
     justify-content: center;
-    position: fixed;
-    bottom: 20px; /* Adjust the distance from the bottom as needed */
-    left: 0;
-    right: 0;
 `;
 
 export const Title = styled.h1`
-    text-align: center;
-    margin-bottom: 20px;
     width: 100%;
 `;
