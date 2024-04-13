@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom"
 import {useState} from 'react'
 import axios from 'axios'
 import {useLocation} from 'react-router-dom';
+import { GoalsForm, Title, FormGroup, Label, Input, Select, Button, InvalidFeedback } from './GoalsUpdate.styled';
 
 const UpdateGoals = () => {
     const location = useLocation();
@@ -74,38 +75,50 @@ const UpdateGoals = () => {
     }
     console.log(goal)
 
-    return <div>
-    <div className = 'goalForm'>
-        <h1>Enter updated savings goal information.</h1>
+    return (
+        <GoalsForm>
+            <Title>Enter updated savings goal information.</Title>
 
-        <h1>Title *</h1>
-        {invalidTitle && <div>{invalidTitle}</div>}
-        <input type = "text" onChange = {handleChange} name = "title"/>
+            <FormGroup>
+                <Label>Title *</Label>
+                {invalidTitle && <div>{invalidTitle}</div>}
+                <Input type = "text" onChange = {handleChange} name = "title"/>
+            </FormGroup>
 
-        <h1>Description</h1>
-        <input type = "text" onChange = {handleChange} name = "description"/>
+            <FormGroup>
+                <Label>Description</Label>
+                <Input type = "text" onChange = {handleChange} name = "description"/>
+            </FormGroup>
 
-        <h1>Amount *</h1>
-        {invalidAmount && <div>{invalidAmount}</div>}
-        <input type = "number" onChange = {handleChange} name = "amount"/>
+            <FormGroup>
+                <Label>Amount *</Label>
+                {invalidAmount && <div>{invalidAmount}</div>}
+                <Input type = "number" onChange = {handleChange} name = "amount"/>
+            </FormGroup>
 
-        <h1>Target day *</h1>
-        {invalidDay && <div>{invalidDay}</div>}
-        <input type = "number" onChange = {handleChange} name = "gDay"/>
+            <FormGroup>
+                <Label>Target day *</Label>
+                {invalidDay && <div>{invalidDay}</div>}
+                <Input type = "number" onChange = {handleChange} name = "gDay"/>
+            </FormGroup>
 
-        <h1>Target month *</h1>
-        {invalidMonth && <div>{invalidMonth}</div>}
-        <input type = "number" onChange = {handleChange} name = "gMonth"/>
+            <FormGroup>
+                <Label>Target month *</Label>
+                {invalidMonth && <div>{invalidMonth}</div>}
+                <Input type = "number" onChange = {handleChange} name = "gMonth"/>
+            </FormGroup>
 
-        <h1>Target year *</h1>
-        {invalidYear && <div>{invalidYear}</div>}
-        <input type = "number" onChange = {handleChange} name = "gYear"/>
+            <FormGroup>
+                <Label>Target year *</Label>
+                {invalidYear && <div>{invalidYear}</div>}
+                <Input type = "number" onChange = {handleChange} name = "gYear"/>
+            </FormGroup>
 
-    </div>
-    <button onClick = {handleClick}>
-        Submit
-    </button>
-    </div>
+            <Button onClick = {handleClick}>
+                Submit
+            </Button>
+        </GoalsForm>
+    )
 }
 
 export default UpdateGoals
