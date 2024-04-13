@@ -40,6 +40,7 @@ const UpdateGoals = () => {
             valid = false;
         }
 
+        /*
         if (goal.gDay === "") {
             setInvalidDay("Invalid day.")
             valid = false;
@@ -54,9 +55,15 @@ const UpdateGoals = () => {
             setInvalidYear("Invalid year.")
             valid = false;
         }
+        */
 
         return valid
     }
+
+    const days = Array.from({ length: 31 }, (_, i) => i + 1);
+    const months = Array.from({ length: 12 }, (_, i) => i + 1);
+    const years = Array.from({ length: 10 }, (_, i) => new Date().getFullYear() + i);
+
 
     const handleChange = (e) =>{
         setGoal((prev)=>({...prev, [e.target.name]:e.target.value}))
@@ -97,21 +104,27 @@ const UpdateGoals = () => {
             </FormGroup>
 
             <FormGroup>
-                <Label>Target day *</Label>
-                {invalidDay && <div>{invalidDay}</div>}
-                <Input type = "number" onChange = {handleChange} name = "gDay" value = {goal.gDay}/>
-            </FormGroup>
-
-            <FormGroup>
-                <Label>Target month *</Label>
-                {invalidMonth && <div>{invalidMonth}</div>}
-                <Input type = "number" onChange = {handleChange} name = "gMonth" value = {goal.gMonth}/>
-            </FormGroup>
-
-            <FormGroup>
-                <Label>Target year *</Label>
-                {invalidYear && <div>{invalidYear}</div>}
-                <Input type = "number" onChange = {handleChange} name = "gYear" value = {goal.gYear}/>
+            <Label>Target Date *</Label>
+                <div>
+                    <Select onChange={handleChange} name="gDay" value = {goal.gDay}>
+                        <option value="">Day</option>
+                        {days.map((day) => (
+                            <option key={day} value={day}>{day}</option>
+                        ))}
+                    </Select>
+                    <Select onChange={handleChange} name="gMonth" value = {goal.gMonth}>
+                        <option value="">Month</option>
+                        {months.map((month) => (
+                            <option key={month} value={month}>{month}</option>
+                        ))}
+                    </Select>
+                    <Select onChange={handleChange} name="gYear" value = {goal.gYear}>
+                        <option value="">Year</option>
+                        {years.map((year) => (
+                            <option key={year} value={year}>{year}</option>
+                        ))}
+                    </Select>
+                </div>
             </FormGroup>
 
             <Button onClick = {handleClick}>
