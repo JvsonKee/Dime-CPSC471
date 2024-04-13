@@ -1,4 +1,4 @@
-import { format, startOfMonth, endOfMonth, eachDayOfInterval, getDay, getMonth } from "date-fns"
+import { format, startOfMonth, endOfMonth, eachDayOfInterval, getDay, getMonth, getYear } from "date-fns"
 import { CalendarContainer, CalendarGrid, CalendarHeader, Day, DayHeader, DayNumber, DaysContainer, Dot, HeaderContainer } from "./Calendar.styled";
 import { WEEKDAYS } from "../../util";
 import { useContext, useEffect, useState } from "react";
@@ -13,6 +13,9 @@ const Calendar = () => {
     const firstDay = startOfMonth(currentDate)
     const lastDay = endOfMonth(currentDate)
     const currentMonth = getMonth(currentDate) + 1
+    const currentYear = getYear(currentDate)
+
+    console.log({currentYear})
 
     const daysInMonth = eachDayOfInterval({
         start: firstDay,
@@ -24,7 +27,7 @@ const Calendar = () => {
     useEffect(() => {
         const fetchMonthlyTransactions = async () => {
             try {
-                const res = await axios.get("http://localhost:8800/monthlytransactions/" + user.userID, {params: {month: currentMonth}})
+                const res = await axios.get("http://localhost:8800/monthlytransactions/" + user.userID, {params: {month: currentMonth, year: currentYear}})
                 setTransactions(res.data)
             } catch (err) {
                 console.log(err)
