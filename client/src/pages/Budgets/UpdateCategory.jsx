@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom"
 import {useState} from 'react'
 import axios from 'axios'
 import {useLocation} from 'react-router-dom';
+import { CategoryForm, Title, FormGroup, Label, Input, Select, Button } from './UpdateCategory.styled';
 
 const UpdateCategory = () => {
 
@@ -50,18 +51,18 @@ const UpdateCategory = () => {
     }
     console.log(category)
 
-    return <div>
-    <div className = 'categoryForm'>
-        <h1>Enter new title of category</h1>
-
-        {invalidTitle && <div>{invalidTitle}</div>}
-        <input type = "text" onChange = {handleChange} name = "categoryName"/>
-
-    </div>
-    <button onClick = {handleClick}>
-        Submit
-    </button>
-    </div>
+    return (
+        <CategoryForm>
+            <Title>Enter new title of category</Title>
+            <FormGroup>
+                {invalidTitle && <div>{invalidTitle}</div>}
+                <Input type = "text" onChange = {handleChange} name = "categoryName"/>
+            </FormGroup>
+            <Button onClick = {handleClick}>
+                Submit
+            </Button>
+        </CategoryForm>
+    )
 }
 
 export default UpdateCategory
