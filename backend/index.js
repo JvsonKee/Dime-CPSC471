@@ -285,8 +285,8 @@ app.get("/transactions/:ID", (req,res)=>{
 
 app.get("/monthlytransactions/:ID", (req, res) => {
     const user_ID = req.params.ID
-    const q = "SELECT * FROM transactions WHERE tUserID = ? AND tMonth = 4"
-    db.query(q, [user_ID], (err, data) => {
+    const q = "SELECT * FROM transactions WHERE tUserID = ? AND tMonth = ? AND tYear = ?"
+    db.query(q, [user_ID, req.query.month, req.query.year], (err, data) => {
         if (err) return res.json(err)
         return res.json(data)
     })

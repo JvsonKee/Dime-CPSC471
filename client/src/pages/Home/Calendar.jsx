@@ -1,5 +1,5 @@
-import { format, startOfMonth, endOfMonth, eachDayOfInterval, getDay, getMonth } from "date-fns"
-import { CalendarContainer, CalendarGrid, CalendarHeader, Day, DayHeader, DayNumber, Dot } from "./Calendar.styled";
+import { format, startOfMonth, endOfMonth, eachDayOfInterval, getDay, getMonth, getYear } from "date-fns"
+import { CalendarContainer, CalendarGrid, CalendarHeader, Day, DayHeader, DayNumber, DaysContainer, Dot, HeaderContainer } from "./Calendar.styled";
 import { WEEKDAYS } from "../../util";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
@@ -13,6 +13,7 @@ const Calendar = () => {
     const firstDay = startOfMonth(currentDate)
     const lastDay = endOfMonth(currentDate)
     const currentMonth = getMonth(currentDate) + 1
+    const currentYear = getYear(currentDate)
 
     const daysInMonth = eachDayOfInterval({
         start: firstDay,
@@ -24,14 +25,14 @@ const Calendar = () => {
     useEffect(() => {
         const fetchMonthlyTransactions = async () => {
             try {
-                const res = await axios.get("http://localhost:8800/monthlytransactions/" + user.userID, {params: {month: currentMonth}})
+                const res = await axios.get("http://localhost:8800/monthlytransactions/" + user.userID, {params: {month: currentMonth, year: currentYear}})
                 setTransactions(res.data)
             } catch (err) {
                 console.log(err)
             }
         }
         fetchMonthlyTransactions()
-    }, [user.userID, currentMonth])
+    }, [user.userID, currentMonth, currentYear])
 
     let transactionDays = []
 
@@ -43,30 +44,33 @@ const Calendar = () => {
 
     if (transactions) {
         getTransactionDays()
-        console.log(transactionDays)
     }
 
     return (
        <CalendarContainer>
             <CalendarHeader>{format(currentDate, "MMMM yyyy")}</CalendarHeader>
             <CalendarGrid>
-                {
-                    WEEKDAYS.map((day, index) => (
-                    <DayHeader key={index}>{day}</DayHeader>
-                ))}
-                {
-                    Array.from({length: startDayIndex}).map((_, index) => (
-                        <div key={`empty-${index}`}></div>
-                    ))
-                }
-                {
-                    daysInMonth.map((day, index) => (
-                        <Day key={index}>
-                            <DayNumber>{format(day, "d")}</DayNumber>
-                            {transactionDays.includes(index + 1) ? <Dot style={{backgroundColor: "#FF7175"}}></Dot> : null}
-                        </Day>
-                    ))
-                }
+                <HeaderContainer>
+                    {
+                        WEEKDAYS.map((day, index) => (
+                        <DayHeader key={index}>{day}</DayHeader>
+                    ))}
+                </HeaderContainer>
+                <DaysContainer>
+                    {
+                        Array.from({length: startDayIndex}).map((_, index) => (
+                            <div key={`empty-${index}`}></div>
+                        ))
+                    }
+                    {
+                        daysInMonth.map((day, index) => (
+                            <Day key={index}>
+                                <DayNumber>{format(day, "d")}</DayNumber>
+                                {transactionDays.includes(index + 1) ? <Dot style={{backgroundColor: "#FF7175"}}></Dot> : null}
+                            </Day>
+                        ))
+                    }
+                </DaysContainer>
             </CalendarGrid>
        </CalendarContainer>
     )
