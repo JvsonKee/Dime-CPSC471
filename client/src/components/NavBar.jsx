@@ -1,5 +1,5 @@
 import { NavContainer, Nav, NavItem, NavItems, NavIcon } from "./NavBar.styled";
-import { faArrowRightArrowLeft, faChartSimple, faPiggyBank, faUser} from '@fortawesome/free-solid-svg-icons'
+import { faArrowRightArrowLeft, faChartSimple, faPiggyBank, faUser, faBullseye, faCircleDollarToSlot } from '@fortawesome/free-solid-svg-icons'
 
 const NavBar = () => {
     return(
@@ -13,13 +13,21 @@ const NavBar = () => {
                         <NavIcon icon={faArrowRightArrowLeft}/>
                         <span>Transactions</span>
                     </NavItem>
+                    <NavItem to="/savings">
+                        <NavIcon icon={faPiggyBank}/>
+                        <span>Savings</span>
+                    </NavItem>
                     <NavItem to="/budgets">
                         <NavIcon icon={faChartSimple}/>
                         <span>Budgets</span>
                     </NavItem>
-                    <NavItem to="/savings">
-                        <NavIcon icon={faPiggyBank}/>
-                        <span>Savings</span>
+                    <NavItem to="/goals">
+                        <NavIcon icon={faBullseye}/>
+                        <span>Goals</span>
+                    </NavItem>
+                    <NavItem to="/income">
+                        <NavIcon icon={faCircleDollarToSlot}/>
+                        <span>Incomes</span>
                     </NavItem>
                     <NavItem to="/account">
                         <NavIcon icon={faUser}/>
