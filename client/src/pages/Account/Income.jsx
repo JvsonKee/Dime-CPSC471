@@ -13,6 +13,9 @@ import {
     ButtonContainer,
     Title,
 } from './Income.styled';
+import { ContentContainer, MainContainer, PageContainer } from '../../styles/Containers'
+import NavBar from '../../components/NavBar'
+import { Bottom, ItemContainer, Mid, StyledLink, TName, TPrice, Top, TransactionButton } from '../Transactions/Transactions.styled'
 
 
 const Income = () => {
@@ -20,12 +23,11 @@ const Income = () => {
     const [income, setIncome] = useState([]);
     
     const navigate = useNavigate()
-    const location = useLocation();
     
-    const handleDelete = async(income) => {
+    const handleDelete = async(incomeID) => {
         try{
-            await axios.delete("http://localhost:8800/deleteincome/" + income);
-            navigate("/income")
+            await axios.delete("http://localhost:8800/deleteincome/" + incomeID);
+            setIncome(income => income.filter(item => item.incomeID !== incomeID))
         }catch(err) {
             console.log(err)
         }
@@ -44,29 +46,41 @@ const Income = () => {
     },[user.userID])
 
     return(
-        <IncomeContainer>
-        <Title>Income</Title>
-        {income.map((income) => (
-            <IncomeItem key={income.incomeID}>
-                <h2>Source: {income.incomeSource}</h2>
-                <h2>Amount: {income.incomeAmount}</h2>
-                <h2>Last Received: {income.lastReceivedDay}/{income.lastReceivedMonth}/{income.lastReceivedYear}</h2>
-                <h2>Receive every: {income.receiveEvery}</h2>
-                <IncomeButton>
-                    <Link to="/editincome" state={{ incomeID: income.incomeID }}>Edit</Link>
-                </IncomeButton>
-                <IncomeButton onClick={() => handleDelete(income.incomeID)}>Delete</IncomeButton>
-            </IncomeItem>
-        ))}
-        <ButtonContainer>
-            <IncomeButton>
-                <Link to="/newincome">Create New Income Source</Link>
-            </IncomeButton>
-            <IncomeButton>
-                <Link to="/account">Return To Account</Link>
-            </IncomeButton>
-        </ButtonContainer>
-    </IncomeContainer>
+        <PageContainer>
+            <NavBar />
+            <MainContainer>
+                <ContentContainer>
+                    <IncomeContainer>
+                        <Title>Income</Title>
+                        <ItemContainer>
+                            {income.map((income) => (
+                                <IncomeItem key={income.incomeID}>
+                                    <Top>
+                                        <TName>{income.incomeSource}</TName>
+                                        <TPrice style={{color: 'var(--dime-green)'}}>${income.incomeAmount}</TPrice>
+                                    </Top>
+                                    <Mid>
+                                        <div>Last Received: {income.lastReceivedDay}/{income.lastReceivedMonth}/{income.lastReceivedYear}</div>
+                                        <div>Receive every: {income.receiveEvery}</div>
+                                    </Mid>
+                                    <Bottom>
+                                        <TransactionButton>
+                                            <StyledLink to="/editincome" state={{ incomeID: income.incomeID }}>Edit</StyledLink>
+                                        </TransactionButton>
+                                        <TransactionButton style={{backgroundColor: 'var(--red)'}} onClick={() => handleDelete(income.incomeID)}>Delete</TransactionButton>
+                                    </Bottom>
+                                </IncomeItem>
+                            ))}
+                        </ItemContainer>
+                        <ButtonContainer>
+                            <TransactionButton>
+                                <StyledLink to="/newincome">Create New Income Source</StyledLink>
+                            </TransactionButton>
+                        </ButtonContainer>
+                    </IncomeContainer>
+                </ContentContainer>
+            </MainContainer>
+        </PageContainer>
 )}
 
 export default Income
