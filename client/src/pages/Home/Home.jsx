@@ -93,7 +93,7 @@ const Home = () => {
                                         </RectangleBox>
                                     : 
                                     user.premium === "y" ?
-                                        <RectangleBox>
+                                        <RectangleBox onClick={() => sendTo('/premium')}>
                                             <h2>Premium</h2>
                                         </RectangleBox>
                                     : null
