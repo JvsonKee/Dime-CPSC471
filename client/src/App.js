@@ -29,6 +29,7 @@ import Categories from "./pages/Budgets/Categories"
 import GlobalStyle from "./styles/Global";
 import { createContext } from "react";
 import { useState } from "react";
+import Premium from "./pages/Premium/Premium";
 
 export const UserContext = createContext();
 
@@ -68,6 +69,7 @@ function App() {
 					<Route path = "/createcategory" element={<CreateCategory/>}/>
 					<Route path = "/updatecategory" element={<UpdateCategory/>}/>
 					<Route path = "/categories" element = {<Categories/>}/>
+					<Route path = "/premium" element = {<Premium />}/>
 				</Routes>
 			</BrowserRouter>
 		</UserContext.Provider>
