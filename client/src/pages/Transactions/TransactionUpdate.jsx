@@ -24,7 +24,7 @@ const UpdateTransaction = () => {
 
     const days = Array.from({ length: 31 }, (_, i) => i + 1);
     const months = Array.from({ length: 12 }, (_, i) => i + 1);
-    const years = Array.from({ length: 10 }, (_, i) => new Date().getFullYear() + i);
+    const years = Array.from({ length: 10 }, (_, i) => new Date().getFullYear() - i);
 
     useEffect(() => {
         const fetchPaymentMethods = async () => {
@@ -65,6 +65,7 @@ const UpdateTransaction = () => {
         if (validForm()) {
             try {
                 await axios.put("http://localhost:8800/updatetransaction/" + location.state.transactionID, transaction)
+
                 navigate("/transactions")
             } catch (err) {
                 console.log(err)
