@@ -328,6 +328,24 @@ app.get("/monthlytransactions/:ID", (req, res) => {
     })
 })
 
+app.get("/orderedtransactions/:ID", (req, res) => {
+    const user_ID = req.params.ID;
+    const q = "SELECT * FROM transactions WHERE tUserID = ? ORDER BY tYear, tMonth, tDay";
+    db.query(q, [user_ID], (err, data) => {
+        if (err) return res.json(err);
+        return res.json(data);
+    })
+})
+
+app.get("/monthlytransactiontotals/:ID", (req, res) => {
+    const user_ID = req.params.ID;
+    const q = "SELECT tYear, tMonth, SUM(amount) as total FROM transactions WHERE tUserID = ? and tYear = ? GROUP BY tMonth ORDER BY tMonth"
+    db.query(q, [user_ID, req.query.year], (err, data) => {
+        if (err) return res.json(err);
+        return res.json(data);
+    })
+})
+
 app.post("/newtransaction/:ID", (req,res)=>{
     const q = "INSERT INTO transactions (`tUserID`,`title`, `payment_method`, `amount`, `tDay`, `tMonth`, `tYear`) VALUES (?)"
     const values = [
