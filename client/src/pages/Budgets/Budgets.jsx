@@ -1,14 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react'
 import axios from 'axios'
-import { Link } from "react-router-dom"
-import {useLocation} from 'react-router-dom';
 import { useNavigate } from "react-router-dom"
 import {
     BudgetsContainer,
     BudgetItem,
     Title,
     ButtonContainer,
-    Button,
 } from './Budgets.styled';
 import { UserContext } from '../../App';
 import { ContentContainer, MainContainer, PageContainer } from '../../styles/Containers';
@@ -18,7 +15,6 @@ import { Bottom, ItemContainer, Mid, TName, TPrice, Top, TransactionButton, Styl
 const Budgets = () => {
     const [user, setUser] = useContext(UserContext)
     const navigate = useNavigate()
-    const location = useLocation();
     const [budgets, setBudgets] = useState([])
 
     var budget_pass = []
@@ -38,7 +34,6 @@ const Budgets = () => {
         try{
             const res = await axios.get("http://localhost:8800/prefillbudget/" + budget_id)
             budget_pass = res.data
-            console.log(budget_pass)
         }catch(err){
             console.log(err)
         }

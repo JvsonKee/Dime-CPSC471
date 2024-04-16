@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"
 import {useState} from 'react'
 import axios from 'axios'
 import {useLocation} from 'react-router-dom';
-import { ReceiptForm, Title, FormGroup, Label, Input, Select, Button } from './ReceiptUpdate.styled';
+import { ReceiptForm, Title, FormGroup, Button } from './ReceiptUpdate.styled';
 
 const UpdateReceipt = () => {
     const location = useLocation();

@@ -12,7 +12,6 @@ const GoalsHome = () => {
             try{
                 const res = await axios.get("http://localhost:8800/goals/" + user.userID)
                 setGoals(res.data)
-                console.log(res)
             }catch(err){
                 console.log(err)
             }

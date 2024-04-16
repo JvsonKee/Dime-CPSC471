@@ -9,3 +9,5 @@ for (let i = currentYear; i < currentYear + 10; i++) {
 
 
 export const WEEKDAYS = ["S", "M", "T", "W", "T", "F", "S"]
+
+export const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];

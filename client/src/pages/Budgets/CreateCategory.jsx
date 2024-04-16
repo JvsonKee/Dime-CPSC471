@@ -2,13 +2,11 @@ import React, { useContext } from 'react'
 import { useNavigate } from "react-router-dom"
 import {useState} from 'react'
 import axios from 'axios'
-import {useLocation} from 'react-router-dom';
-import { CategoryForm, Title, FormGroup, Label, Input, Select, Button } from './CreateCategory.styled';
+import { CategoryForm, Title, FormGroup, Input, Button } from './CreateCategory.styled';
 import { UserContext } from '../../App';
 
 const CreateCategory = () => {
     const [user, setUser] = useContext(UserContext)
-    const location = useLocation();
 
     const [invalidTitle, setInvalidTitle] = useState('')
  
@@ -44,7 +42,6 @@ const CreateCategory = () => {
             }
         }
     }
-    console.log(category)
 
     return (
         <CategoryForm>

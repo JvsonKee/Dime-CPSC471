@@ -1,41 +1,40 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../App';
-import { TransactionContext } from './Transactions';
 import { TransactionForm, Title, FormGroup, Label, Input, Select, Button, InvalidFeedback } from './TransactionNew.styled';
 
 const TransactionNew = () => {
     const [user, setUser] = useContext(UserContext);
-    // const [transactions, setTransactions] = useContext(TransactionContext)
-    const location = useLocation();
     const navigate = useNavigate();
 
-    const [payment, setPayments] = useState([])
-    const [transactions2, setTransactions2] = useState([])
-    // let transactions = location.state.transactions
     const [invalidTitle, setInvalidTitle] = useState('');
     const [invalidAmount, setInvalidAmount] = useState('');
+    const [invalidDay, setInvalidDay] = useState(null);
+    const [invalidMonth, setInvalidMonth] = useState(null);
+    const [invalidYear, setInvalidYear] = useState(null);
+    const [invalidMethod, setInvalidMethod] = useState('')
     const [paymentMethods, setPaymentMethods] = useState([]);
     const [transaction, setTransaction] = useState({
         title: '',
         payment_method: '',
         amount: '',
-        tDay: '',
-        tMonth: '',
-        tYear: ''
+        tDay: null,
+        tMonth: null,
+        tYear: null
     });
+
+    const currentYear = new Date().getFullYear();
 
     const days = Array.from({ length: 31 }, (_, i) => i + 1);
     const months = Array.from({ length: 12 }, (_, i) => i + 1);
-    const years = Array.from({ length: 10 }, (_, i) => new Date().getFullYear() + i);
+    const years = Array.from({ length: 5 }, (_, i) => currentYear - i);
 
     useEffect(() => {
         const fetchPaymentMethods = async () => {
             try {
                 const res = await axios.get("http://localhost:8800/paymentmethodsdrop/" + user.userID)
                 setPaymentMethods(res.data)
-                console.log(res)
             } catch (err) {
                 console.log(err);
             }
@@ -57,7 +56,25 @@ const TransactionNew = () => {
             valid = false;
         }
 
-        // Add validations for day, month, year
+        if (transaction.tDay === null) {
+            setInvalidDay("Invalid day.")
+            valid = false;
+        }
+
+        if (transaction.tMonth === null) {
+            setInvalidMonth("Invalid month.")
+            valid = false;
+        }
+
+        if (transaction.tYear === null) {
+            setInvalidYear("Invalid year.");
+            valid = false;
+        }
+
+        if (transaction.payment_method === '') {
+            setInvalidMethod("Invalid payment method.");
+            valid = false;
+        }
 
         return valid;
     };
@@ -66,69 +83,17 @@ const TransactionNew = () => {
         setTransaction((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     };
 
-    function calculate() {
-        console.log(payment);
-        let fill_in = "";
-        let transactionID = 1; // Default value if transactions2 is empty
-        if (transactions2.length > 0) {
-            transactionID = transactions2[transactions2.length - 1].transactionID + 1;
-        }
-        
-        for (let i = 0; i < payment.length; i++) {
-            if (payment[i].methodID === parseInt(transaction.payment_method)) {
-                fill_in = payment[i].methodType;
-                break;
-            }
-        }
-    
-        let transaction_toadd = {
-            transactionID: transactionID,
-            tUserID: user.userID,
-            title: transaction.title,
-            payment_method: transaction.payment_method,
-            payment_name: fill_in,
-            amount: transaction.amount,
-            tDay: transaction.tDay,
-            tMonth: transaction.tMonth,
-            tYear: transaction.tYear
-        };
-    
-        // transactions.push(transaction_toadd);
-    }
-
-    console.log(transaction)
-
     const handleClick = async (e) => {
         e.preventDefault();
         if (validForm()) {
             try {
                 await axios.post("http://localhost:8800/newtransaction/" + user.userID, transaction);
-                // calculate()
-                // setTransactions(...transactions, transaction)
                 navigate("/transactions")
             } catch (err) {
                 console.log(err);
             }
         }
     };
-
-    useEffect(() => {
-        const fetchAllTransaction = async () => {
-            try{
-                const res = await axios.get("http://localhost:8800/transactions/" + user.userID)
-                setTransactions2(res.data)
-                console.log(res)
-                const res2 = await axios.get("http://localhost:8800/paymentmethodsdrop/" + user.userID)
-                setPayments(res2.data)
-                console.log(res2)
-            }catch(err){
-                console.log(err)
-            }
-        }
-
-        fetchAllTransaction()
-    }, [user.userID])
-
 
     return (
         <TransactionForm>
@@ -148,6 +113,7 @@ const TransactionNew = () => {
 
             <FormGroup>
                 <Label>Payment Method *</Label>
+                {invalidMethod && <div>{invalidMethod}</div>}
                 <Select onChange={handleChange} name="payment_method">
                     <option value="">Select Payment Method</option>
                     {paymentMethods.map((method) => (
@@ -161,18 +127,21 @@ const TransactionNew = () => {
             <FormGroup>
                 <Label>Date *</Label>
                 <div>
+                    {invalidDay && <div>{invalidDay}</div>}
                     <Select onChange={handleChange} name="tDay">
                         <option value="">Day</option>
                         {days.map((day) => (
                             <option key={day} value={day}>{day}</option>
                         ))}
                     </Select>
+                    {invalidMonth && <div>{invalidMonth}</div>}
                     <Select onChange={handleChange} name="tMonth">
                         <option value="">Month</option>
                         {months.map((month) => (
                             <option key={month} value={month}>{month}</option>
                         ))}
                     </Select>
+                    {invalidYear && <div>{invalidYear}</div>}
                     <Select onChange={handleChange} name="tYear">
                         <option value="">Year</option>
                         {years.map((year) => (

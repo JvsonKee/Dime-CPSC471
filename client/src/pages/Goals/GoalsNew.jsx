@@ -102,18 +102,21 @@ const GoalsNew = () => {
             <FormGroup>
             <Label>Target Date *</Label>
                 <div>
+                    {invalidDay && <div>{invalidDay}</div>}
                     <Select onChange={handleChange} name="gDay">
                         <option value="">Day</option>
                         {days.map((day) => (
                             <option key={day} value={day}>{day}</option>
                         ))}
                     </Select>
+                    {invalidMonth && <div>{invalidMonth}</div>}
                     <Select onChange={handleChange} name="gMonth">
                         <option value="">Month</option>
                         {months.map((month) => (
                             <option key={month} value={month}>{month}</option>
                         ))}
                     </Select>
+                    {invalidYear && <div>{invalidYear}</div>}
                     <Select onChange={handleChange} name="gYear">
                         <option value="">Year</option>
                         {years.map((year) => (

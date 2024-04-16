@@ -38,54 +38,6 @@ const Account = () => {
                                 </MainContent>
                             </Right>
                         </AccountContentContainer>
-                        {/* <BoxContainer>
-                            <button>
-                            <Link to="/home" state= {{account: user}}>Return to homepage</Link>
-                            </button>
-                            <Box>
-                                Change Email
-                            </Box>
-                            <Box>
-                                Change Password
-                            </Box>
-                            <Box>
-                                Incomes
-                            </Box>
-                            <Box>
-                                Payment Methods
-                            </Box>
-                            <Box>
-                                Delete Account
-                            </Box>
-                            
-                            {
-                                user.premium === "y" ? <Box onClick={premiumToStandard}>Become a Standard User</Box> :
-                                user.premium === "n" ? <Box onClick={standardToPremium}>Become a Premium User</Box> : null
-                            }
-                            <Box>
-                                Logout
-                            </Box>
-                            <button>
-                                <Link to="/updateemail" state= {{account: user}}>Update my email</Link>
-                            </button>
-                            <button>
-                                <Link to="/changepassword" state= {{account: user}}>Change my password</Link>
-                            </button>
-                            <button>
-                                <Link to="/income" state= {{account: user}}>View income</Link>
-                            </button>
-                            <button>
-                                <Link to="/paymentmethods" state= {{account: user}}>View payment methods</Link>
-                            </button>
-                            <button onClick = {()=>handleDelete()}>Delete my account</button>
-                            {
-                                user.premium === "y" ? <button onClick={premiumToStandard}>Become a Standard User</button> : 
-                                user.premium === "n" ? <button onClick={standardToPremium}>Become a Premium User</button> : null
-                            }
-                            <button>
-                                <Link to="/">Log out</Link>
-                            </button>
-                        </BoxContainer> */}
                     </ProfileContainer>
                 </ProfileContentContainer>
             </MainContainer>

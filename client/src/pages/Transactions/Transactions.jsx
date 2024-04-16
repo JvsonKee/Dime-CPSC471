@@ -22,7 +22,6 @@ const Transactions = () => {
         try{
             const res = await axios.get("http://localhost:8800/prefilltransaction/" + transaction_id)
             transaction_pass = res.data
-            console.log(transaction_pass)
         }catch(err){
             console.log(err)
         }

@@ -2,7 +2,6 @@ import React, { useContext } from 'react'
 import { useNavigate } from "react-router-dom"
 import {useState} from 'react'
 import axios from 'axios'
-import {useLocation} from 'react-router-dom';
 import { UserContext } from '../../App';
 import {
     Select,
@@ -17,13 +16,9 @@ import {
 
 const IncomeNew = () => {
     const [user, setUser] = useContext(UserContext)
-    const location = useLocation();
 
     const [invalidIncomeSource, setInvalidIncomeSource] = useState('')
     const [invalidAmount, setInvalidAmount] = useState('')
-    const [invalidDay, setInvalidDay] = useState('')
-    const [invalidMonth, setInvalidMonth] = useState('')
-    const [invalidYear, setInvalidYear] = useState('')
     const [invalidFrequency, setInvalidFrequency] = useState('')
 
     const[income,setIncome] = useState({
@@ -55,21 +50,6 @@ const IncomeNew = () => {
             valid = false;
         }
 
-        /*if (income.lastReceivedDay === "") {
-            setInvalidDay("Invalid day")
-            valid = false;
-        }
-
-        if (income.lastReceivedMonth === "") {
-            setInvalidMonth("Invalid month")
-            valid = false;
-        }
-
-        if (income.lastReceivedYear === "") {
-            setInvalidYear("Invalid year")
-            valid = false;
-        }*/
-
         if (income.receiveEvery === "") {
             setInvalidFrequency("Invalid frequency")
             valid = false;
@@ -93,7 +73,6 @@ const IncomeNew = () => {
             }
         }
     }
-    console.log(income)
 
     return (
         <IncomeForm>

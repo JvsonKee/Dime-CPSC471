@@ -87,7 +87,6 @@ const CreateAccount = () => {
     const checkValidEmail = async (e) => {
         try {
             const res =  await axios.get("http://localhost:8800/users");
-            console.log(res)
             let emails = res.data;
             
             let existingEmail = false;

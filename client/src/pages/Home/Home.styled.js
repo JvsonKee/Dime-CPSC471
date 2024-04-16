@@ -145,3 +145,10 @@ export const TotalSavings = styled.div`
 
     color: #5E94FF;
 `
+
+export const BoxChartWrapper = styled.div`
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 95%;
+`

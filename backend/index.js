@@ -303,7 +303,7 @@ app.get("/transactions/:ID", (req,res)=>{
 
 app.get("/transactionswithpaymenttitle/:ID", (req, res) => {
     const user_ID = req.params.ID
-    const q = "SELECT methodType, methodID, tDay, tMonth, tYear, title, amount, transactionID FROM payment_methods JOIN transactions WHERE methodID = payment_method AND tUserID = ?"
+    const q = "SELECT methodType, methodID, tDay, tMonth, tYear, title, amount, transactionID FROM payment_methods JOIN transactions WHERE methodID = payment_method AND tUserID = ? ORDER BY tYear, tMonth, tDay"
     db.query(q, [user_ID], (err, data) => {
         if (err) return res.json(err)
         return res.json(data)
@@ -325,6 +325,24 @@ app.get("/monthlytransactions/:ID", (req, res) => {
     db.query(q, [user_ID, req.query.month, req.query.year], (err, data) => {
         if (err) return res.json(err)
         return res.json(data)
+    })
+})
+
+app.get("/orderedtransactions/:ID", (req, res) => {
+    const user_ID = req.params.ID;
+    const q = "SELECT * FROM transactions WHERE tUserID = ? AND tMonth = ? ORDER BY tYear, tMonth, tDay";
+    db.query(q, [user_ID, req.query.month], (err, data) => {
+        if (err) return res.json(err);
+        return res.json(data);
+    })
+})
+
+app.get("/monthlytransactiontotals/:ID", (req, res) => {
+    const user_ID = req.params.ID;
+    const q = "SELECT tYear, tMonth, SUM(amount) as total FROM transactions WHERE tUserID = ? and tYear = ? GROUP BY tMonth ORDER BY tMonth"
+    db.query(q, [user_ID, req.query.year], (err, data) => {
+        if (err) return res.json(err);
+        return res.json(data);
     })
 })
 

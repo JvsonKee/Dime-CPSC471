@@ -9,24 +9,6 @@ const AccountInformation = () => {
 
     const [popUp, setPopUp] = useState(false);
     const [mode, setMode] = useState('');
-    const [status, setStatus] = useState(user.premium)
-    const [statusString, setStatusString] = useState("")
-
-
-    // if (status === 'y') {
-    //     setStatusString("Unsubscribe from premium")
-    // } else if (status === 'n') {
-    //     setStatusString("Upgrade to premium")
-    // }
-
-    // const getStatusString = () => {
-    //     if (status === 'y') {
-    //         setStatusString("Unsubscribe from premium")
-    //     } else if (status === 'n') {
-    //         setStatusString("Upgrade to premium")
-    //     }
-    //     return statusString
-    // }
 
     const showPopUp = (m) => {
         setMode(m)

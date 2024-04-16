@@ -2,7 +2,6 @@ import React from 'react'
 import {useState} from 'react'
 import {useEffect} from 'react'
 import axios from 'axios'
-import { Link } from "react-router-dom"
 import { UserContext } from '../../App';
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -11,7 +10,6 @@ import {
     GoalItem,
     Title,
     ButtonContainer,
-    Button,
 } from './Goals.styled';
 import { ContentContainer, MainContainer, PageContainer } from '../../styles/Containers'
 import NavBar from '../../components/NavBar'
@@ -38,7 +36,6 @@ const Goals = () => {
         try{
             const res = await axios.get("http://localhost:8800/prefillgoal/" + goal_id)
             goal_pass = res.data
-            console.log(goal_pass)
         }catch(err){
             console.log(err)
         }
@@ -55,7 +52,6 @@ const Goals = () => {
             try{
                 const res = await axios.get("http://localhost:8800/goals/" + user.userID)
                 setGoals(res.data)
-                console.log(res)
             }catch(err){
                 console.log(err)
             }

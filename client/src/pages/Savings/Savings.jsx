@@ -37,7 +37,6 @@ const Savings = () => {
         try{
             const res = await axios.get("http://localhost:8800/prefillsavings/" + savings_id)
             savings_pass = res.data
-            console.log(savings_pass)
         }catch(err){
             console.log(err)
         }
@@ -70,17 +69,12 @@ const Savings = () => {
             try {
                 const res = await axios.get(`http://localhost:8800/savings/${user.userID}`);
                 setSavings(res.data);
-                console.log(res);
             } catch (err) {
                 console.log(err);
             }
         };
         fetchAllSavings();
     }, [user.userID]);
-
-    useEffect(() => {
-
-    })
 
     useEffect(() => {
         fetchSaving()

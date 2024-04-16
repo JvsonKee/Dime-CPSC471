@@ -1,8 +1,7 @@
 import React, { useContext } from 'react'
 import {useState, useEffect} from 'react'
 import axios from 'axios'
-import { useNavigate, Link } from "react-router-dom"
-import { CategoryContainer, CategoryItem, CategoryButton, ButtonContainer, Title } from './Categories.styled';
+import { CategoryContainer, CategoryItem, ButtonContainer, Title } from './Categories.styled';
 import { UserContext } from '../../App'
 import { ContentContainer, MainContainer, PageContainer } from '../../styles/Containers';
 import NavBar from '../../components/NavBar';
@@ -26,7 +25,6 @@ const Categories = () => {
             try{
                 const res = await axios.get("http://localhost:8800/categoriesdrop/" + user.userID)
                 setCategories(res.data)
-                console.log(res)
             }catch(err){
                 console.log(err)
             }

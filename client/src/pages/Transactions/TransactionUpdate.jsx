@@ -24,7 +24,7 @@ const UpdateTransaction = () => {
 
     const days = Array.from({ length: 31 }, (_, i) => i + 1);
     const months = Array.from({ length: 12 }, (_, i) => i + 1);
-    const years = Array.from({ length: 10 }, (_, i) => new Date().getFullYear() + i);
+    const years = Array.from({ length: 10 }, (_, i) => new Date().getFullYear() - i);
 
     useEffect(() => {
         const fetchPaymentMethods = async () => {
@@ -53,8 +53,6 @@ const UpdateTransaction = () => {
             valid = false;
         }
 
-        // Add validations for day, month, year
-
         return valid
     }
 
@@ -62,37 +60,12 @@ const UpdateTransaction = () => {
         setTransaction((prev) => ({ ...prev, [e.target.name]: e.target.value }))
     }
 
-    // let fill_in = ""
-    // function calculate() {
-    //     for (let i = 0; i < transactions.length; i++) {
-    //         if (transactions[i].transactionID === location.state.transactionID) {
-               
-    //             for (let i = 0; i < paymentMethods.length; i++) {
-    //                 if (paymentMethods[i].methodID === parseInt(transaction.payment_method)) {
-    //                     fill_in = paymentMethods[i].methodType;
-    //                     console.log("itwenthere but still")
-    //                     break;
-
-    //                 }
-    //             }
-    //             transactions[i].title = transaction.title
-    //             transactions[i].payment_name = fill_in
-    //             transactions[i].payment_method = transaction.payment_method
-    //             transactions[i].amount = transaction.amount
-    //             transactions[i].tDay = transaction.tDay
-    //             transactions[i].tMonth = transaction.tMonth
-    //             transactions[i].tYear = transaction.tYear
-    //             break
-    //         }
-    //     }
-    // }
-
     const handleClick = async (e) => {
         e.preventDefault()
         if (validForm()) {
             try {
                 await axios.put("http://localhost:8800/updatetransaction/" + location.state.transactionID, transaction)
-                // calculate()
+
                 navigate("/transactions")
             } catch (err) {
                 console.log(err)

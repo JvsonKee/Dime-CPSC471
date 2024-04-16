@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../App';
 import { useContext } from 'react';
 import { BudgetForm, Title, FormGroup, Label, Input, Select, Button, InvalidFeedback } from './CreateBudget.styled';
@@ -33,7 +33,6 @@ const CreateBudget = () => {
             try {
                 const res = await axios.get("http://localhost:8800/categoriesdrop/" + user.userID)
                 setCategories(res.data)
-                console.log(res)
             } catch (err) {
                 console.log(err);
             }
@@ -55,8 +54,6 @@ const CreateBudget = () => {
             valid = false;
         }
 
-        // Add validations for day, month, year
-
         return valid;
     };
 
@@ -70,7 +67,6 @@ const CreateBudget = () => {
         if (validForm()) {
             try {
                 await axios.post("http://localhost:8800/createbudget/"+ user.userID, budget);
-                // calculate()
                 navigate('/budgets');
             } catch (err) {
                 console.log(err);
