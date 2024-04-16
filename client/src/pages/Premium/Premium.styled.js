@@ -16,7 +16,7 @@ export const PremiumHeader = styled.h1`
 
 export const ChartWrapper = styled.div`
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     height: 100%;
 `
