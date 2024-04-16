@@ -55,8 +55,6 @@ const UpdateBudget = () => {
             valid = false;
         }
 
-        // Add validations for day, month, year
-
         return valid;
     };
 

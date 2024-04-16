@@ -17,9 +17,6 @@ const Home = () => {
     const [user, setUser] = useContext(UserContext)
     const [transactions, setTransactions] = useState([])
     const [incomes, setIncomes] = useState([])
-    const [payment, setPayments] = useState([])
-    const [categories, setCategories] = useState([])
-    const [budgets, setBudgets] = useState([])
     const [savings, setSavings] = useState([])
 
     const navigate = useNavigate();
@@ -34,10 +31,6 @@ const Home = () => {
             try{
                 const res = await axios.get("http://localhost:8800/transactions/" + user.userID)
                 setTransactions(res.data)
-                console.log("here" , res)
-                const res2 = await axios.get("http://localhost:8800/paymentmethodsdrop/" + user.userID)
-                setPayments(res2.data)
-                console.log(res2)
             }catch(err){
                 console.log(err)
             }
@@ -53,26 +46,6 @@ const Home = () => {
             }
         }
         fetchAllIncome()
-        const fetchAllCategories = async () => {
-            try{
-                const res = await axios.get("http://localhost:8800/categoriesdrop/" + user.userID)
-                setCategories(res.data)
-                console.log(res)
-            }catch(err){
-                console.log(err)
-            }
-        }
-        fetchAllCategories()
-        const fetchAllBudgets = async () => {
-            try{
-                const res = await axios.get("http://localhost:8800/budgets/" + user.userID)
-                setBudgets(res.data)
-                console.log(res)
-            }catch(err){
-                console.log(err)
-            }
-        }
-        fetchAllBudgets()
 
         const fetchSavings = async () => {
             try {
@@ -131,31 +104,6 @@ const Home = () => {
                             </VerticalBox>
                         </Matrix>
                     </Bottom>
-                    {/* <button>
-                        <Link to="/transactions" state= {{account: location.state.account}}>Transactions</Link>
-                    </button>
-                    <button>
-                    <Link to="/budgets" state= {{account: location.state.account}}>Budgets</Link>
-                    </button>
-                    <button>
-                    <Link to="/savings" state= {{account: location.state.account}}>Savings</Link>
-                    </button>
-                    <button>
-                    <Link to="/goals" state= {{account: location.state.account}}>Goals</Link>
-                    </button>
-                    <button>
-                    <Link to="/account" state= {{account: location.state.account}}>Account</Link>
-                    </button>
-                    {
-                        user.premium === "y" ? 
-                        <button>
-                            <Link to="/dashboard" state= {{account: location.state.account}}>Dashboard</Link>
-                        </button> : 
-                        null
-                    }
-                    <button>
-                        <Link to ="/">Log off</Link>
-                    </button> */}
                 </CardContainer>
             </ContentContainer>
         </MainContainer>

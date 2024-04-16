@@ -2,12 +2,10 @@ import React, { useContext } from 'react'
 import { useNavigate } from "react-router-dom"
 import {useState} from 'react'
 import axios from 'axios'
-import {useLocation} from 'react-router-dom';
 import { UserContext } from '../../App';
 
 const PaymentMethodNew = () => {
     const [user, setUser] = useContext(UserContext)  
-    const location = useLocation();
 
     const [invalidMethodType, setInvalidMethodType] = useState('')
     const[paymentmethod,setPaymentMethod] = useState({
@@ -45,7 +43,6 @@ const PaymentMethodNew = () => {
             }
         }
     }
-    console.log(paymentmethod)
 
     return <div>
     <div className = 'paymentMethodForm'>

@@ -2,14 +2,11 @@ import React, { useContext } from 'react'
 import {useState} from 'react'
 import {useEffect} from 'react'
 import axios from 'axios'
-import { Link } from "react-router-dom"
-import {useLocation} from 'react-router-dom';
 import { useNavigate } from "react-router-dom"
 import { UserContext } from '../../App'
 import {
     IncomeContainer,
     IncomeItem,
-    IncomeButton,
     ButtonContainer,
     Title,
 } from './Income.styled';
@@ -39,7 +36,6 @@ const Income = () => {
         try{
             const res = await axios.get("http://localhost:8800/prefillincome/" + income_id)
             income_pass = res.data
-            console.log(income_pass)
         }catch(err){
             console.log(err)
         }

@@ -1,8 +1,7 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
-import { UserContext } from '../../App';
 import {
     SavingsForm,
     FormGroup,
@@ -14,7 +13,6 @@ import {
 } from './SavingsUpdate.styled';
 
 const UpdateSavings = () => {
-    const [user, setUser] = useContext(UserContext);
     const location = useLocation();
 
     const [invalidTitle, setInvalidTitle] = useState('');

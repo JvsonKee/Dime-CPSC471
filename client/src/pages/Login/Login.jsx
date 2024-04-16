@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { useNavigate } from "react-router-dom"
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import axios from 'axios'
 import { LoginContainer, Form, FormContainer, FormTextInput, LeftContainer, LoginHeader, RightContainer, LoginButton, CreateAccountLink } from './Login.styled'
 import { UserContext } from '../../App'
@@ -15,19 +15,12 @@ const Login = () => {
         email:"",
         password: "",
     })
-
-    let stored_account;
-    let run_now = false
     
     const handleChange = (e) =>{
         setInputAccount((prev)=>({...prev, [e.target.name]:e.target.value}))
     }
 
     const navigate = useNavigate()
-
-    const run = () => {
-        run_now = true
-    }
 
     const check = () => {
         navigate("/home")
@@ -43,20 +36,11 @@ const Login = () => {
             } else {
                 setInvalidLogin(errorMessage);
             }
-            // stored_account = res.data
-            // console.log(stored_account);
-            // console.log(stored_account[0]);
-            // setUser(res.data)
-            // (run_now === true) ? ((stored_account[0] !== undefined) ? check(stored_account[0]) : setInvalidLogin(errorMessage)) : run_now = false;
         } catch(err){
             console.log(err)
         }
     }
 
-    useEffect(() => {
-        console.log(user)
-    }, [user])
-    
     return(
         <LoginContainer>
             <LeftContainer>

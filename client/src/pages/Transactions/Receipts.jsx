@@ -28,13 +28,13 @@ const Receipts = () => {
             try{
                 const res = await axios.get("http://localhost:8800/receipts/" + location.state.transactionID)
                 setReceipts(res.data)
-                console.log(res)
             }catch(err){
                 console.log(err)
             }
         }
         fetchAllReceipts()
     },[location.state.transactionID])
+
     return(
         <ReceiptContainer>
             <Title>Receipts</Title>

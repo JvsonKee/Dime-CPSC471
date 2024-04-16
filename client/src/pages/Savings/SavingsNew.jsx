@@ -58,7 +58,6 @@ const SavingsNew = () => {
             }
         }
     }
-    console.log(savings)
 
     return (
         <SavingsForm>
