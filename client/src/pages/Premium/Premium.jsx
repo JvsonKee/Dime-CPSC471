@@ -34,7 +34,7 @@ const Premium = () => {
             <MainContainer>
                 <ContentContainer>
                     <PremiumContainer>
-                        <PremiumHeader>Monthly Spendings</PremiumHeader>
+                        <PremiumHeader>Monthly Spending</PremiumHeader>
                         <ChartWrapper>
                             {
                                 load && <BarChart totals={monthlyTotals}/>
