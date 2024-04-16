@@ -1,8 +1,7 @@
 import { useState } from "react"
 import { MONTHS } from "../../util";
 import { Chart as ChartJS } from 'chart.js/auto'; 
-import { Bar } from 'react-chartjs-2';  
-import { ChartContainer } from "./BarChart.styled";
+import { Bar } from 'react-chartjs-2';      
 
 ChartJS.register();
 
