@@ -11,13 +11,16 @@ import Calendar from './Calendar'
 import SavingsHome from './SavingsHome';
 import GoalsHome from './GoalsHome';
 import BudgetsHome from './BudgetsHome';
+import PremiumHome from './PremiumHome';
 
 const Home = () => {
 
     const [user, setUser] = useContext(UserContext)
     const [transactions, setTransactions] = useState([])
+    const [monthlyTransactions, setMonthlyTransactions] = useState([]);
     const [incomes, setIncomes] = useState([])
     const [savings, setSavings] = useState([])
+    const [load, setLoad] = useState(false);
 
     const navigate = useNavigate();
     
@@ -29,7 +32,7 @@ const Home = () => {
     {
         const fetchAllTransaction = async () => {
             try{
-                const res = await axios.get("http://localhost:8800/transactions/" + user.userID)
+                const res = await axios.get("http://localhost:8800/orderedtransactions/" + user.userID, {params: {month: new Date().getMonth() + 1}})
                 setTransactions(res.data)
             }catch(err){
                 console.log(err)
@@ -56,6 +59,17 @@ const Home = () => {
             }
         }
         fetchSavings()
+
+        const getMonthlyTransactions = async () => {
+            try {
+                const res = await axios.get("http://localhost:8800/monthlytransactiontotals/" + user.userID, {params: {year: new Date().getFullYear()}})
+                setMonthlyTransactions(res.data);
+                setLoad(true);
+            } catch (err) {
+                console.log(err)
+            }
+        }
+        getMonthlyTransactions();
     },[user.userID])
 
     return (
@@ -94,7 +108,9 @@ const Home = () => {
                                     : 
                                     user.premium === "y" ?
                                         <RectangleBox onClick={() => sendTo('/premium')}>
-                                            <h2>Premium</h2>
+                                            {
+                                                load && <PremiumHome totals={monthlyTransactions}/>
+                                            }
                                         </RectangleBox>
                                     : null
                                 }
