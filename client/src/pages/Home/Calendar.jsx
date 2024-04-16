@@ -21,7 +21,6 @@ const Calendar = () => {
     })
 
     const startDayIndex = getDay(firstDay)
-    console.log({startDayIndex})
 
     useEffect(() => {
         const fetchMonthlyTransactions = async () => {

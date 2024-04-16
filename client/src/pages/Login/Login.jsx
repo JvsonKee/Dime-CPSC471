@@ -29,7 +29,6 @@ const Login = () => {
     const fetchEP = async () => {
         try {
             const res = await axios.get("http://localhost:8800/", {params: inputAccount});
-            console.log(res.data)
             if (res.data.length !== 0) {
                 setUser(res.data[0])
                 check(user)
