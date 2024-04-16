@@ -24,12 +24,10 @@ const TransactionNew = () => {
         tYear: null
     });
 
-    const currentDay = new Date().getDate();
-    const currentMonth = new Date().getMonth() + 1;
     const currentYear = new Date().getFullYear();
 
-    const days = Array.from({ length: currentDay }, (_, i) => i + 1);
-    const months = Array.from({ length: currentMonth }, (_, i) => i + 1);
+    const days = Array.from({ length: 31 }, (_, i) => i + 1);
+    const months = Array.from({ length: 12 }, (_, i) => i + 1);
     const years = Array.from({ length: 5 }, (_, i) => currentYear - i);
 
     useEffect(() => {
