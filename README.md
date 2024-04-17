@@ -18,7 +18,7 @@ An intuitive personal finance app.
 
 ## Frontend setup
 
-1. Inside of the "frontend" directory, run `npm install`
+1. Inside of the "client" directory, run `npm install`
 2. Then `npm start`
 
 ### Known issues:
